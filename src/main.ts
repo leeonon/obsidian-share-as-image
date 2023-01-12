@@ -1,5 +1,7 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
+import InsertLinkModal from './views/InsertLinkModal';
+
 // Remember to rename these classes and interfaces!
 
 interface MyPluginSettings {
@@ -15,7 +17,7 @@ export default class MyPlugin extends Plugin {
 
 	async onload() {
 		await this.loadSettings();
-		// This creates an icon in the left ribbon.
+		// 这将在左侧ribbon中创建一个图标。
 		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
 			new Notice('Hello Hello Hello!');
@@ -23,19 +25,19 @@ export default class MyPlugin extends Plugin {
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
 
-		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
+		// 这将在应用程序的底部添加一个状态栏项。不适用于移动应用程序。
 		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Status Bar Text');
+		statusBarItemEl.setText('状态栏文本信息');
 
-		// This adds a simple command that can be triggered anywhere
+		// 这添加了一个可以在任何地方触发的简单命令
 		this.addCommand({
 			id: 'open-sample-modal-simple',
-			name: 'Open sample modal (simple)',
+			name: '打开模态弹窗(简单)',
 			callback: () => {
-				new SampleModal(this.app).open();
+				new InsertLinkModal(this.app, '默认文本', () => alert('回调')).open();
 			}
 		});
-		// This adds an editor command that can perform some operation on the current editor instance
+		// 这将添加一个编辑器命令，可以对当前编辑器实例执行某些操作
 		this.addCommand({
 			id: 'sample-editor-command',
 			name: 'Sample editor command',
@@ -44,37 +46,51 @@ export default class MyPlugin extends Plugin {
 				editor.replaceSelection('Sample Editor Command');
 			}
 		});
-		// This adds a complex command that can check whether the current state of the app allows execution of the command
+		// 这增加了一个复杂的命令，可以检查应用程序的当前状态是否允许执行该命令
 		this.addCommand({
 			id: 'open-sample-modal-complex',
 			name: 'Open sample modal (complex)',
 			checkCallback: (checking: boolean) => {
 				// Conditions to check
 				const markdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
+				console.log('🚀 ~ file: main.ts:54 ~ MyPlugin ~ onload ~ markdownView', markdownView);
 				if (markdownView) {
-					// If checking is true, we're simply "checking" if the command can be run.
-					// If checking is false, then we want to actually perform the operation.
+					// 如果检查为真，我们只是在“检查”命令是否可以运行。
+					// 如果checking为false，那么我们要实际执行操作。
 					if (!checking) {
 						new SampleModal(this.app).open();
 					}
 
-					// This command will only show up in Command Palette when the check function returns true
+					// 当check函数返回true时，此命令才会显示在命令面板中
 					return true;
 				}
 			}
 		});
 
-		// This adds a settings tab so the user can configure various aspects of the plugin
+		// 这将添加一个设置选项卡，以便用户可以配置插件的各个方面
 		this.addSettingTab(new SampleSettingTab(this.app, this));
 
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
+		// 如果插件连接了任何全局DOM事件(应用程序中不属于这个插件的部分)
+		// 当这个插件被禁用时，使用这个函数将自动移除事件监听器。
 		this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
 			console.log('click', evt);
 		});
 
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		// 当注册间隔时，当插件被禁用时，这个函数将自动清除间隔。
+		// this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		// this.registerInterval(
+		// 	window.setInterval(this.injectButtons, 1000)
+		// );
+		// this.injectButtons();
+
+		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+		console.log('🚀 ~ file: main.ts:87 ~ MyPlugin ~ onload ~ view', view);
+
+
+		// this.registerMarkdownCodeBlockProcessor()
+		this.registerMarkdownPostProcessor((el) => {
+			console.log('🚀 ~ registerMarkdownPostProcessor 获取当前元素块', el);
+		});
 	}
 
 	onunload() {
@@ -88,6 +104,22 @@ export default class MyPlugin extends Plugin {
 	async saveSettings() {
 		await this.saveData(this.settings);
 	}
+
+	injectButtons = () => {
+		console.log('DOM:', document.querySelectorAll('pre > code'));
+		this.addButton();
+	};
+
+	addButton = () => {
+		document.querySelectorAll('pre > code').forEach((codeBlock) => {
+			const pre = codeBlock.parentNode;
+			console.log('🚀 ~ file: main.ts:98 ~ MyPlugin ~ document.querySelectorAll ~ pre', pre);
+
+			// for (let lang of excludeLangs) {
+			// 	if (pre?.classList)
+			// }
+		});
+	};
 }
 
 class SampleModal extends Modal {
