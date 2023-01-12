@@ -1,0 +1,11 @@
+{
+	"id": "obsidian-code-to-image-plugin",
+	"name": "Code To Image Plugin",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "代码转图片",
+	"author": "Obsidian",
+	"authorUrl": "https://obsidian.md",
+	"fundingUrl": "https://obsidian.md/pricing",
+	"isDesktopOnly": false
+}
