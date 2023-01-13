@@ -1,6 +1,7 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
 import InsertLinkModal from './views/InsertLinkModal';
+import { codeBlockPostProcessor } from '@/postprocessor';
 
 // Remember to rename these classes and interfaces!
 
@@ -83,13 +84,9 @@ export default class MyPlugin extends Plugin {
 		// );
 		// this.injectButtons();
 
-		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-		console.log('🚀 ~ file: main.ts:87 ~ MyPlugin ~ onload ~ view', view);
-
-
 		// this.registerMarkdownCodeBlockProcessor()
-		this.registerMarkdownPostProcessor((el) => {
-			console.log('🚀 ~ registerMarkdownPostProcessor 获取当前元素块', el);
+		this.registerMarkdownPostProcessor((el, ctx) => {
+			codeBlockPostProcessor(el, ctx, this.app, this);
 		});
 	}
 
