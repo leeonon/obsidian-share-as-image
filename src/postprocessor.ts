@@ -2,6 +2,8 @@
 import type { MarkdownPostProcessorContext, App, Plugin } from 'obsidian';
 
 import { LANG_LIST } from '@/constant';
+import { createElement } from '@/utils';
+import InsertLinkModal from '@/views/InsertLinkModal';
 
 const DEFAULT_LANG_ATTR = 'language-text';
 const DEFAULT_LANG = '';
@@ -11,7 +13,8 @@ const LINE_SPLIT_MARK = '\n';
 export function codeBlockPostProcessor(element: HTMLElement, context: MarkdownPostProcessorContext, app: App, plugin: Plugin) {
 	let lang: string = DEFAULT_LANG;
 	const code: HTMLPreElement = element.querySelector("pre:not(.frontmatter) > code") as HTMLPreElement;
-	if (!code) return null;
+
+	if (!code) return;
 
 	if (!LANG_LIST.some(name => code.classList.contains(`language-${name}`))) {
 		return;
@@ -25,8 +28,25 @@ export function codeBlockPostProcessor(element: HTMLElement, context: MarkdownPo
 	});
 
 	const pre = code.parentElement;
-	console.log('🚀 ~ file: postprocessor.ts:23 ~ code.classList.forEach ~ lang', lang, pre);
-	// code.classList.contains(`language-${eLangName}`))
+
+	if (pre?.parentElement?.querySelector(`div.code-to-image-wrap`)) {
+		return;
+	}
+
+	pre?.parentElement?.addClass(`code-to-image-wrap`);
+
+	const contentList: string[] = code.textContent?.split(LINE_SPLIT_MARK) || [];
+
+	const button = createElement('button', 'code-to-image_button');
+	button.setAttribute('aria-label', 'Code To Image');
+	button.innerText = 'Share';
+
+	const buttonHanlder = () => {
+		new InsertLinkModal(this.app, '默认文本', () => alert('回调')).open();
+	};
+
+	plugin.registerDomEvent(button, 'click', buttonHanlder);
+	pre?.parentElement?.appendChild(button);
 
 	// @ts-ignore
 	const name = app?.account?.name || '';

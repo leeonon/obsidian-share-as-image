@@ -6,3 +6,19 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+.code-to-image-wrap {
+	position: relative;
+}
+
+.code-to-image-wrap:hover .code-to-image_button {
+	opacity: 1;
+}
+
+.code-to-image_button {
+	position: absolute;
+	top: -30px;
+	right: 0;
+	opacity: 0;
+	transition: opacity 0.25s;
+	cursor: pointer;
+}
