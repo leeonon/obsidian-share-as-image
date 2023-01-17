@@ -4,6 +4,7 @@ import type { MarkdownPostProcessorContext, App, Plugin } from 'obsidian';
 import { LANG_LIST } from '@/constant';
 import { createElement } from '@/utils';
 import InsertLinkModal from '@/views/InsertLinkModal';
+import EditModal from '@/views/EditModal/EditModal';
 
 const DEFAULT_LANG_ATTR = 'language-text';
 const DEFAULT_LANG = '';
@@ -36,13 +37,14 @@ export function codeBlockPostProcessor(element: HTMLElement, context: MarkdownPo
 	pre?.parentElement?.addClass(`code-to-image-wrap`);
 
 	const contentList: string[] = code.textContent?.split(LINE_SPLIT_MARK) || [];
+	console.log('🚀 ~ file: postprocessor.ts:40 ~ codeBlockPostProcessor ~ contentList', contentList);
 
 	const button = createElement('button', 'code-to-image_button');
 	button.setAttribute('aria-label', 'Code To Image');
 	button.innerText = 'Share';
 
 	const buttonHanlder = () => {
-		new InsertLinkModal(this.app, '默认文本', () => alert('回调')).open();
+		new EditModal(this.app, lang, code.innerText);
 	};
 
 	plugin.registerDomEvent(button, 'click', buttonHanlder);
