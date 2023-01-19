@@ -1,10 +1,9 @@
-The code below is released under public domain.
-<script context="module">
+<script context="module" lang="ts">
 	import { ViewPlugin, EditorView } from "@codemirror/view";
 	import { StateEffect } from "@codemirror/state";
-	import { indentUnit, LanguageSupport } from '@codemirror/language';
 
-	import { basicSetup } from '@/components/Codemirror'
+	import { getExtension, type ExtensionParams } from './extension';
+	import { getLanguage, type LanguageType } from './lang';
 </script>
 
 <script lang="ts">
@@ -32,11 +31,19 @@ The code below is released under public domain.
 	/* Set this if you would like to listen to all transactions via `update` event. */
 	export let verbose = false;
 
-	export let lang: LanguageSupport | null | undefined;
-	export let tabSize: number = 2;
+	/* 编程语言 */
+	export let lang: LanguageType = 'text';
+	/* 需要开启的插件 */
+	export let extensions: ExtensionParams | undefined = undefined;
 
 	/* Cached doc string so that we don't extract strings in bulk over and over. */
 	let _docCached: any = null;
+
+	$: stateExtensions = [
+		...getExtension(extensions),
+		...getTheme(),
+		getLanguage(lang)
+	]
 
 	/* Overwrite the bulk of the text with the one specified. */
 	function _setText(text: string) {
@@ -76,37 +83,18 @@ The code below is released under public domain.
 		},
 	};
 
-	export let extensions = [basicSetup];
-
 	function _reconfigureExtensions() {
 		if (view === null) return;
 		view.dispatch({
-			effects: StateEffect.reconfigure.of(extensions),
+			effects: StateEffect.reconfigure.of(stateExtensions),
 		});
-	}
-
-	function getBaseExtensions() {
-		const extensions = [
-            indentUnit.of(" ".repeat(tabSize)),
-        ];
-
-		extensions.push(basicSetup);
-
-		if (lang) {
-			extensions.push(lang);
-		}
-		return extensions;
 	}
 
 	function getTheme() {
 		return [oneDark];
 	}
 
-	$: extensions, _reconfigureExtensions();
-	$: stateExtensions = [
-		...getBaseExtensions(),
-		...getTheme()
-	]
+	$: _reconfigureExtensions();
 
 	function _editorTxHandler(tr: any) {
 		this.update([tr]);

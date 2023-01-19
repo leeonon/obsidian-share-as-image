@@ -1,17 +1,30 @@
-import { Modal, type App } from 'obsidian';
+import type { LanguageType } from '@/components/Codemirror/lang';
 
+import { Modal, type App } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
 
 export default class EditModal extends Modal {
 	private modalContent: EditModalContent;
+	private lang: LanguageType;
+	private code: string;
 
-	constructor(app: App, lang: string, codeStr: string) {
+	constructor(app: App, lang: LanguageType, code: string) {
 		super(app);
+
+		this.lang = lang;
+		this.code = code;
+		this.initModal();
+	}
+
+	private initModal() {
+		this.modalEl.addClass('code-to-image-modal');
+		this.titleEl.innerText = 'CodeToImage';
+
 		this.modalContent = new EditModalContent({
 			target: this.contentEl,
 			props: {
-				lang,
-				value: codeStr,
+				lang: this.lang,
+				value: this.code,
 				onSubmit: () => {
 					this.close();
 				}
@@ -21,11 +34,11 @@ export default class EditModal extends Modal {
 		this.open();
 	}
 
-	onOpen(): void {
+ 	public onOpen(): void {
 		super.onOpen();
 	}
 
-	onClose(): void {
+	public onClose(): void {
 		super.onClose();
 		this.modalContent.$destroy();
 	}

@@ -1,15 +1,15 @@
 
 
-import {keymap, highlightSpecialChars, drawSelection, highlightActiveLine, dropCursor,
-	rectangularSelection, crosshairCursor,
-	lineNumbers, highlightActiveLineGutter} from "@codemirror/view";
-import { type Extension, EditorState} from "@codemirror/state";
-import {defaultHighlightStyle, syntaxHighlighting, indentOnInput, bracketMatching,
-	foldGutter, foldKeymap} from "@codemirror/language";
-import {defaultKeymap, history, historyKeymap} from "@codemirror/commands";
-import {searchKeymap, highlightSelectionMatches} from "@codemirror/search";
-import {autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap} from "@codemirror/autocomplete";
-import {lintKeymap} from "@codemirror/lint";
+import {
+	keymap, highlightSpecialChars, drawSelection, highlightActiveLine, dropCursor,
+	rectangularSelection, crosshairCursor, lineNumbers, highlightActiveLineGutter
+} from "@codemirror/view";
+import { type Extension, EditorState } from "@codemirror/state";
+import { defaultHighlightStyle, syntaxHighlighting, indentOnInput, bracketMatching, foldGutter, foldKeymap, indentUnit } from "@codemirror/language";
+import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
+import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
+import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete";
+import { lintKeymap } from "@codemirror/lint";
 
 // (The superfluous function calls around the list of extensions work
 // around current limitations in tree-shaking software.)
@@ -49,12 +49,22 @@ import {lintKeymap} from "@codemirror/lint";
 /// you take this package's source (which is just a bunch of imports
 /// and an array literal), copy it into your own code, and adjust it
 /// as desired.
-export const basicSetup: Extension = (() => [
-	lineNumbers(),
+
+export type ExtensionParams = {
+	/* 是否可折叠 */
+	foldGutter?: boolean;
+	/* 是否展示行号 */
+	lineNumbers?: boolean;
+	/* 活动行突出显示 */
+	highlightActiveLine?: boolean;
+	/* tabSize */
+	tabSize?: number;
+}
+
+export const getExtension = (params?: ExtensionParams): Extension[] => ([
 	highlightActiveLineGutter(),
 	highlightSpecialChars(),
 	history(),
-	foldGutter(),
 	drawSelection(),
 	dropCursor(),
 	EditorState.allowMultipleSelections.of(true),
@@ -65,8 +75,11 @@ export const basicSetup: Extension = (() => [
 	autocompletion(),
 	rectangularSelection(),
 	crosshairCursor(),
-	highlightActiveLine(),
 	highlightSelectionMatches(),
+	indentUnit.of(" ".repeat(params?.tabSize || 2)),
+	...(params?.foldGutter ? [foldGutter()] : []),
+	...(params?.lineNumbers ? [lineNumbers()] : []),
+	...(params?.highlightActiveLine ? [highlightActiveLine()] : []),
 	keymap.of([
 		...closeBracketsKeymap,
 		...defaultKeymap,
@@ -76,21 +89,4 @@ export const basicSetup: Extension = (() => [
 		...completionKeymap,
 		...lintKeymap
 	])
-])();
-
-/// A minimal set of extensions to create a functional editor. Only
-/// includes [the default keymap](#commands.defaultKeymap), [undo
-/// history](#commands.history), [special character
-/// highlighting](#view.highlightSpecialChars), [custom selection
-/// drawing](#view.drawSelection), and [default highlight
-/// style](#language.defaultHighlightStyle).
-export const minimalSetup: Extension = (() => [
-	highlightSpecialChars(),
-	history(),
-	drawSelection(),
-	syntaxHighlighting(defaultHighlightStyle, {fallback: true}),
-	keymap.of([
-		...defaultKeymap,
-		...historyKeymap,
-	])
-])();
+]);
