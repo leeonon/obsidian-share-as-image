@@ -1,23 +1,24 @@
 <script lang="ts">
-	export let lang: string;
-	export let codeStr: string;
-	export let onSubmit: (value: any) => void;
+	import CodeMirror from "@/components/Codemirror.svelte";
+	import { rust } from '@codemirror/lang-rust';
 
-	function submit(evt: KeyboardEvent) {
-        if (evt.key === "Enter") {
-            evt.preventDefault();
-            onSubmit(12);
-        }
-    }
+	let store: any;
+	export let value: string;
+
+	function changeHandler({ detail: { tr } }: any) {
+		console.log("change", tr.changes.toJSON());
+	}
 </script>
 
-<div class="number">
-	<span>当前的代码语言为:{lang}!</span>
-	<code>{codeStr}</code>
-</div>
+<CodeMirror
+	lang={rust()}
+	doc={value}
+	bind:docStore={store}
+	on:change={changeHandler}
+/>
 
 <style>
-	.number {
-		color: red;
+	:global(.codemirror) {
+		border: 1px solid #ddd;
 	}
 </style>

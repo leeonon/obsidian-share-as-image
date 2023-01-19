@@ -1,6 +1,5 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 
-import InsertLinkModal from './views/InsertLinkModal';
 import { codeBlockPostProcessor } from '@/postprocessor';
 
 // Remember to rename these classes and interfaces!
@@ -35,7 +34,7 @@ export default class MyPlugin extends Plugin {
 			id: 'open-sample-modal-simple',
 			name: '打开模态弹窗(简单)',
 			callback: () => {
-				new InsertLinkModal(this.app, '默认文本', () => alert('回调')).open();
+				alert(1);
 			}
 		});
 		// 这将添加一个编辑器命令，可以对当前编辑器实例执行某些操作

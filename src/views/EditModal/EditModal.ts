@@ -11,7 +11,7 @@ export default class EditModal extends Modal {
 			target: this.contentEl,
 			props: {
 				lang,
-				codeStr,
+				value: codeStr,
 				onSubmit: () => {
 					this.close();
 				}
