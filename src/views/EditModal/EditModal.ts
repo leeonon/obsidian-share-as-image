@@ -1,4 +1,4 @@
-import type { LanguageType } from '@/components/Codemirror/lang';
+import type { LanguageType } from '@/ui/Codemirror/lang';
 
 import { Modal, type App } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
@@ -25,16 +25,13 @@ export default class EditModal extends Modal {
 			props: {
 				lang: this.lang,
 				value: this.code,
-				onSubmit: () => {
-					this.close();
-				}
 			}
 		});
 
 		this.open();
 	}
 
- 	public onOpen(): void {
+	public onOpen(): void {
 		super.onOpen();
 	}
 

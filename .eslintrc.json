@@ -8,8 +8,8 @@
     ],
 	"overrides": [
 		{
-		"files": ["*.svelte"],
-		"processor": "svelte3/svelte3"
+			"files": ["*.svelte"],
+			"processor": "svelte3/svelte3"
 		}
   	],
     "extends": [

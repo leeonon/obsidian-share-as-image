@@ -19,4 +19,4 @@ export type LanguageType = keyof typeof langs;
 
 export const getLanguage = (type: LanguageType = 'text'): LanguageSupport => {
 	return langs[type];
-}
+};
