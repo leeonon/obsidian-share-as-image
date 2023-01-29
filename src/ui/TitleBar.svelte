@@ -5,17 +5,10 @@
 		{ value: 'OneDrak3', name: 'OneDrak3' },
 		{ value: 'OneDrak4', name: 'OneDrak4' },
 	];
-
-	const langOptions = [
-		{ value: 'javascript', name: 'JavaScript' },
-		{ value: 'rust', name: 'Rust' },
-		{ value: 'java', name: 'Java' },
-		{ value: 'python', name: 'Python' },
-	];
 </script>
 
-<div class='code-to-image-title-bar'>
-	<div>
+<div class='cti-title-bar'>
+	<div class:active={true} class="cti-title-bar_item">
 		<span>Theme：</span>
 		<select
 			class="dropdown"
@@ -26,28 +19,30 @@
 			{/each}
 		</select>
 	</div>
-	<div>
-		<span class="code-to-iamge-language-select">language：</span>
-		<select
-			class="dropdown"
-			name="Version"
-		>
-			{#each langOptions as item (item.value)}
-				<option value={item.value}>{item.name}</option>
-			{/each}
-		</select>
+	<div class="cti-title-bar_item">
+		<span>Background：</span>
+		<div class="checkbox-container is-enabled"><input type="checkbox" tabindex="0"></div>
+	</div>
+	<div class="cti-title-bar_item">
+		<span>DarkMode：</span>
+		<div class="checkbox-container is-enabled"><input type="checkbox" tabindex="0"></div>
 	</div>
 </div>
 
 
-<style>
-	.code-to-image-title-bar {
+<style lang="scss">
+	.cti-title-bar {
+		display: flex;
+		align-items: center;
 		border: 1px solid hsla(0,0%,100%,.2);
 		border-radius: 10px;
 		padding: 20px;
 		margin-bottom: 35px;
-	}
-	.code-to-iamge-language-select {
-		margin-left: 20px;
+
+		&_item {
+			display: flex;
+			align-items: center;
+			margin-right: 20px;
+		}
 	}
 </style>
