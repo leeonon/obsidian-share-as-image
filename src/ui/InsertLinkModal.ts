@@ -1,4 +1,4 @@
-import { App, Modal, Setting } from "obsidian";
+import { App, Modal, Setting } from 'obsidian';
 
 export default class InsertLinkModal extends Modal {
   linkText: string;
@@ -6,11 +6,7 @@ export default class InsertLinkModal extends Modal {
 
   onSubmit: (linkText: string, linkUrl: string) => void;
 
-  constructor(
-    app: App,
-    defaultLinkText: string,
-    onSubmit: (linkText: string, linkUrl: string) => void
-  ) {
+  constructor(app: App, defaultLinkText: string, onSubmit: (linkText: string, linkUrl: string) => void) {
     super(app);
     this.linkText = defaultLinkText;
     this.onSubmit = onSubmit;
@@ -19,23 +15,23 @@ export default class InsertLinkModal extends Modal {
   onOpen() {
     const { contentEl } = this;
 
-    contentEl.createEl("h1", { text: "Insert link" });
+    contentEl.createEl('h1', { text: 'Insert link' });
 
-    new Setting(contentEl).setName("Link text").addText((text) =>
-      text.setValue(this.linkText).onChange((value) => {
+    new Setting(contentEl).setName('Link text').addText(text =>
+      text.setValue(this.linkText).onChange(value => {
         this.linkText = value;
       })
     );
 
-    new Setting(contentEl).setName("Link URL").addText((text) =>
-      text.setValue(this.linkUrl).onChange((value) => {
+    new Setting(contentEl).setName('Link URL').addText(text =>
+      text.setValue(this.linkUrl).onChange(value => {
         this.linkUrl = value;
       })
     );
 
-    new Setting(contentEl).addButton((btn) =>
+    new Setting(contentEl).addButton(btn =>
       btn
-        .setButtonText("Insert")
+        .setButtonText('Insert')
         .setCta()
         .onClick(() => {
           this.close();

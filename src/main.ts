@@ -3,8 +3,6 @@ import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Set
 import { codeBlockPostProcessor } from '@/postprocessor';
 import store from '@/store';
 
-// Remember to rename these classes and interfaces!
-
 interface MyPluginSettings {
   mySetting: string;
 }
@@ -77,9 +75,11 @@ export default class CodeToImagePlugin extends Plugin {
       console.log('click', evt);
     });
 
-    // this.registerMarkdownCodeBlockProcessor()
+    /**
+     * Init
+     */
     this.registerMarkdownPostProcessor((el, ctx) => {
-      store.editConfig.set(this);
+      store.plugin.set(this);
       codeBlockPostProcessor(el, ctx, this.app, this);
     });
   }

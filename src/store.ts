@@ -2,12 +2,24 @@ import type CodeToImagePlugin from './main';
 
 import { writable } from 'svelte/store';
 
-export interface EditConfig {
-  theme: string;
-  hasBackground: boolean;
-  isDarkMode: boolean;
+export interface EditConfigType {
+  theme?: string;
+  hasBackground?: boolean;
+  isDarkMode?: boolean;
 }
 
-const editConfig = writable<CodeToImagePlugin>();
+/**
+ * This Plugin
+ */
+export const plugin = writable<CodeToImagePlugin>();
 
-export default { editConfig };
+/**
+ * Edit Config
+ */
+export const editConfig = writable<EditConfigType>({
+  theme: 'OneDrak3',
+  hasBackground: true,
+  isDarkMode: true,
+});
+
+export default { plugin, editConfig };

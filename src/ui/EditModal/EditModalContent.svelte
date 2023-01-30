@@ -1,16 +1,29 @@
 <script lang="ts">
 	import type { LanguageType } from '@/ui/Codemirror/lang';
+
+	import { onDestroy } from 'svelte';
 	import CodeMirror from "@/ui/Codemirror/index.svelte";
 	import TitleBar from '@/ui/TitleBar.svelte';
 	import EditBar from '@/ui/EditBar.svelte';
+	import store, { type EditConfigType } from '@/store';
 
-	let store: any;
+	let editConfig: EditConfigType;
+	let docStore: any;
 	export let value: string;
 	export let lang: LanguageType;
 
 	function changeHandler({ detail: { tr } }: any) {
 		console.log("change", tr.changes.toJSON());
 	}
+
+	const unsubscribe = store.editConfig.subscribe((config) => (editConfig = config));
+
+	/**
+	 * Unsubscribe when destroyed
+	*/
+	onDestroy(unsubscribe);
+
+
 </script>
 
 	<TitleBar />
@@ -19,7 +32,7 @@
 		<CodeMirror
 			lang={lang}
 			doc={value}
-			bind:docStore={store}
+			bind:docStore={docStore}
 			on:change={changeHandler}
 		/>
 	</div>

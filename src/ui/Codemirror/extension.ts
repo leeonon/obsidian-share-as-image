@@ -1,15 +1,28 @@
-
-
 import {
-	keymap, highlightSpecialChars, drawSelection, highlightActiveLine, dropCursor,
-	rectangularSelection, crosshairCursor, lineNumbers, highlightActiveLineGutter
-} from "@codemirror/view";
-import { type Extension, EditorState } from "@codemirror/state";
-import { defaultHighlightStyle, syntaxHighlighting, indentOnInput, bracketMatching, foldGutter, foldKeymap, indentUnit } from "@codemirror/language";
-import { defaultKeymap, history, historyKeymap } from "@codemirror/commands";
-import { searchKeymap, highlightSelectionMatches } from "@codemirror/search";
-import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap } from "@codemirror/autocomplete";
-import { lintKeymap } from "@codemirror/lint";
+  keymap,
+  highlightSpecialChars,
+  drawSelection,
+  highlightActiveLine,
+  dropCursor,
+  rectangularSelection,
+  crosshairCursor,
+  lineNumbers,
+  highlightActiveLineGutter,
+} from '@codemirror/view';
+import { type Extension, EditorState } from '@codemirror/state';
+import {
+  defaultHighlightStyle,
+  syntaxHighlighting,
+  indentOnInput,
+  bracketMatching,
+  foldGutter,
+  foldKeymap,
+  indentUnit,
+} from '@codemirror/language';
+import { defaultKeymap, history, historyKeymap } from '@codemirror/commands';
+import { searchKeymap, highlightSelectionMatches } from '@codemirror/search';
+import { autocompletion, completionKeymap, closeBrackets, closeBracketsKeymap } from '@codemirror/autocomplete';
+import { lintKeymap } from '@codemirror/lint';
 
 // (The superfluous function calls around the list of extensions work
 // around current limitations in tree-shaking software.)
@@ -51,42 +64,42 @@ import { lintKeymap } from "@codemirror/lint";
 /// as desired.
 
 export type ExtensionParams = {
-	/* 是否可折叠 */
-	foldGutter?: boolean;
-	/* 是否展示行号 */
-	lineNumbers?: boolean;
-	/* 活动行突出显示 */
-	highlightActiveLine?: boolean;
-	/* tabSize */
-	tabSize?: number;
-}
+  /* 是否可折叠 */
+  foldGutter?: boolean;
+  /* 是否展示行号 */
+  lineNumbers?: boolean;
+  /* 活动行突出显示 */
+  highlightActiveLine?: boolean;
+  /* tabSize */
+  tabSize?: number;
+};
 
-export const getExtension = (params?: ExtensionParams): Extension[] => ([
-	highlightActiveLineGutter(),
-	highlightSpecialChars(),
-	history(),
-	drawSelection(),
-	dropCursor(),
-	EditorState.allowMultipleSelections.of(true),
-	indentOnInput(),
-	syntaxHighlighting(defaultHighlightStyle, {fallback: true}),
-	bracketMatching(),
-	closeBrackets(),
-	autocompletion(),
-	rectangularSelection(),
-	crosshairCursor(),
-	highlightSelectionMatches(),
-	indentUnit.of(" ".repeat(params?.tabSize || 2)),
-	...(params?.foldGutter ? [foldGutter()] : []),
-	...(params?.lineNumbers ? [lineNumbers()] : []),
-	...(params?.highlightActiveLine ? [highlightActiveLine()] : []),
-	keymap.of([
-		...closeBracketsKeymap,
-		...defaultKeymap,
-		...searchKeymap,
-		...historyKeymap,
-		...foldKeymap,
-		...completionKeymap,
-		...lintKeymap
-	])
-]);
+export const getExtension = (params?: ExtensionParams): Extension[] => [
+  highlightActiveLineGutter(),
+  highlightSpecialChars(),
+  history(),
+  drawSelection(),
+  dropCursor(),
+  EditorState.allowMultipleSelections.of(true),
+  indentOnInput(),
+  syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+  bracketMatching(),
+  closeBrackets(),
+  autocompletion(),
+  rectangularSelection(),
+  crosshairCursor(),
+  highlightSelectionMatches(),
+  indentUnit.of(' '.repeat(params?.tabSize || 2)),
+  ...(params?.foldGutter ? [foldGutter()] : []),
+  ...(params?.lineNumbers ? [lineNumbers()] : []),
+  ...(params?.highlightActiveLine ? [highlightActiveLine()] : []),
+  keymap.of([
+    ...closeBracketsKeymap,
+    ...defaultKeymap,
+    ...searchKeymap,
+    ...historyKeymap,
+    ...foldKeymap,
+    ...completionKeymap,
+    ...lintKeymap,
+  ]),
+];
