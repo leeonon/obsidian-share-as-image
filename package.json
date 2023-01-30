@@ -22,6 +22,8 @@
 		"eslint": "^8.31.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"obsidian": "latest",
+		"prettier": "^2.8.3",
+		"prettier-plugin-svelte": "^2.9.0",
 		"sass": "^1.57.1",
 		"svelte": "^3.55.1",
 		"svelte-preprocess": "^5.0.0",
