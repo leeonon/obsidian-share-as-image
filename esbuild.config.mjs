@@ -2,6 +2,10 @@ import esbuild from "esbuild";
 import process from "process";
 import builtins from 'builtin-modules';
 import esbuildSvelte from "esbuild-svelte";
+/*
+* Svelte CSS 预处理器，支持的开箱即用语言有 Sass、Stylus、Less、CoffeeScript、TypeScript、Pug、PostCSS、Babel
+* https://github.com/sveltejs/svelte-preprocess
+*/
 import sveltePreprocess from "svelte-preprocess";
 
 

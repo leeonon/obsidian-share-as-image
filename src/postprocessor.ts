@@ -1,17 +1,19 @@
 // https://github.com/nyable/obsidian-code-block-enhancer/blob/master/src/core.ts#L6:7
 import type { MarkdownPostProcessorContext, App, Plugin } from 'obsidian';
+import type { LanguageType } from '@/ui/Codemirror/lang';
 
 import { LANG_LIST } from '@/constant';
 import { createElement } from '@/utils';
 import EditModal from '@/views/EditModal/EditModal';
 
-// const DEFAULT_LANG_ATTR = 'language-text';
-const DEFAULT_LANG = '';
+
+
 const LANG_REG = /^language-/;
 // const LINE_SPLIT_MARK = '\n';
 
 export function codeBlockPostProcessor(element: HTMLElement, context: MarkdownPostProcessorContext, app: App, plugin: Plugin) {
-	let lang: string = DEFAULT_LANG;
+	console.log('🚀 ~ file: postprocessor.ts:15 ~ codeBlockPostProcessor ~ context', context);
+	let lang: LanguageType = 'text';
 	const code: HTMLPreElement = element.querySelector("pre:not(.frontmatter) > code") as HTMLPreElement;
 
 	if (!code) return;
@@ -22,7 +24,7 @@ export function codeBlockPostProcessor(element: HTMLElement, context: MarkdownPo
 
 	code.classList.forEach((val, key) => {
 		if (LANG_REG.test(val)) {
-			lang = val.replace(`language-`, '');
+			lang = val.replace(`language-`, '') as LanguageType;
 			return;
 		}
 	});
@@ -42,7 +44,7 @@ export function codeBlockPostProcessor(element: HTMLElement, context: MarkdownPo
 	button.innerText = 'Share';
 
 	const buttonHanlder = () => {
-		new EditModal(this.app, lang, code.innerText);
+		new EditModal(app, lang, code.innerText);
 	};
 
 	plugin.registerDomEvent(button, 'click', buttonHanlder);
