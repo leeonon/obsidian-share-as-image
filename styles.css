@@ -24,7 +24,12 @@ If your plugin does not need CSS, delete this file.
 }
 .code-to-image-modal {
 	width: var(--modal-width);
-    height: var(--modal-height);
-    max-width: var(--modal-max-width);
-    max-height: var(--modal-max-height);
+	height: var(--modal-height);
+	max-width: var(--modal-max-width);
+	max-height: var(--modal-max-height);
+}
+
+/* Codemiorror */
+.cm-editor.cm-focused {
+  outline: none !important;
 }
