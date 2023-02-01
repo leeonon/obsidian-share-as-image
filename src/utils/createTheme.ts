@@ -53,7 +53,7 @@ export const createTheme = ({ theme, settings = {}, styles = [] }: CreateThemeOp
     '.cm-gutters': {},
 
     '&.cm-editor': {
-      padding: '0 1rem 1rem 1rem',
+      padding: '1rem',
     },
   };
 

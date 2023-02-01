@@ -1,4 +1,5 @@
 <script lang="ts">
+import { editConfig } from '@/store';
 </script>
 
 <div class="ctj-edit_bar">
@@ -8,8 +9,10 @@
     <span></span>
   </div>
   <div class="ctj-edit_bar_input">
-    <input type="text" spellcheck="false" tabindex="-1" />
-    <span>Main.ts</span>
+    <input spellcheck="false" bind:value="{$editConfig.barTitle}" />
+    {#if !$editConfig.barTitle}
+      <span>Untitled</span>
+    {/if}
   </div>
 </div>
 
@@ -17,8 +20,7 @@
 .ctj-edit_bar {
   display: flex;
   gap: 1rem;
-  height: 3rem;
-  padding: 1rem;
+  padding: 1rem 1rem 0rem 1rem;
   align-items: center;
   background: transparent;
 

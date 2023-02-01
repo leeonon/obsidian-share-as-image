@@ -3,7 +3,7 @@ import type { LanguageType } from '@/ui/Codemirror/lang';
 
 import { onDestroy } from 'svelte';
 import CodeMirror from '@/ui/Codemirror/index.svelte';
-import TitleBar from '@/ui/TitleBar.svelte';
+import ConfigBar from '@/ui/ConfigBar.svelte';
 import WindowBar from '@/ui/WindowBar.svelte';
 import store, { type EditConfigType } from '@/store';
 
@@ -24,10 +24,12 @@ const unsubscribe = store.editConfig.subscribe(config => (editConfig = config));
 onDestroy(unsubscribe);
 </script>
 
-<TitleBar />
+<ConfigBar />
 <div class="ctj-edit_background">
   <div class="ctj-edit_content">
-    <WindowBar />
+    {#if editConfig.windowControls}
+      <WindowBar />
+    {/if}
     <CodeMirror
       extensions="{{ lineNumbers: editConfig.showLineNumber }}"
       lang="{lang}"

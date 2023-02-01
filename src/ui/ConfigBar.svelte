@@ -65,12 +65,27 @@ onDestroy(() => {});
       <input type="checkbox" bind:value="{$editConfig.showLineNumber}" />
     </div>
   </div>
+  <div class="cti-title-bar_item">
+    <span>Watermark：</span>
+    <div
+      class="checkbox-container"
+      class:is-enabled="{$editConfig.hasWatermark}"
+      on:keypress="{() => {}}"
+      on:click="{() => editConfig.update({ hasWatermark: !$editConfig.hasWatermark })}">
+      <input type="checkbox" bind:value="{$editConfig.hasWatermark}" />
+    </div>
+  </div>
+  <div class="cti-title-bar_item">
+    <input type="text" bind:value="{$editConfig.watermark}" />
+  </div>
 </div>
 
 <style lang="scss">
 .cti-title-bar {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
   border: 1px solid hsla(0, 0%, 100%, 0.2);
   border-radius: 10px;
   padding: 20px;
@@ -79,7 +94,6 @@ onDestroy(() => {});
   &_item {
     display: flex;
     align-items: center;
-    margin-right: 20px;
   }
 }
 </style>
