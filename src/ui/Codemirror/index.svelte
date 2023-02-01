@@ -7,7 +7,7 @@ import { getLanguage, type LanguageType } from './lang';
 </script>
 
 <script lang="ts">
-import { onMount, onDestroy, createEventDispatcher } from 'svelte';
+import { onMount, onDestroy, createEventDispatcher, afterUpdate } from 'svelte';
 import { darkTheme } from '@/themes/custom';
 const dispatch = createEventDispatcher();
 
@@ -19,6 +19,10 @@ onMount(() => {
   return () => {
     _mounted = false;
   };
+});
+
+afterUpdate(() => {
+  _reconfigureExtensions();
 });
 
 export let view: any = null;

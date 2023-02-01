@@ -1,4 +1,5 @@
-<script lang="ts"></script>
+<script lang="ts">
+</script>
 
 <div class="ctj-edit_bar">
   <div class="ctj-edit_bar_mac">

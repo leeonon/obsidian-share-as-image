@@ -28,7 +28,12 @@ onDestroy(unsubscribe);
 <div class="ctj-edit_background">
   <div class="ctj-edit_content">
     <WindowBar />
-    <CodeMirror lang="{lang}" doc="{value}" bind:docStore="{docStore}" on:change="{changeHandler}" />
+    <CodeMirror
+      extensions="{{ lineNumbers: editConfig.showLineNumber }}"
+      lang="{lang}"
+      doc="{value}"
+      bind:docStore="{docStore}"
+      on:change="{changeHandler}" />
   </div>
 </div>
 
