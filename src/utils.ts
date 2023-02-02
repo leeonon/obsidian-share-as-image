@@ -5,3 +5,5 @@ export function createElement(elementType: keyof HTMLElementTagNameMap, classNam
   }
   return element;
 }
+
+export function downloadFileToFolder(fileType: string) {}

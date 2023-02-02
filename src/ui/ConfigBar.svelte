@@ -19,7 +19,7 @@ onDestroy(() => {});
 <div class="cti-title-bar">
   <div class:active="{true}" class="cti-title-bar_item">
     <span>Theme：</span>
-    <select class="dropdown" name="Version" bind:value="{$editConfig.theme}">
+    <select class="dropdown cti-select-dropdown" name="Version" bind:value="{$editConfig.theme}">
       {#each options as item (item.value)}
         <option value="{item.value}">{item.name}</option>
       {/each}
@@ -75,9 +75,6 @@ onDestroy(() => {});
       <input type="checkbox" bind:value="{$editConfig.hasWatermark}" />
     </div>
   </div>
-  <div class="cti-title-bar_item">
-    <input type="text" bind:value="{$editConfig.watermark}" />
-  </div>
 </div>
 
 <style lang="scss">
@@ -86,14 +83,19 @@ onDestroy(() => {});
   align-items: center;
   flex-wrap: wrap;
   gap: 0.75rem;
+  width: fit-content;
   border: 1px solid hsla(0, 0%, 100%, 0.2);
+  background-color: #191919;
+  box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
   border-radius: 10px;
   padding: 20px;
+  margin: auto;
   margin-bottom: 35px;
 
   &_item {
     display: flex;
     align-items: center;
+    font-size: 0.75rem;
   }
 }
 </style>

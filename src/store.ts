@@ -9,7 +9,6 @@ export interface EditConfigType {
   windowControls?: boolean;
   barTitle?: string;
   showLineNumber?: boolean;
-  watermark?: string;
   hasWatermark?: boolean;
 }
 
@@ -26,7 +25,6 @@ const defaultConfig: EditConfigType = {
   barTitle: '',
   showLineNumber: false,
   hasWatermark: false,
-  watermark: 'Obsidian',
 };
 
 function createEditConfig() {

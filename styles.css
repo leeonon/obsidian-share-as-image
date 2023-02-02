@@ -24,11 +24,15 @@ If your plugin does not need CSS, delete this file.
 }
 .code-to-image-modal {
 	width: var(--modal-width);
-	height: var(--modal-height);
 	max-width: var(--modal-max-width);
 	max-height: var(--modal-max-height);
 }
 
+.cti-select-dropdown {
+	height: 1.75rem !important;
+	outline: none !important;
+	box-shadow: none !important;
+}
 /* Codemiorror */
 .cm-editor.cm-focused {
   outline: none !important;
