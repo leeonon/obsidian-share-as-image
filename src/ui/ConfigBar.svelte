@@ -1,19 +1,19 @@
 <script lang="ts">
-import { onDestroy } from 'svelte';
-import { editConfig } from '@/store';
+  import { onDestroy } from 'svelte';
+  import { editConfig } from '@/store';
 
-const options = [
-  { value: 'OneDarkTheme', name: 'OneDarkTheme' },
-  { value: 'OneDark2', name: 'OneDark2' },
-  { value: 'OneDark3', name: 'OneDark3' },
-  { value: 'OneDark4', name: 'OneDark4' },
-];
+  const options = [
+    { value: 'OneDarkTheme', name: 'OneDarkTheme' },
+    { value: 'OneDark2', name: 'OneDark2' },
+    { value: 'OneDark3', name: 'OneDark3' },
+    { value: 'OneDark4', name: 'OneDark4' },
+  ];
 
-const editCOnfigSubscribed = editConfig.subscribe(state => {
-  console.log('🚀 ~ file: TitleBar.svelte:13 ~ editCOnfigSubscribed ~ state', state);
-});
+  const editCOnfigSubscribed = editConfig.subscribe(state => {
+    console.log('🚀 ~ file: TitleBar.svelte:13 ~ editCOnfigSubscribed ~ state', state);
+  });
 
-onDestroy(() => {});
+  onDestroy(() => {});
 </script>
 
 <div class="cti-title-bar">
@@ -78,24 +78,24 @@ onDestroy(() => {});
 </div>
 
 <style lang="scss">
-.cti-title-bar {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  width: fit-content;
-  border: 1px solid hsla(0, 0%, 100%, 0.2);
-  background-color: #191919;
-  box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
-  border-radius: 10px;
-  padding: 20px;
-  margin: auto;
-  margin-bottom: 35px;
-
-  &_item {
+  .cti-title-bar {
     display: flex;
     align-items: center;
-    font-size: 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    width: fit-content;
+    border: 1px solid hsla(0, 0%, 100%, 0.2);
+    background-color: #191919;
+    box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
+    border-radius: 10px;
+    padding: 20px;
+    margin: auto;
+    margin-bottom: 35px;
+
+    &_item {
+      display: flex;
+      align-items: center;
+      font-size: 0.75rem;
+    }
   }
-}
 </style>
