@@ -1,25 +1,37 @@
 <script lang="ts">
   import type { LanguageType } from '@/ui/Codemirror/lang';
+  import type { CodeImageSettings } from '@/types';
 
-  import { onDestroy } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
+  import { setIcon } from 'obsidian';
+
   import CodeMirror from '@/ui/Codemirror/index.svelte';
   import ConfigBar from '@/ui/ConfigBar.svelte';
   import WindowBar from '@/ui/WindowBar.svelte';
-  import store, { type EditConfigType } from '@/store';
+  import store from '@/store';
 
-  let editConfig: EditConfigType;
-  let docStore: any;
   export let value: string;
   export let lang: LanguageType;
   export let actions: {
     toPng: () => void;
+    onCopyAsImage: () => void;
   };
+
+  let editConfig: CodeImageSettings;
+  let docStore: any;
+  let exportIcon: HTMLSpanElement;
 
   function changeHandler({ detail: { tr } }: any) {
     console.log('change', tr.changes.toJSON());
   }
 
   const unsubscribe = store.editConfig.subscribe(config => (editConfig = config));
+
+  function addButtonIcon(node: HTMLSpanElement) {
+    // setIcon(node, 'chevron-up');
+  }
+
+  onMount(() => {});
 
   /**
    * Unsubscribe when destroyed
@@ -28,27 +40,29 @@
 </script>
 
 <ConfigBar />
-<div class="ctj-edit_background" id="code-to-image-content">
-  <div class="ctj-edit_content">
-    {#if editConfig.windowControls}
-      <WindowBar />
-    {/if}
-    <CodeMirror
-      extensions="{{
-        lineNumbers: editConfig.showLineNumber,
-      }}"
-      lang="{lang}"
-      doc="{value}"
-      bind:docStore="{docStore}"
-      on:change="{changeHandler}" />
-    {#if editConfig.hasWatermark}
-      <div class="ctj-edit_watermark" contenteditable>@Obsidian</div>
-    {/if}
+<div class="ctj-edit_container">
+  <div class="ctj-edit_background" id="ctj-edit_background">
+    <div class="ctj-edit_content">
+      {#if editConfig.windowControls}
+        <WindowBar />
+      {/if}
+      <CodeMirror
+        extensions="{{
+          lineNumbers: editConfig.showLineNumber,
+        }}"
+        lang="{lang}"
+        doc="{value}"
+        bind:docStore="{docStore}"
+        on:change="{changeHandler}" />
+      {#if editConfig.hasWatermark}
+        <div class="ctj-edit_watermark" contenteditable>@{editConfig.watermark}</div>
+      {/if}
+    </div>
   </div>
 </div>
 <div class="ctj-edit_panel">
-  <button>Copy</button>
-  <button class="mod-cta" on:click="{actions.toPng}">Download</button>
+  <button on:click="{actions.onCopyAsImage}">Copy</button>
+  <button class="mod-cta" on:click="{actions.toPng}">Export <span use:addButtonIcon></span></button>
 </div>
 
 <style lang="scss">
@@ -56,17 +70,20 @@
     border: 1px solid #ddd;
   }
   .ctj-edit {
+    &_container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+    }
     &_background {
       position: relative;
       width: fit-content;
-      margin: auto;
       padding: 2rem;
       border-radius: 0.75rem;
       background-image: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
       background-color: rgb(65, 88, 208);
       overflow: auto;
-      resize: both;
-      min-width: 500px;
       margin-bottom: 5rem;
     }
 
@@ -95,6 +112,10 @@
       justify-content: end;
       gap: 1rem;
       padding-right: 2rem;
+
+      & > button {
+        gap: 0.3em;
+      }
     }
   }
 </style>

@@ -1,43 +1,19 @@
-import type CodeToImagePlugin from './main';
+import type { CodeImageSettings } from '@/types';
 
 import { writable } from 'svelte/store';
-
-export interface EditConfigType {
-  theme?: string;
-  hasBackground?: boolean;
-  isDarkMode?: boolean;
-  windowControls?: boolean;
-  barTitle?: string;
-  showLineNumber?: boolean;
-  hasWatermark?: boolean;
-}
-
-/**
- * This Plugin
- */
-export const plugin = writable<CodeToImagePlugin>();
-
-const defaultConfig: EditConfigType = {
-  theme: 'OneDark3',
-  hasBackground: true,
-  isDarkMode: true,
-  windowControls: true,
-  barTitle: '',
-  showLineNumber: false,
-  hasWatermark: false,
-};
+import { DEFAULT_SETTINGS } from '@/setting';
 
 function createEditConfig() {
-  const { subscribe, set, update } = writable<EditConfigType>(defaultConfig);
+  const { subscribe, set, update } = writable<CodeImageSettings>(DEFAULT_SETTINGS);
 
   return {
     subscribe,
     set,
-    update: (payload: EditConfigType) => update(state => ({ ...state, ...payload })),
-    reset: () => set(defaultConfig),
+    update: (payload: Partial<CodeImageSettings>) => update(state => ({ ...state, ...payload })),
+    reset: () => set(DEFAULT_SETTINGS),
   };
 }
 
 export const editConfig = createEditConfig();
 
-export default { plugin, editConfig };
+export default { editConfig };

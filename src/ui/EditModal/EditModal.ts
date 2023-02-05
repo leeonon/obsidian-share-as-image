@@ -1,17 +1,20 @@
 import type { LanguageType } from '@/ui/Codemirror/lang';
+import type { CodeToImagePluginType } from '@/types';
 
 import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
-import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
+import { toPng, toBlob } from 'html-to-image';
 
 export default class EditModal extends Modal {
-  private modalContent: EditModalContent;
-  private lang: LanguageType;
-  private code: string;
+  plugins: CodeToImagePluginType;
+  modalContent: EditModalContent;
+  lang: LanguageType;
+  code: string;
 
-  constructor(app: App, lang: LanguageType, code: string) {
+  constructor(app: App, plugins: CodeToImagePluginType, lang: LanguageType, code: string) {
     super(app);
 
+    this.plugins = plugins;
     this.lang = lang;
     this.code = code;
     this.initModal();
@@ -44,6 +47,7 @@ export default class EditModal extends Modal {
         value: this.code,
         actions: {
           toPng: this.toPng,
+          onCopyAsImage: this.onCopyAsImage,
         },
       },
     });
@@ -59,4 +63,16 @@ export default class EditModal extends Modal {
     super.onClose();
     this.modalContent.$destroy();
   }
+
+  onCopyAsImage = async () => {
+    const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
+    const blob = await toBlob(target, {
+      canvasHeight: target.clientHeight,
+      canvasWidth: target.clientWidth,
+    });
+    if (blob) {
+      new Notice('Copy As Image Success');
+      window.navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    }
+  };
 }

@@ -1,6 +1,7 @@
 // https://github.com/nyable/obsidian-code-block-enhancer/blob/master/src/core.ts#L6:7
-import type { MarkdownPostProcessorContext, App, Plugin } from 'obsidian';
+import type { MarkdownPostProcessorContext, App } from 'obsidian';
 import type { LanguageType } from '@/ui/Codemirror/lang';
+import type { CodeToImagePluginType } from '@/types';
 
 import { LANG_LIST } from '@/constant';
 import { createElement } from '@/utils';
@@ -12,7 +13,7 @@ export function codeBlockPostProcessor(
   element: HTMLElement,
   context: MarkdownPostProcessorContext,
   app: App,
-  plugin: Plugin
+  plugin: CodeToImagePluginType
 ) {
   let lang: LanguageType = 'text';
   const code: HTMLPreElement = element.querySelector('pre:not(.frontmatter) > code') as HTMLPreElement;
@@ -43,13 +44,9 @@ export function codeBlockPostProcessor(
   button.innerText = 'Share';
 
   const buttonHanlder = () => {
-    new EditModal(app, lang, code.innerText);
+    new EditModal(app, plugin, lang, code.innerText);
   };
 
   plugin.registerDomEvent(button, 'click', buttonHanlder);
   pre?.parentElement?.appendChild(button);
-
-  // @ts-ignore
-  const name = app?.account?.name || '';
-  console.log('🚀 ~ file: postprocessor.ts:9 ~ codeBlockPostProcessor ~ name', name);
 }
