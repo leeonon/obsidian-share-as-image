@@ -8,7 +8,7 @@
 
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher, afterUpdate } from 'svelte';
-  import { darkTheme } from '@/themes/custom';
+  import { darkTheme } from '@/themes/customTheme';
   const dispatch = createEventDispatcher();
 
   let dom: any;
