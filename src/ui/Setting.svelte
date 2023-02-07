@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { editConfig } from '@/store';
+  import BackgroundCard from '@/ui/BackgroundCard.svelte';
 
   const options = [
     { value: 'OneDarkTheme', name: 'OneDarkTheme' },
@@ -34,6 +35,10 @@
       on:click="{() => editConfig.update({ hasBackground: !$editConfig.hasBackground })}">
       <input type="checkbox" bind:value="{$editConfig.hasBackground}" />
     </div>
+  </div>
+  <div class="cti-title-bar_item">
+    <span>BackgroundColor：</span>
+    <BackgroundCard />
   </div>
   <div class="cti-title-bar_item">
     <span>DarkMode：</span>

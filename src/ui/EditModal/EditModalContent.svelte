@@ -6,7 +6,7 @@
   import { setIcon } from 'obsidian';
 
   import CodeMirror from '@/ui/Codemirror/index.svelte';
-  import ConfigBar from '@/ui/ConfigBar.svelte';
+  import Setting from '@/ui/Setting.svelte';
   import WindowBar from '@/ui/WindowBar.svelte';
   import store from '@/store';
 
@@ -20,6 +20,8 @@
   let editConfig: CodeImageSettings;
   let docStore: any;
   let exportIcon: HTMLSpanElement;
+
+  $: background = editConfig.hasBackground ? editConfig.backgroundColor : null;
 
   function changeHandler({ detail: { tr } }: any) {
     console.log('change', tr.changes.toJSON());
@@ -39,9 +41,9 @@
   onDestroy(unsubscribe);
 </script>
 
-<ConfigBar />
+<Setting />
 <div class="ctj-edit_container">
-  <div class="ctj-edit_background" id="ctj-edit_background">
+  <div class="ctj-edit_background" id="ctj-edit_background" style="background-image: {background}">
     <div class="ctj-edit_content">
       {#if editConfig.windowControls}
         <WindowBar />
@@ -80,15 +82,15 @@
       position: relative;
       width: fit-content;
       padding: 2rem;
-      border-radius: 0.75rem;
-      background-image: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%);
-      background-color: rgb(65, 88, 208);
+      border-radius: 8px;
+      /* background-image: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%); */
+      background-color: transparent;
       overflow: auto;
       margin-bottom: 5rem;
     }
 
     &_content {
-      border-radius: 0.75rem;
+      border-radius: 8px;
       background-color: rgba(31, 41, 55, 0.8);
 
       /* background-color: rgb(31 41 55/1); */

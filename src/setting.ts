@@ -1,9 +1,11 @@
 import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 import { Setting, PluginSettingTab, type App } from 'obsidian';
+import { BACKGROUND } from '@/constant/background';
 
 export const DEFAULT_SETTINGS: CodeImageSettings = {
   theme: 'OneDark3',
   hasBackground: true,
+  backgroundColor: BACKGROUND[0],
   isDarkMode: true,
   windowControls: true,
   barTitle: '',

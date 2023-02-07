@@ -7,6 +7,7 @@ export interface CodeToImagePluginType extends Plugin {
 export interface CodeImageSettings {
   theme: string;
   hasBackground: boolean;
+  backgroundColor: string;
   isDarkMode: boolean;
   windowControls: boolean;
   barTitle: string;
