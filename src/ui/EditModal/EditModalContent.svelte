@@ -61,6 +61,8 @@
       {/if}
     </div>
   </div>
+  <div class="ctj-edit_resize_bar"></div>
+  <div class="ctj-edit_resize_line"></div>
 </div>
 <div class="ctj-edit_panel">
   <button on:click="{actions.onCopyAsImage}">Copy</button>
@@ -73,10 +75,11 @@
   }
   .ctj-edit {
     &_container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      position: relative;
+      width: min-content;
+      margin: auto;
       background: transparent;
+      padding-bottom: 5rem;
     }
     &_background {
       position: relative;
@@ -86,7 +89,6 @@
       /* background-image: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%); */
       background-color: transparent;
       overflow: auto;
-      margin-bottom: 5rem;
     }
 
     &_content {
@@ -118,6 +120,38 @@
       & > button {
         gap: 0.3em;
       }
+    }
+
+    &_resize_bar {
+      /* cursor: col-resize;
+      resize: horizontal;
+      width: 1px;
+      background-color: red; */
+      width: 200px;
+      height: inherit;
+      resize: horizontal;
+      cursor: col-resize;
+      opacity: 0;
+      overflow: scroll;
+      &::-webkit-scrollbar {
+        width: 200px;
+        height: inherit;
+      }
+
+      &:hover ~ .ctj-edit_resize_line,
+      &:active ~ .ctj-edit_resize_line {
+        border-left: 1px dashed skyblue;
+      }
+    }
+
+    &_resize_line {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      border-right: 2px solid #eee;
+      border-left: 1px solid #bbb;
+      pointer-events: none;
     }
   }
 </style>
