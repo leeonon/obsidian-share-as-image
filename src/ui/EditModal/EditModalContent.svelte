@@ -8,6 +8,8 @@
   import CodeMirror from '@/ui/Codemirror/index.svelte';
   import Setting from '@/ui/Setting.svelte';
   import WindowBar from '@/ui/WindowBar.svelte';
+  import ResizeContainer from '@/ui/ResizeContainer.svelte';
+
   import store from '@/store';
 
   export let value: string;
@@ -43,26 +45,26 @@
 
 <Setting />
 <div class="ctj-edit_container">
-  <div class="ctj-edit_background" id="ctj-edit_background" style="background-image: {background}">
-    <div class="ctj-edit_content">
-      {#if editConfig.windowControls}
-        <WindowBar />
-      {/if}
-      <CodeMirror
-        extensions="{{
-          lineNumbers: editConfig.showLineNumber,
-        }}"
-        lang="{lang}"
-        doc="{value}"
-        bind:docStore="{docStore}"
-        on:change="{changeHandler}" />
-      {#if editConfig.hasWatermark}
-        <div class="ctj-edit_watermark" contenteditable>@{editConfig.watermark}</div>
-      {/if}
+  <ResizeContainer>
+    <div class="ctj-edit_background" id="ctj-edit_background" style="background-image: {background}">
+      <div class="ctj-edit_content">
+        {#if editConfig.windowControls}
+          <WindowBar />
+        {/if}
+        <CodeMirror
+          extensions="{{
+            lineNumbers: editConfig.showLineNumber,
+          }}"
+          lang="{lang}"
+          doc="{value}"
+          bind:docStore="{docStore}"
+          on:change="{changeHandler}" />
+        {#if editConfig.hasWatermark}
+          <div class="ctj-edit_watermark" contenteditable>@{editConfig.watermark}</div>
+        {/if}
+      </div>
     </div>
-  </div>
-  <div class="ctj-edit_resize_bar"></div>
-  <div class="ctj-edit_resize_line"></div>
+  </ResizeContainer>
 </div>
 <div class="ctj-edit_panel">
   <button on:click="{actions.onCopyAsImage}">Copy</button>
@@ -83,7 +85,7 @@
     }
     &_background {
       position: relative;
-      width: fit-content;
+      width: inherit;
       padding: 2rem;
       border-radius: 8px;
       /* background-image: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%); */
@@ -120,38 +122,6 @@
       & > button {
         gap: 0.3em;
       }
-    }
-
-    &_resize_bar {
-      /* cursor: col-resize;
-      resize: horizontal;
-      width: 1px;
-      background-color: red; */
-      width: 200px;
-      height: inherit;
-      resize: horizontal;
-      cursor: col-resize;
-      opacity: 0;
-      overflow: scroll;
-      &::-webkit-scrollbar {
-        width: 200px;
-        height: inherit;
-      }
-
-      &:hover ~ .ctj-edit_resize_line,
-      &:active ~ .ctj-edit_resize_line {
-        border-left: 1px dashed skyblue;
-      }
-    }
-
-    &_resize_line {
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      border-right: 2px solid #eee;
-      border-left: 1px solid #bbb;
-      pointer-events: none;
     }
   }
 </style>
