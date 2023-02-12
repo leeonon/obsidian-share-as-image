@@ -1,9 +1,11 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
 
+  export let containerEl: HTMLDivElement;
+
   let width: number | undefined;
   let flag = false;
-  let containerEl: HTMLDivElement;
+  let contentEl: HTMLDivElement;
   let rightEl: HTMLDivElement;
 
   function showFlag() {
@@ -16,8 +18,8 @@
 
   function mousemove(e: MouseEvent) {
     if (flag) {
-      const clientWidth = containerEl.clientWidth;
-      width = e.pageX - containerEl.getBoundingClientRect().left;
+      const { left, width: contentWidth } = contentEl.getBoundingClientRect();
+      width = e.pageX - left < containerEl.clientWidth - 30 ? e.pageX - left : containerEl.clientWidth - 30;
     }
   }
 
@@ -38,7 +40,7 @@
   });
 </script>
 
-<div class="ctj-resize-container" bind:this="{containerEl}" style="width: {width}px;">
+<div class="ctj-resize-container" bind:this="{contentEl}" style="width: {width}px;">
   <slot />
   <div class="ctj-resize-container_right" class:active="{flag}" bind:this="{rightEl}"></div>
 </div>

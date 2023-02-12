@@ -21,7 +21,7 @@
 
   let editConfig: CodeImageSettings;
   let docStore: any;
-  let exportIcon: HTMLSpanElement;
+  let containerEl: HTMLDivElement;
 
   $: background = editConfig.hasBackground ? editConfig.backgroundColor : null;
 
@@ -44,8 +44,8 @@
 </script>
 
 <Setting />
-<div class="ctj-edit_container">
-  <ResizeContainer>
+<div class="ctj-edit_container" bind:this="{containerEl}">
+  <ResizeContainer containerEl="{containerEl}">
     <div class="ctj-edit_background" id="ctj-edit_background" style="background-image: {background}">
       <div class="ctj-edit_content">
         {#if editConfig.windowControls}
@@ -78,8 +78,9 @@
   .ctj-edit {
     &_container {
       position: relative;
-      width: min-content;
-      margin: auto;
+      display: flex;
+      justify-content: center;
+      width: 100%;
       background: transparent;
       padding-bottom: 5rem;
     }

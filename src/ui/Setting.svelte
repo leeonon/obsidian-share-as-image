@@ -19,7 +19,7 @@
 
 <div class="cti-title-bar">
   <div class:active="{true}" class="cti-title-bar_item">
-    <span>Theme：</span>
+    <span>Theme</span>
     <select class="dropdown cti-select-dropdown" name="Version" bind:value="{$editConfig.theme}">
       {#each options as item (item.value)}
         <option value="{item.value}">{item.name}</option>
@@ -27,7 +27,7 @@
     </select>
   </div>
   <div class="cti-title-bar_item">
-    <span>Background：</span>
+    <span>Background</span>
     <div
       class="checkbox-container"
       on:keypress="{() => {}}"
@@ -37,11 +37,11 @@
     </div>
   </div>
   <div class="cti-title-bar_item">
-    <span>BackgroundColor：</span>
+    <span>BackgroundColor</span>
     <BackgroundCard />
   </div>
   <div class="cti-title-bar_item">
-    <span>DarkMode：</span>
+    <span>DarkMode</span>
     <div
       class="checkbox-container"
       class:is-enabled="{$editConfig.isDarkMode}"
@@ -51,7 +51,7 @@
     </div>
   </div>
   <div class="cti-title-bar_item">
-    <span>Window Controls：</span>
+    <span>Window Controls</span>
     <div
       class="checkbox-container"
       class:is-enabled="{$editConfig.windowControls}"
@@ -61,7 +61,7 @@
     </div>
   </div>
   <div class="cti-title-bar_item">
-    <span>Line Number：</span>
+    <span>Line Number</span>
     <div
       class="checkbox-container"
       class:is-enabled="{$editConfig.showLineNumber}"
@@ -71,7 +71,7 @@
     </div>
   </div>
   <div class="cti-title-bar_item">
-    <span>Watermark：</span>
+    <span>Watermark</span>
     <div
       class="checkbox-container"
       class:is-enabled="{$editConfig.hasWatermark}"
@@ -99,8 +99,15 @@
 
     &_item {
       display: flex;
-      align-items: center;
+      flex-direction: column;
+      gap: 0.35rem;
       font-size: 0.75rem;
+      color: #7f7f7f;
+
+      & > span:first-child {
+        display: inline-block;
+        height: 1rem;
+      }
     }
   }
 </style>

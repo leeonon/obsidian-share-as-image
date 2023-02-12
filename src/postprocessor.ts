@@ -5,7 +5,7 @@ import type { CodeToImagePluginType } from '@/types';
 
 import { LANG_LIST } from '@/constant';
 import { createElement } from '@/utils';
-import EditModal from '@/ui/EditModal/EditModal';
+import EditModal from '@/ui/EditModal';
 
 const LANG_REG = /^language-/;
 

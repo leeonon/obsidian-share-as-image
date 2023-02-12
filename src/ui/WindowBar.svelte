@@ -18,6 +18,7 @@
 
 <style lang="scss">
   .ctj-edit_bar {
+    position: relative;
     display: flex;
     gap: 1rem;
     padding: 1rem 1rem 0rem 1rem;
@@ -46,8 +47,9 @@
     }
 
     &_input {
-      flex: 1;
-      position: relative;
+      position: absolute;
+      left: 0;
+      width: 100%;
       height: 1rem;
       color: hsla(0, 0%, 100%, 0.3);
       font-size: 12px;
