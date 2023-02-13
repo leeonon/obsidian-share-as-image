@@ -1,18 +1,14 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { editConfig } from '@/store';
+  import { Theme, type ThemeKey } from '@/themes';
   import BackgroundCard from '@/ui/BackgroundCard.svelte';
-
-  const options = [
-    { value: 'OneDarkTheme', name: 'OneDarkTheme' },
-    { value: 'OneDark2', name: 'OneDark2' },
-    { value: 'OneDark3', name: 'OneDark3' },
-    { value: 'OneDark4', name: 'OneDark4' },
-  ];
 
   const editCOnfigSubscribed = editConfig.subscribe(state => {
     console.log('🚀 ~ file: TitleBar.svelte:13 ~ editCOnfigSubscribed ~ state', state);
   });
+
+  const themes = Object.keys(Theme) as [ThemeKey];
 
   onDestroy(() => {});
 </script>
@@ -21,8 +17,8 @@
   <div class:active="{true}" class="cti-title-bar_item">
     <span>Theme</span>
     <select class="dropdown cti-select-dropdown" name="Version" bind:value="{$editConfig.theme}">
-      {#each options as item (item.value)}
-        <option value="{item.value}">{item.name}</option>
+      {#each themes as key}
+        <option value="{key}">{key}</option>
       {/each}
     </select>
   </div>

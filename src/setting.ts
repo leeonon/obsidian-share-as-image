@@ -1,9 +1,12 @@
 import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
+import type { ThemeKey } from '@/themes';
+
 import { Setting, PluginSettingTab, type App } from 'obsidian';
 import { BACKGROUND } from '@/constant/background';
+import { ThemeOptions } from '@/themes';
 
 export const DEFAULT_SETTINGS: CodeImageSettings = {
-  theme: 'OneDark3',
+  theme: 'default',
   hasBackground: true,
   backgroundColor: BACKGROUND[0],
   isDarkMode: true,
@@ -43,13 +46,9 @@ export default class SettingTab extends PluginSettingTab {
       .setDesc('set default theme')
       .addDropdown(options =>
         options
-          .addOptions({
-            onDarkTheme: 'onDarkTheme',
-            onDarkTheme2: 'onDarkTheme2',
-            OneDark3: 'OneDark3',
-          })
+          .addOptions(ThemeOptions)
           .setValue(this.plugin.settings.theme)
-          .onChange(async value => await this.setTingChange('theme', value))
+          .onChange(async value => await this.setTingChange('theme', value as ThemeKey))
       );
 
     new Setting(containerEl)

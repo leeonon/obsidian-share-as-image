@@ -8,7 +8,9 @@
 
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher, afterUpdate } from 'svelte';
-  import { darkTheme } from '@/themes/customTheme';
+  import { Theme, type ThemeKey } from '@/themes';
+  import { darkTheme as defaultTheme } from '@/themes/default';
+
   const dispatch = createEventDispatcher();
 
   let dom: any;
@@ -40,10 +42,16 @@
   /* 需要开启的插件 */
   export let extensions: ExtensionParams | undefined = undefined;
 
+  export let theme: ThemeKey = 'default';
+
   /* Cached doc string so that we don't extract strings in bulk over and over. */
   let _docCached: any = null;
 
-  $: stateExtensions = [...getExtension(extensions), ...getTheme(), getLanguage(lang)];
+  function getTheme() {
+    return Theme.find(v => v.name === theme)?.value || defaultTheme;
+  }
+
+  $: stateExtensions = [...getExtension(extensions), getTheme(), getLanguage(lang)];
 
   /* Overwrite the bulk of the text with the one specified. */
   function _setText(text: string) {
@@ -86,10 +94,6 @@
     view.dispatch({
       effects: StateEffect.reconfigure.of(stateExtensions),
     });
-  }
-
-  function getTheme() {
-    return [darkTheme];
   }
 
   $: _reconfigureExtensions();
