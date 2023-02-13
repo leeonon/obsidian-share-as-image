@@ -55,6 +55,7 @@
           extensions="{{
             lineNumbers: editConfig.showLineNumber,
           }}"
+          theme="{editConfig.theme}"
           lang="{lang}"
           doc="{value}"
           bind:docStore="{docStore}"

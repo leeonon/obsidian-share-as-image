@@ -8,8 +8,6 @@
     console.log('🚀 ~ file: TitleBar.svelte:13 ~ editCOnfigSubscribed ~ state', state);
   });
 
-  const themes = Object.keys(Theme) as [ThemeKey];
-
   onDestroy(() => {});
 </script>
 
@@ -17,8 +15,8 @@
   <div class:active="{true}" class="cti-title-bar_item">
     <span>Theme</span>
     <select class="dropdown cti-select-dropdown" name="Version" bind:value="{$editConfig.theme}">
-      {#each themes as key}
-        <option value="{key}">{key}</option>
+      {#each Theme as item (item.name)}
+        <option value="{item.name}">{item.name}</option>
       {/each}
     </select>
   </div>
