@@ -1,3 +1,3 @@
-import { oneDark } from '@codemirror/theme-one-dark';
+import { oneDark, color } from '@codemirror/theme-one-dark';
 
-export { oneDark };
+export { oneDark, color };

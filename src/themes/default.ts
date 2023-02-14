@@ -66,3 +66,7 @@ export const darkTheme = createTheme({
     { tag: tags.typeName, color: '#5cabff' },
   ],
 });
+
+export const color = {
+  background: 'rgba(31, 41, 55, 0.8)',
+};

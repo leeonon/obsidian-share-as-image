@@ -9,6 +9,7 @@
   import Setting from '@/ui/Setting.svelte';
   import WindowBar from '@/ui/WindowBar.svelte';
   import ResizeContainer from '@/ui/ResizeContainer.svelte';
+  import { Theme } from '@/themes';
 
   import store from '@/store';
 
@@ -24,6 +25,7 @@
   let containerEl: HTMLDivElement;
 
   $: background = editConfig.hasBackground ? editConfig.backgroundColor : null;
+  $: color = Theme.find(v => v.name === editConfig.theme)?.color;
 
   function changeHandler({ detail: { tr } }: any) {
     console.log('change', tr.changes.toJSON());
@@ -47,7 +49,7 @@
 <div class="ctj-edit_container" bind:this="{containerEl}">
   <ResizeContainer containerEl="{containerEl}">
     <div class="ctj-edit_background" id="ctj-edit_background" style="background-image: {background}">
-      <div class="ctj-edit_content">
+      <div class="ctj-edit_content" style="background-color: {color?.background};">
         {#if editConfig.windowControls}
           <WindowBar />
         {/if}
@@ -74,7 +76,7 @@
 
 <style lang="scss">
   :global(.codemirror) {
-    border: 1px solid #ddd;
+    border: unset;
   }
   .ctj-edit {
     &_container {
@@ -98,8 +100,7 @@
     &_content {
       border-radius: 8px;
       background-color: rgba(31, 41, 55, 0.8);
-
-      /* background-color: rgb(31 41 55/1); */
+      overflow: hidden;
     }
 
     &_watermark {

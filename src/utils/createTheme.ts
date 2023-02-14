@@ -51,10 +51,6 @@ export const createTheme = ({ theme, settings = {}, styles = [] }: CreateThemeOp
   const themeOptions: Record<string, StyleSpec> = {
     '&': {},
     '.cm-gutters': {},
-
-    '&.cm-editor': {
-      padding: '1rem',
-    },
   };
 
   // Setting &

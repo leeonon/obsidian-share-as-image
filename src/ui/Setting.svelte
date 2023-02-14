@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import { editConfig } from '@/store';
-  import { Theme, type ThemeKey } from '@/themes';
+  import { Theme } from '@/themes';
   import BackgroundCard from '@/ui/BackgroundCard.svelte';
 
   const editCOnfigSubscribed = editConfig.subscribe(state => {

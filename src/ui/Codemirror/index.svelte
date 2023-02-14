@@ -154,6 +154,6 @@
 
 <style>
   .codemirror {
-    display: contents;
+    padding: 1rem;
   }
 </style>
