@@ -22,7 +22,7 @@ If your plugin does not need CSS, delete this file.
 	transition: opacity 0.25s;
 	cursor: pointer;
 }
-.code-to-image-modal {
+.shared-as-image-modal {
 	width: var(--modal-width);
 	max-width: var(--modal-max-width);
 	max-height: var(--modal-max-height);

@@ -1,6 +1,6 @@
 {
-	"id": "obsidian-code-to-image-plugin",
-	"name": "Code To Image Plugin",
+	"id": "obsidian-share-as-image-plugin",
+	"name": "Share as Image Plugin",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "代码转图片",
