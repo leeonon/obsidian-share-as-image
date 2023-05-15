@@ -49,6 +49,7 @@
   .ctj-resize-container {
     display: flex;
     position: relative;
+    margin: 3rem 0;
 
     &_right {
       position: absolute;

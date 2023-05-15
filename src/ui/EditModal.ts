@@ -38,7 +38,7 @@ export default class EditModal extends Modal {
 
   private initModal = () => {
     this.modalEl.addClass('shared-as-image-modal');
-    this.titleEl.innerText = 'ShareAsImage';
+    // this.titleEl.innerText = 'ShareAsImage';
 
     this.modalContent = new EditModalContent({
       target: this.contentEl,

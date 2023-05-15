@@ -45,33 +45,35 @@
   onDestroy(unsubscribe);
 </script>
 
-<Setting />
-<div class="ctj-edit_container" bind:this="{containerEl}">
-  <ResizeContainer containerEl="{containerEl}">
-    <div class="ctj-edit_background" id="ctj-edit_background" style="background-image: {background}">
-      <div class="ctj-edit_content" style="background-color: {color?.background};">
-        {#if editConfig.windowControls}
-          <WindowBar />
-        {/if}
-        <CodeMirror
-          extensions="{{
-            lineNumbers: editConfig.showLineNumber,
-          }}"
-          theme="{editConfig.theme}"
-          lang="{lang}"
-          doc="{value}"
-          bind:docStore="{docStore}"
-          on:change="{changeHandler}" />
-        {#if editConfig.hasWatermark}
-          <div class="ctj-edit_watermark" contenteditable>@{editConfig.watermark}</div>
-        {/if}
-      </div>
+<div class="ctj-edit">
+  <Setting />
+  <div class="ctj-edit_container" bind:this="{containerEl}">
+    <div class="ctj-edit_panel">
+      <button on:click="{actions.onCopyAsImage}">Copy</button>
+      <button class="mod-cta" on:click="{actions.toPng}">Export <span use:addButtonIcon></span></button>
     </div>
-  </ResizeContainer>
-</div>
-<div class="ctj-edit_panel">
-  <button on:click="{actions.onCopyAsImage}">Copy</button>
-  <button class="mod-cta" on:click="{actions.toPng}">Export <span use:addButtonIcon></span></button>
+    <ResizeContainer containerEl="{containerEl}">
+      <div class="ctj-edit_background" id="ctj-edit_background" style="background-image: {background}">
+        <div class="ctj-edit_content" style="background-color: {color?.background};">
+          {#if editConfig.windowControls}
+            <WindowBar />
+          {/if}
+          <CodeMirror
+            extensions="{{
+              lineNumbers: editConfig.showLineNumber,
+            }}"
+            theme="{editConfig.theme}"
+            lang="{lang}"
+            doc="{value}"
+            bind:docStore="{docStore}"
+            on:change="{changeHandler}" />
+          {#if editConfig.hasWatermark}
+            <div class="ctj-edit_watermark" contenteditable>@{editConfig.watermark}</div>
+          {/if}
+        </div>
+      </div>
+    </ResizeContainer>
+  </div>
 </div>
 
 <style lang="scss">
@@ -79,20 +81,34 @@
     border: unset;
   }
   .ctj-edit {
+    display: flex;
     &_container {
       position: relative;
       display: flex;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
       width: 100%;
-      background: transparent;
-      padding-bottom: 5rem;
+    }
+    &_panel {
+      height: 4rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      gap: 1rem;
+      background-color: var(--background-secondary);
+
+      & > button {
+        gap: 0.3em;
+      }
     }
     &_background {
       position: relative;
       width: inherit;
       padding: 2rem;
       border-radius: 8px;
-      /* background-image: linear-gradient(43deg, rgb(65, 88, 208) 0%, rgb(200, 80, 192) 46%, rgb(255, 204, 112) 100%); */
       background-color: transparent;
       overflow: auto;
     }
@@ -108,23 +124,6 @@
       right: 1rem;
       bottom: 0.5rem;
       mix-blend-mode: overlay;
-    }
-    &_panel {
-      position: absolute;
-      bottom: 0;
-      height: 4rem;
-      background: #252525;
-      width: 100%;
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: end;
-      gap: 1rem;
-      padding-right: 2rem;
-
-      & > button {
-        gap: 0.3em;
-      }
     }
   }
 </style>

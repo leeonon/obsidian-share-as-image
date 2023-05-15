@@ -12,6 +12,7 @@
 </script>
 
 <div class="cti-title-bar">
+  <div class="cti-title-bar-title">Options</div>
   <div class:active="{true}" class="cti-title-bar_item">
     <span>Theme</span>
     <select class="dropdown cti-select-dropdown" name="Version" bind:value="{$editConfig.theme}">
@@ -78,25 +79,36 @@
 
 <style lang="scss">
   .cti-title-bar {
+    flex: 0 0 25%;
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-    width: fit-content;
-    border: 1px solid hsla(0, 0%, 100%, 0.2);
-    background-color: #191919;
-    box-shadow: 0 4px 16px rgb(0 0 0 / 60%);
-    border-radius: 10px;
-    padding: 20px;
-    margin: auto;
-    margin-bottom: 35px;
+    flex-direction: column;
+    align-items: start;
+    min-width: 180px;
+    max-width: 250px;
+    overflow: auto;
+    border-right: 1px solid var(--divider-color);
+    padding: var(--size-4-3);
+    background-color: var(--background-secondary);
+    /* box-shadow: 0 4px 16px rgb(0 0 0 / 60%); */
+
+    &-title {
+      font-size: var(--font-ui-smaller);
+      color: var(--text-faint);
+      font-weight: var(--font-semibold);
+      padding: var(--size-4-5);
+      user-select: none;
+    }
 
     &_item {
+      width: 100%;
       display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      font-size: 0.75rem;
-      color: #7f7f7f;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text-normal);
+      font-size: var(--font-ui-medium);
+      line-height: var(--line-height-tight);
+      padding: 0.9rem 0;
+      border-top: 1px solid var(--background-modifier-border);
 
       & > span:first-child {
         display: inline-block;

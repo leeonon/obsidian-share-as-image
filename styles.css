@@ -23,8 +23,8 @@ If your plugin does not need CSS, delete this file.
 	cursor: pointer;
 }
 .shared-as-image-modal {
+	padding: 0;
 	width: var(--modal-width);
-	max-width: var(--modal-max-width);
 	max-height: var(--modal-max-height);
 }
 
