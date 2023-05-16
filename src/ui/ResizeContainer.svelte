@@ -19,7 +19,7 @@
   function mousemove(e: MouseEvent) {
     if (flag) {
       const { left, width: contentWidth } = contentEl.getBoundingClientRect();
-      width = e.pageX - left < containerEl.clientWidth - 30 ? e.pageX - left : containerEl.clientWidth - 30;
+      width = e.pageX - left < containerEl.clientWidth - 40 ? e.pageX - left : containerEl.clientWidth - 40;
     }
   }
 

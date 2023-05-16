@@ -10,7 +10,6 @@
 
   function onChangeColor(color: string) {
     editConfig.update({ backgroundColor: color });
-    onChangeVisible();
   }
 </script>
 
@@ -38,40 +37,47 @@
   }
 
   .ctj-edit_background_button {
-    width: 3rem;
-    height: 1.8rem;
+    width: 5rem;
+    height: 2rem;
     cursor: pointer;
     border-radius: 6px;
   }
 
   .ctj-edit_background_list {
     position: absolute;
-    top: calc(100% + 1rem);
-    left: 50%;
-    /* height: 0; */
+    top: 2.4rem;
+    right: 0;
+    padding: 1rem;
     overflow: hidden;
-    transform: translateX(-50%) scaleY(0);
+    transform: scaleY(0);
     transform-origin: 0% 0%;
     transition: all 0.2s;
     z-index: 1;
     opacity: 0;
+    background-color: var(--color-base-20);
+    box-shadow: 0 4px 16px var(--color-base-50);
+    border-radius: 6px;
 
     &.visible {
-      transform: translateX(-50%) scaleY(1);
+      transform: scaleY(1);
       opacity: 1;
     }
 
     & > ul {
-      width: 20rem;
+      width: 12rem;
+      max-height: 20rem;
       margin: 0;
-      padding: 1rem;
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
       list-style: none;
-      background-color: #1e1e1e;
-      border: 1px solid #313131;
       border-radius: 6px;
+      max-height: 15rem;
+      overflow-y: scroll;
+      padding: 0;
+      &::-webkit-scrollbar {
+        width: 0;
+      }
       & > li {
         flex: auto;
         height: 2.5rem;

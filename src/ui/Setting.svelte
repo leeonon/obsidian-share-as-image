@@ -101,19 +101,14 @@
 
     &_item {
       width: 100%;
+      height: 3.2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       color: var(--text-normal);
       font-size: var(--font-ui-medium);
       line-height: var(--line-height-tight);
-      padding: 0.9rem 0;
       border-top: 1px solid var(--background-modifier-border);
-
-      & > span:first-child {
-        display: inline-block;
-        height: 1rem;
-      }
     }
   }
 </style>
