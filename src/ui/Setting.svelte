@@ -1,14 +1,16 @@
 <script lang="ts">
+  import type { CodeImageSettings } from '@/types';
+
   import { onDestroy } from 'svelte';
   import { editConfig } from '@/store';
   import { Theme } from '@/themes';
   import BackgroundCard from '@/ui/BackgroundCard.svelte';
 
-  const editCOnfigSubscribed = editConfig.subscribe(state => {
-    console.log('🚀 ~ file: TitleBar.svelte:13 ~ editCOnfigSubscribed ~ state', state);
-  });
+  export let onSave: (settings: CodeImageSettings) => void;
 
-  onDestroy(() => {});
+  function handlerSave() {
+    onSave($editConfig);
+  }
 </script>
 
 <div class="cti-title-bar">
@@ -75,6 +77,7 @@
       <input type="checkbox" bind:value="{$editConfig.hasWatermark}" />
     </div>
   </div>
+  <button on:click="{handlerSave}">Set as default Settings</button>
 </div>
 
 <style lang="scss">
@@ -89,7 +92,6 @@
     border-right: 1px solid var(--divider-color);
     padding: var(--size-4-3);
     background-color: var(--background-secondary);
-    /* box-shadow: 0 4px 16px rgb(0 0 0 / 60%); */
 
     &-title {
       font-size: var(--font-ui-smaller);
@@ -109,6 +111,10 @@
       font-size: var(--font-ui-medium);
       line-height: var(--line-height-tight);
       border-top: 1px solid var(--background-modifier-border);
+    }
+
+    & > button {
+      margin: auto auto 0;
     }
   }
 </style>

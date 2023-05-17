@@ -18,19 +18,19 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
 };
 
 export default class SettingTab extends PluginSettingTab {
-  plugin: CodeToImagePluginType;
+  plugins: CodeToImagePluginType;
 
   constructor(app: App, plugins: CodeToImagePluginType) {
     super(app, plugins);
-    this.plugin = plugins;
+    this.plugins = plugins;
   }
 
   async saveSettings(): Promise<void> {
-    await this.plugin.saveData(this.plugin.settings);
+    await this.plugins.saveData(this.plugins.settings);
   }
 
   async setTingChange<T extends keyof CodeImageSettings>(key: T, value: CodeImageSettings[T]) {
-    this.plugin.settings[key] = value;
+    this.plugins.settings[key] = value;
     await this.saveSettings();
   }
 
@@ -47,7 +47,7 @@ export default class SettingTab extends PluginSettingTab {
       .addDropdown(options =>
         options
           .addOptions(ThemeOptions)
-          .setValue(this.plugin.settings.theme)
+          .setValue(this.plugins.settings.theme)
           .onChange(async value => await this.setTingChange('theme', value as ThemeKey))
       );
 
@@ -56,7 +56,7 @@ export default class SettingTab extends PluginSettingTab {
       .setDesc('set whether the background exists ')
       .addToggle(value =>
         value
-          .setValue(this.plugin.settings.hasBackground)
+          .setValue(this.plugins.settings.hasBackground)
           .onChange(async val => await this.setTingChange('hasBackground', val))
       );
 
@@ -65,7 +65,7 @@ export default class SettingTab extends PluginSettingTab {
       .setDesc('set default is dark modal')
       .addToggle(value =>
         value
-          .setValue(this.plugin.settings.isDarkMode)
+          .setValue(this.plugins.settings.isDarkMode)
           .onChange(async value => await this.setTingChange('isDarkMode', value))
       );
 
@@ -74,7 +74,7 @@ export default class SettingTab extends PluginSettingTab {
       .setDesc('set default has WindowControls')
       .addToggle(value =>
         value
-          .setValue(this.plugin.settings.windowControls)
+          .setValue(this.plugins.settings.windowControls)
           .onChange(async value => await this.setTingChange('windowControls', value))
       );
 
@@ -84,7 +84,7 @@ export default class SettingTab extends PluginSettingTab {
       .addText(text =>
         text
           .setPlaceholder('Enter your title')
-          .setValue(this.plugin.settings.barTitle)
+          .setValue(this.plugins.settings.barTitle)
           .onChange(async value => await this.setTingChange('barTitle', value))
       );
 
@@ -93,7 +93,7 @@ export default class SettingTab extends PluginSettingTab {
       .setDesc('set default has line numbers')
       .addToggle(value =>
         value
-          .setValue(this.plugin.settings.showLineNumber)
+          .setValue(this.plugins.settings.showLineNumber)
           .onChange(async value => await this.setTingChange('showLineNumber', value))
       );
 
@@ -102,7 +102,7 @@ export default class SettingTab extends PluginSettingTab {
       .setDesc('set default has has watermark')
       .addToggle(value =>
         value
-          .setValue(this.plugin.settings.hasWatermark)
+          .setValue(this.plugins.settings.hasWatermark)
           .onChange(async value => await this.setTingChange('hasWatermark', value))
       );
 
@@ -112,7 +112,7 @@ export default class SettingTab extends PluginSettingTab {
       .addText(text =>
         text
           .setPlaceholder('Enter your watermark')
-          .setValue(this.plugin.settings.watermark)
+          .setValue(this.plugins.settings.watermark)
           .onChange(async value => await this.setTingChange('watermark', value))
       );
   }

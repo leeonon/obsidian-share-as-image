@@ -18,6 +18,7 @@
   export let actions: {
     toPng: () => void;
     onCopyAsImage: () => void;
+    setDefaultSetting: (settings: CodeImageSettings) => void;
   };
 
   let editConfig: CodeImageSettings;
@@ -46,7 +47,7 @@
 </script>
 
 <div class="ctj-edit">
-  <Setting />
+  <Setting onSave="{actions.setDefaultSetting}" />
   <div class="ctj-edit_container" bind:this="{containerEl}">
     <div class="ctj-edit_panel">
       <button on:click="{actions.onCopyAsImage}">Copy</button>
@@ -108,7 +109,6 @@
       position: relative;
       width: inherit;
       padding: 2rem;
-      border-radius: 4px;
       background-color: transparent;
       overflow: auto;
     }

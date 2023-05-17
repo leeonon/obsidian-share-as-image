@@ -1,5 +1,5 @@
 import type { LanguageType } from '@/ui/Codemirror/lang';
-import type { CodeToImagePluginType } from '@/types';
+import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 
 import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
@@ -25,6 +25,11 @@ export default class EditModal extends Modal {
     return ele;
   };
 
+  private setDefaultSetting = async (settings: CodeImageSettings) => {
+    await this.plugins.saveData({ ...this.plugins.settings, ...settings });
+    new Notice('set default setting success');
+  };
+
   private toPng = () => {
     toPng(this.getEditElement())
       .then(dataUrl => {
@@ -48,6 +53,7 @@ export default class EditModal extends Modal {
         actions: {
           toPng: this.toPng,
           onCopyAsImage: this.onCopyAsImage,
+          setDefaultSetting: this.setDefaultSetting,
         },
       },
     });
