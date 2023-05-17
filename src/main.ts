@@ -1,5 +1,6 @@
 import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 
+import '@babel/runtime/helpers/extends';
 import { Plugin } from 'obsidian';
 
 import { codeBlockPostProcessor } from '@/postProcessor';

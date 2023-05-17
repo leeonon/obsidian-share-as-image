@@ -108,7 +108,7 @@
       position: relative;
       width: inherit;
       padding: 2rem;
-      border-radius: 8px;
+      border-radius: 4px;
       background-color: transparent;
       overflow: auto;
     }
