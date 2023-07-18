@@ -37,3 +37,12 @@ If your plugin does not need CSS, delete this file.
 .cm-editor.cm-focused {
   outline: none !important;
 }
+.cm-activeLineGutter {
+	background-color: transparent !important;
+}
+.cm-editor .cm-lineNumbers {
+	background-color: transparent !important;
+}
+.cm-gutters {
+	background-color: transparent !important;
+}

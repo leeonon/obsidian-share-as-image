@@ -98,7 +98,10 @@ export const createTheme = ({ theme, settings = {}, styles = [] }: CreateThemeOp
     };
     activeLineGutterStyle.backgroundColor = settings.lineHighlight;
   }
-  themeOptions['.cm-activeLineGutter'] = activeLineGutterStyle;
+  themeOptions['.cm-activeLineGutter'] = {
+    backgroundColor: 'transparent',
+    ...activeLineGutterStyle,
+  };
 
   if (settings.selection) {
     themeOptions[
