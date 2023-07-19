@@ -14,7 +14,6 @@
   import store from '@/store';
 
   export let value: string;
-  export let lang: LanguageType;
   export let actions: {
     toPng: () => void;
     onCopyAsImage: () => void;
@@ -64,7 +63,7 @@
               lineNumbers: editConfig.showLineNumber,
             }}"
             theme="{editConfig.theme}"
-            lang="{lang}"
+            lang="{editConfig.language}"
             doc="{value}"
             bind:docStore="{docStore}"
             on:change="{changeHandler}" />

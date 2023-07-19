@@ -2,6 +2,8 @@
 import type { MarkdownPostProcessorContext, App } from 'obsidian';
 import type { LanguageType } from '@/ui/Codemirror/lang';
 import type { CodeToImagePluginType } from '@/types';
+import { editConfig } from '@/store';
+import { langs } from '@/ui/Codemirror/lang';
 
 import { createElement } from '@/utils';
 import EditModal from '@/ui/EditModal';
@@ -36,10 +38,12 @@ export function codeBlockPostProcessor(
   button.setAttribute('aria-label', 'Share To Image');
   button.innerText = 'Share';
 
-  const buttonHanlder = () => {
-    new EditModal(app, plugin, lang, code.innerText);
+  const buttonHandler = () => {
+    const language = (Object.keys(langs).find(key => key === lang) || 'TEXT') as LanguageType;
+    editConfig.update({ language: language });
+    new EditModal(app, plugin, language, code.innerText);
   };
 
-  plugin.registerDomEvent(button, 'click', buttonHanlder);
+  plugin.registerDomEvent(button, 'click', buttonHandler);
   pre?.parentElement?.appendChild(button);
 }

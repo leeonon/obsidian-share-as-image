@@ -1,5 +1,6 @@
 import type { Plugin } from 'obsidian';
 import type { ThemeKey } from '@/themes';
+import type { LanguageType } from '@/ui/Codemirror/lang';
 
 export interface CodeToImagePluginType extends Plugin {
   settings: CodeImageSettings;
@@ -14,5 +15,5 @@ export interface CodeImageSettings {
   showLineNumber: boolean;
   hasWatermark: boolean;
   watermark: string;
-  language: string;
+  language: LanguageType;
 }

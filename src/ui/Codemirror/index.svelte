@@ -38,7 +38,7 @@
   export let verbose = false;
 
   /* 编程语言 */
-  export let lang: LanguageType = 'TEXT';
+  export let lang: LanguageType;
   /* 需要开启的插件 */
   export let extensions: ExtensionParams | undefined = undefined;
 
