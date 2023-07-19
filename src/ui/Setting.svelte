@@ -4,6 +4,7 @@
   import { onDestroy } from 'svelte';
   import { editConfig } from '@/store';
   import { Theme } from '@/themes';
+  import { langs } from '@/ui/Codemirror/lang';
   import BackgroundCard from '@/ui/BackgroundCard.svelte';
 
   export let onSave: (settings: CodeImageSettings) => void;
@@ -38,16 +39,6 @@
     <BackgroundCard />
   </div>
   <div class="cti-title-bar_item">
-    <span>DarkMode</span>
-    <div
-      class="checkbox-container"
-      class:is-enabled="{$editConfig.isDarkMode}"
-      on:keypress="{() => {}}"
-      on:click="{() => editConfig.update({ isDarkMode: !$editConfig.isDarkMode })}">
-      <input type="checkbox" bind:value="{$editConfig.isDarkMode}" />
-    </div>
-  </div>
-  <div class="cti-title-bar_item">
     <span>Window Controls</span>
     <div
       class="checkbox-container"
@@ -56,6 +47,14 @@
       on:click="{() => editConfig.update({ windowControls: !$editConfig.windowControls })}">
       <input type="checkbox" bind:value="{$editConfig.windowControls}" />
     </div>
+  </div>
+  <div class:active="{true}" class="cti-title-bar_item">
+    <span>Language</span>
+    <select class="dropdown cti-select-dropdown" name="Version" bind:value="{$editConfig.language}">
+      {#each Object.keys(langs) as lang (lang)}
+        <option value="{lang}">{lang}</option>
+      {/each}
+    </select>
   </div>
   <div class="cti-title-bar_item">
     <span>Line Number</span>

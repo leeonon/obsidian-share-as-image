@@ -38,7 +38,7 @@
   export let verbose = false;
 
   /* 编程语言 */
-  export let lang: LanguageType = 'text';
+  export let lang: LanguageType = 'TEXT';
   /* 需要开启的插件 */
   export let extensions: ExtensionParams | undefined = undefined;
 
@@ -51,7 +51,7 @@
     return Theme.find(v => v.name === theme)?.value || defaultTheme;
   }
 
-  $: stateExtensions = [...getExtension(extensions), getTheme(), getLanguage(lang)];
+  $: stateExtensions = [...getExtension(extensions), getTheme(), getLanguage(lang)].filter(Boolean);
 
   /* Overwrite the bulk of the text with the one specified. */
   function _setText(text: string) {

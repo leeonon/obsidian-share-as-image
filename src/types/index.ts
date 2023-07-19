@@ -9,10 +9,10 @@ export interface CodeImageSettings {
   theme: ThemeKey;
   hasBackground: boolean;
   backgroundColor: string;
-  isDarkMode: boolean;
   windowControls: boolean;
   barTitle: string;
   showLineNumber: boolean;
   hasWatermark: boolean;
   watermark: string;
+  language: string;
 }

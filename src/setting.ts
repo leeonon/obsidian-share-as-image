@@ -9,12 +9,12 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
   theme: 'default',
   hasBackground: true,
   backgroundColor: BACKGROUND[0],
-  isDarkMode: true,
   windowControls: true,
   barTitle: '',
   showLineNumber: false,
   hasWatermark: false,
   watermark: 'Obsidian',
+  language: 'text',
 };
 
 export default class SettingTab extends PluginSettingTab {
@@ -58,15 +58,6 @@ export default class SettingTab extends PluginSettingTab {
         value
           .setValue(this.plugins.settings.hasBackground)
           .onChange(async val => await this.setTingChange('hasBackground', val))
-      );
-
-    new Setting(containerEl)
-      .setName('DarkMode')
-      .setDesc('set default is dark modal')
-      .addToggle(value =>
-        value
-          .setValue(this.plugins.settings.isDarkMode)
-          .onChange(async value => await this.setTingChange('isDarkMode', value))
       );
 
     new Setting(containerEl)

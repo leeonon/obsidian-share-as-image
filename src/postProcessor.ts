@@ -3,11 +3,8 @@ import type { MarkdownPostProcessorContext, App } from 'obsidian';
 import type { LanguageType } from '@/ui/Codemirror/lang';
 import type { CodeToImagePluginType } from '@/types';
 
-import { LANG_LIST } from '@/constant';
 import { createElement } from '@/utils';
 import EditModal from '@/ui/EditModal';
-
-const LANG_REG = /^language-/;
 
 export function codeBlockPostProcessor(
   element: HTMLElement,
@@ -15,18 +12,14 @@ export function codeBlockPostProcessor(
   app: App,
   plugin: CodeToImagePluginType
 ) {
-  let lang: LanguageType = 'text';
+  let lang: LanguageType = 'TEXT';
   const code: HTMLPreElement = element.querySelector('pre:not(.frontmatter) > code') as HTMLPreElement;
 
   if (!code) return;
 
-  if (!LANG_LIST.some(name => code.classList.contains(`language-${name}`))) {
-    return;
-  }
-
   code.classList.forEach((val, key) => {
-    if (LANG_REG.test(val)) {
-      lang = val.replace(`language-`, '') as LanguageType;
+    if (/^language-/.test(val)) {
+      lang = val.replace(`language-`, '').toUpperCase() as LanguageType;
       return;
     }
   });
