@@ -8,6 +8,7 @@ import {
   crosshairCursor,
   lineNumbers,
   highlightActiveLineGutter,
+  EditorView,
 } from '@codemirror/view';
 import { type Extension, EditorState } from '@codemirror/state';
 import {
@@ -102,4 +103,6 @@ export const getExtension = (params?: ExtensionParams): Extension[] => [
     ...completionKeymap,
     ...lintKeymap,
   ]),
+  // 换行
+  EditorView.lineWrapping,
 ];
