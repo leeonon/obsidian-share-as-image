@@ -10,17 +10,24 @@ If your plugin does not need CSS, delete this file.
 	position: relative;
 }
 
-.code-to-image-wrap:hover .code-to-image_button {
-	opacity: 1;
+.markdown-rendered pre:not(:hover) > button.code-to-image-button {
+	display: none;
 }
-
-.code-to-image_button {
+.markdown-rendered button.code-to-image-button:hover {
+	background-color: var(--background-modifier-hover);
+}
+.markdown-rendered button.code-to-image-button {
+	margin: 6px;
+	padding: 6px 8px;
+	height: auto;
+	background-color: transparent;
+	box-shadow: none;
+	color: var(--text-muted);
+	font-size: var(--font-ui-smaller);
+	font-family: var(--font-interface);
 	position: absolute;
-	top: -30px;
-	right: 0;
-	opacity: 0;
-	transition: opacity 0.25s;
-	cursor: pointer;
+	top: 0;
+	right: 40px;
 }
 .shared-as-image-modal {
 	padding: 0;

@@ -34,9 +34,8 @@ export function codeBlockPostProcessor(
 
   pre?.parentElement?.addClass(`code-to-image-wrap`);
 
-  const button = createElement('button', 'code-to-image_button');
-  button.setAttribute('aria-label', 'Share To Image');
-  button.innerText = 'Share';
+  const button = createElement('button', 'code-to-image-button');
+  button.innerText = '图片';
 
   const buttonHandler = () => {
     const language = (Object.keys(langs).find(key => key === lang) || 'TEXT') as LanguageType;
@@ -45,5 +44,5 @@ export function codeBlockPostProcessor(
   };
 
   plugin.registerDomEvent(button, 'click', buttonHandler);
-  pre?.parentElement?.appendChild(button);
+  pre?.appendChild(button);
 }
