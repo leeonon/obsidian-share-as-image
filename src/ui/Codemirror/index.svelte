@@ -29,12 +29,13 @@
 
   export let view: any = null;
 
-  /* `doc` is deliberately made non-reactive for not storing a reduntant string
-	   besides the editor. Also, setting doc to undefined will not trigger an
-	   update, so that you can clear it after setting one. */
+  /**
+   * doc被故意设置为非响应式，以避免在编辑器之外存储冗余的字符串。此外，
+   * 将`doc`设置为未定义不会触发更新，因此可以在设置完毕后清除它。
+   */
   export let doc: string;
 
-  /* Set this if you would like to listen to all transactions via `update` event. */
+  /* 如果您想通过' update '事件侦听所有事务，请设置此选项. */
   export let verbose = false;
 
   /* 编程语言 */
@@ -44,14 +45,21 @@
 
   export let theme: ThemeKey = 'default';
 
-  /* Cached doc string so that we don't extract strings in bulk over and over. */
+  /* 缓存文档字符串，不用一次又一次地批量提取字符串. */
   let _docCached: any = null;
 
   function getTheme() {
     const themes = getThemesList({
       settings: { fontFamily: 'Comic Mono' },
     });
-    return themes.find(v => v.name === theme)?.value || defaultTheme;
+    const themeExtension = themes.find(v => v.name === theme)?.value || defaultTheme;
+    // TODO The font size is customized
+    const fontSizeExtension = EditorView.theme({
+      '&': {
+        fontSize: '1rem',
+      },
+    });
+    return [themeExtension, fontSizeExtension];
   }
 
   $: stateExtensions = [...getExtension(extensions), getTheme(), getLanguage(lang)].filter(Boolean);
