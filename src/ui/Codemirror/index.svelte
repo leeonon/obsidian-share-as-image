@@ -8,7 +8,7 @@
 
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher, afterUpdate } from 'svelte';
-  import { Theme, type ThemeKey } from '@/themes';
+  import { getThemesList, type ThemeKey } from '@/themes';
   import { darkTheme as defaultTheme } from '@/themes/default';
 
   const dispatch = createEventDispatcher();
@@ -48,7 +48,10 @@
   let _docCached: any = null;
 
   function getTheme() {
-    return Theme.find(v => v.name === theme)?.value || defaultTheme;
+    const themes = getThemesList({
+      settings: { fontFamily: 'Comic Mono' },
+    });
+    return themes.find(v => v.name === theme)?.value || defaultTheme;
   }
 
   $: stateExtensions = [...getExtension(extensions), getTheme(), getLanguage(lang)].filter(Boolean);

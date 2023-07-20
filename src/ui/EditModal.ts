@@ -3,7 +3,7 @@ import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 
 import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
-import { toPng, toBlob } from 'html-to-image';
+import { toPng, toBlob, getFontEmbedCSS } from 'html-to-image';
 
 export default class EditModal extends Modal {
   plugins: CodeToImagePluginType;
@@ -70,6 +70,8 @@ export default class EditModal extends Modal {
 
   onCopyAsImage = async () => {
     const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
+    const css = await getFontEmbedCSS(target);
+    console.log('🚀 ~ file: EditModal.ts:74 ~ EditModal ~ onCopyAsImage= ~ css:', css);
     const blob = await toBlob(target, {
       canvasHeight: target.clientHeight,
       canvasWidth: target.clientWidth,

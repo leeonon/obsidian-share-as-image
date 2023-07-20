@@ -9,7 +9,7 @@
   import Setting from '@/ui/Setting.svelte';
   import WindowBar from '@/ui/WindowBar.svelte';
   import ResizeContainer from '@/ui/ResizeContainer.svelte';
-  import { Theme } from '@/themes';
+  import { themeList } from '@/themes';
 
   import store from '@/store';
 
@@ -25,7 +25,7 @@
   let containerEl: HTMLDivElement;
 
   $: background = editConfig.hasBackground ? editConfig.backgroundColor : null;
-  $: color = Theme.find(v => v.name === editConfig.theme)?.color;
+  $: color = themeList.find(v => v.name === editConfig.theme)?.color;
 
   function changeHandler({ detail: { tr } }: any) {
     console.log('change', tr.changes.toJSON());

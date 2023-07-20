@@ -3,7 +3,7 @@
 
   import { onDestroy } from 'svelte';
   import { editConfig } from '@/store';
-  import { Theme } from '@/themes';
+  import { themeList } from '@/themes';
   import { langs } from '@/ui/Codemirror/lang';
   import BackgroundCard from '@/ui/BackgroundCard.svelte';
 
@@ -19,7 +19,7 @@
   <div class:active="{true}" class="cti-title-bar_item">
     <span>Theme</span>
     <select class="dropdown cti-select-dropdown" name="Version" bind:value="{$editConfig.theme}">
-      {#each Theme as item (item.name)}
+      {#each themeList as item (item.name)}
         <option value="{item.name}">{item.name}</option>
       {/each}
     </select>
