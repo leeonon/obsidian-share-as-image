@@ -70,12 +70,21 @@ export default class EditModal extends Modal {
 
   onCopyAsImage = async () => {
     const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
-    const css = await getFontEmbedCSS(target);
-    console.log('🚀 ~ file: EditModal.ts:74 ~ EditModal ~ onCopyAsImage= ~ css:', css);
+    const fontCss = `@font-face {font-family: Comic Mono;font-weight: normal;src: url(https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/ComicMono.ttf);}`;
+    const fontTarget = document.createElement('div');
+    fontTarget.style.cssText = fontCss;
+    console.log('🚀 ~ file: EditModal.ts:76 ~ EditModal ~ onCopyAsImage= ~ fontTarget:', fontTarget.style.cssText);
+    const fontEmbedCSS = await getFontEmbedCSS(fontTarget);
     const blob = await toBlob(target, {
       canvasHeight: target.clientHeight,
       canvasWidth: target.clientWidth,
+      fontEmbedCSS,
     });
+    // @font-face {
+    // 	font-family: Comic Mono;
+    // 	font-weight: bold;
+    // 	src: url(https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/ComicMono-Bold.ttf);
+    // }
     if (blob) {
       new Notice('Copy As Image Success');
       window.navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);

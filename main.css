@@ -1,0 +1,12 @@
+/* src/styles/font.css */
+@font-face {
+  font-family: Comic Mono;
+  font-weight: normal;
+  src: url(https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/ComicMono.ttf);
+}
+@font-face {
+  font-family: Comic Mono;
+  font-weight: bold;
+  src: url(https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/ComicMono-Bold.ttf);
+}
+/*# sourceMappingURL=data:application/json;base64,ewogICJ2ZXJzaW9uIjogMywKICAic291cmNlcyI6IFsic3JjL3N0eWxlcy9mb250LmNzcyJdLAogICJzb3VyY2VzQ29udGVudCI6IFsiQGZvbnQtZmFjZSB7XG5cdGZvbnQtZmFtaWx5OiBDb21pYyBNb25vO1xuXHRmb250LXdlaWdodDogbm9ybWFsO1xuXHRzcmM6IHVybChcImh0dHBzOi8vY2RuLmpzZGVsaXZyLm5ldC9ucG0vY29taWMtbW9ub0AwLjAuMS9Db21pY01vbm8udHRmXCIpO1xufVxuQGZvbnQtZmFjZSB7XG5cdGZvbnQtZmFtaWx5OiBDb21pYyBNb25vO1xuXHRmb250LXdlaWdodDogYm9sZDtcblx0c3JjOiB1cmwoaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L25wbS9jb21pYy1tb25vQDAuMC4xL0NvbWljTW9uby1Cb2xkLnR0Zik7XG59XG4iXSwKICAibWFwcGluZ3MiOiAiO0FBQUE7QUFDQztBQUNBO0FBQ0E7QUFBQTtBQUVEO0FBQ0M7QUFDQTtBQUNBO0FBQUE7IiwKICAibmFtZXMiOiBbXQp9Cg== */

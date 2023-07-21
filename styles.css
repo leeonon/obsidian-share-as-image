@@ -53,3 +53,17 @@ If your plugin does not need CSS, delete this file.
 .cm-gutters {
 	background-color: transparent !important;
 }
+
+/*
+* Font
+*/
+@font-face {
+	font-family: Comic Mono;
+	font-weight: normal;
+	src: url("https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/ComicMono.ttf");
+}
+@font-face {
+	font-family: Comic Mono;
+	font-weight: bold;
+	src: url("https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/ComicMono-Bold.ttf");
+}
