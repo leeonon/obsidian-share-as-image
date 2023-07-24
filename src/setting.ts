@@ -15,6 +15,7 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
   hasWatermark: false,
   watermark: 'Obsidian',
   language: 'TEXT',
+  fontSize: 14,
 };
 
 export default class SettingTab extends PluginSettingTab {

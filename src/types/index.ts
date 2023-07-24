@@ -16,4 +16,5 @@ export interface CodeImageSettings {
   hasWatermark: boolean;
   watermark: string;
   language: LanguageType;
+  fontSize: number;
 }

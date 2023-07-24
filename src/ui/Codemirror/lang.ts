@@ -10,11 +10,10 @@ import { java } from '@codemirror/lang-java';
 import { php } from '@codemirror/lang-php';
 import { python } from '@codemirror/lang-python';
 import { sql } from '@codemirror/lang-sql';
-import { markdown } from '@codemirror/lang-markdown';
 import { vue } from '@codemirror/lang-vue';
 
 export const langs = {
-  TEXT: markdown(),
+  TEXT: rust(),
   JAVASCRIPT: javascript(),
   TYPESCRIPT: javascript({ typescript: true }),
   JSX: javascript({ jsx: true }),
