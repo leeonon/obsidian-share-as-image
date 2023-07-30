@@ -135,32 +135,31 @@
   // the view will be inited with the either doc (as long as that it is not `undefined`)
   // or the value in docStore once set
   function _initEditorView(initialDoc: string) {
-    console.log('🚀 ~ file: index.svelte:154 ~ _initEditorView ~ view:', view);
     if (view !== null) {
       return false;
     }
 
     // CodeMirror 5
-    view = window.CodeMirror(dom, {
-      value: initialDoc,
-      mode: { name: 'javascript', json: true },
-      lineNumbers: true,
-      lineWrapping: true,
-      cursorHeight: 0.85,
-      indentUnit: 2,
-      dragDrop: true,
-      autocapitalize: true,
-      theme: 'default',
-      gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-    });
+    // view = window.CodeMirror(dom, {
+    //   value: initialDoc,
+    //   mode: { name: 'javascript', json: true },
+    //   lineNumbers: true,
+    //   lineWrapping: true,
+    //   cursorHeight: 0.85,
+    //   indentUnit: 2,
+    //   dragDrop: true,
+    //   autocapitalize: true,
+    //   theme: 'default',
+    //   gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+    // });
 
     // CodeMirror 6
-    // view = new EditorView({
-    //   doc: initialDoc,
-    //   extensions: stateExtensions,
-    //   parent: dom,
-    //   dispatch: _editorTxHandler,
-    // });
+    view = new EditorView({
+      doc: initialDoc,
+      extensions: stateExtensions,
+      parent: dom,
+      dispatch: _editorTxHandler,
+    });
 
     return true;
   }

@@ -8,12 +8,12 @@
     <span></span>
     <span></span>
   </div>
-  <div class="ctj-edit_bar_input">
+  <!-- <div class="ctj-edit_bar_input">
     <input spellcheck="false" bind:value="{$editConfig.barTitle}" />
     {#if !$editConfig.barTitle}
       <span>Untitled</span>
     {/if}
-  </div>
+  </div> -->
 </div>
 
 <style lang="scss">

@@ -10,7 +10,6 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
   hasBackground: true,
   backgroundColor: BACKGROUND[0],
   windowControls: true,
-  barTitle: '',
   showLineNumber: false,
   hasWatermark: false,
   watermark: 'Obsidian',
@@ -68,16 +67,6 @@ export default class SettingTab extends PluginSettingTab {
         value
           .setValue(this.plugins.settings.windowControls)
           .onChange(async value => await this.setTingChange('windowControls', value))
-      );
-
-    new Setting(containerEl)
-      .setName('Title')
-      .setDesc('set default title')
-      .addText(text =>
-        text
-          .setPlaceholder('Enter your title')
-          .setValue(this.plugins.settings.barTitle)
-          .onChange(async value => await this.setTingChange('barTitle', value))
       );
 
     new Setting(containerEl)
