@@ -46,41 +46,41 @@
       }
     }
 
-    &_input {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 1rem;
-      color: hsla(0, 0%, 100%, 0.3);
-      font-size: 12px;
-      font-weight: 500;
-      letter-spacing: 0.32px;
-      line-height: 12px;
-      text-align: center;
+    // &_input {
+    //   position: absolute;
+    //   left: 0;
+    //   width: 100%;
+    //   height: 1rem;
+    //   color: hsla(0, 0%, 100%, 0.3);
+    //   font-size: 12px;
+    //   font-weight: 500;
+    //   letter-spacing: 0.32px;
+    //   line-height: 12px;
+    //   text-align: center;
 
-      & > input {
-        position: absolute;
-        height: 100%;
-        border: none;
-        margin: 0;
-        background-color: transparent;
-        color: var(--frame-title-color);
-        font-family: Inter, sans-serif;
-        font-size: 12px;
-        font-weight: 500;
-        inset: 0;
-        letter-spacing: 0.32px;
-        line-height: 12px;
-        text-align: center;
-        outline: none;
-        box-shadow: none;
+    //   & > input {
+    //     position: absolute;
+    //     height: 100%;
+    //     border: none;
+    //     margin: 0;
+    //     background-color: transparent;
+    //     color: var(--frame-title-color);
+    //     font-family: Inter, sans-serif;
+    //     font-size: 12px;
+    //     font-weight: 500;
+    //     inset: 0;
+    //     letter-spacing: 0.32px;
+    //     line-height: 12px;
+    //     text-align: center;
+    //     outline: none;
+    //     box-shadow: none;
 
-        &:focus {
-          & + span {
-            display: none;
-          }
-        }
-      }
-    }
+    //     &:focus {
+    //       & + span {
+    //         display: none;
+    //       }
+    //     }
+    //   }
+    // }
   }
 </style>

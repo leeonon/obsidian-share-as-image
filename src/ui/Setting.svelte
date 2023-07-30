@@ -4,6 +4,7 @@
   import { onDestroy } from 'svelte';
   import { editConfig } from '@/store';
   import { themeList } from '@/themes';
+  import { FONT_SIZE } from '@/constant';
   import { langs } from '@/ui/Codemirror/lang';
   import BackgroundCard from '@/ui/BackgroundCard.svelte';
 
@@ -65,6 +66,14 @@
       on:click="{() => editConfig.update({ showLineNumber: !$editConfig.showLineNumber })}">
       <input type="checkbox" bind:value="{$editConfig.showLineNumber}" />
     </div>
+  </div>
+  <div class:active="{true}" class="cti-title-bar_item">
+    <span>Font Size{$editConfig.fontSize}</span>
+    <select class="dropdown cti-select-dropdown" name="fontSize" bind:value="{$editConfig.fontSize}">
+      {#each FONT_SIZE as size (size)}
+        <option value="{size.value}">{size.name}</option>
+      {/each}
+    </select>
   </div>
   <div class="cti-title-bar_item">
     <span>Watermark</span>

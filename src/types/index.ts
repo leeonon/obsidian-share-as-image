@@ -11,10 +11,9 @@ export interface CodeImageSettings {
   hasBackground: boolean;
   backgroundColor: string;
   windowControls: boolean;
-  barTitle: string;
   showLineNumber: boolean;
   hasWatermark: boolean;
   watermark: string;
   language: LanguageType;
-  fontSize: number;
+  fontSize: string;
 }

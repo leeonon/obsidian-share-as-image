@@ -45,6 +45,8 @@
 
   export let theme: ThemeKey = 'default';
 
+  export let fontSize: string = '14px';
+
   /* 缓存文档字符串，不用一次又一次地批量提取字符串. */
   let _docCached: any = null;
 
@@ -56,7 +58,7 @@
     // TODO The font size is customized
     const fontSizeExtension = EditorView.theme({
       '&': {
-        fontSize: '1rem',
+        fontSize,
       },
     });
     return [themeExtension, fontSizeExtension];

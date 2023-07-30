@@ -39,7 +39,10 @@ export function codeBlockPostProcessor(
 
   const buttonHandler = () => {
     const language = (Object.keys(langs).find(key => key === lang) || 'TEXT') as LanguageType;
-    editConfig.update({ language: language });
+    editConfig.set({
+      ...plugin.settings,
+      language,
+    });
     new EditModal(app, plugin, language, code.innerText);
   };
 

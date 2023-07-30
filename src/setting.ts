@@ -4,6 +4,7 @@ import type { ThemeKey } from '@/themes';
 import { Setting, PluginSettingTab, type App } from 'obsidian';
 import { BACKGROUND } from '@/constant/background';
 import { ThemeOptions } from '@/themes';
+import { FONT_SIZE } from '@/constant';
 
 export const DEFAULT_SETTINGS: CodeImageSettings = {
   theme: 'default',
@@ -14,7 +15,7 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
   hasWatermark: false,
   watermark: 'Obsidian',
   language: 'TEXT',
-  fontSize: 14,
+  fontSize: '14px',
 };
 
 export default class SettingTab extends PluginSettingTab {
@@ -76,6 +77,16 @@ export default class SettingTab extends PluginSettingTab {
         value
           .setValue(this.plugins.settings.showLineNumber)
           .onChange(async value => await this.setTingChange('showLineNumber', value))
+      );
+
+    new Setting(containerEl)
+      .setName('FontSize')
+      .setDesc('set default fontSize')
+      .addDropdown(options =>
+        options
+          .addOptions(Object.fromEntries(FONT_SIZE.map(item => [item.name, item.value])))
+          .setValue(this.plugins.settings.fontSize)
+          .onChange(async value => await this.setTingChange('fontSize', value))
       );
 
     new Setting(containerEl)

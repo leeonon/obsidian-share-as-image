@@ -5,7 +5,6 @@ import { Plugin } from 'obsidian';
 
 import { codeBlockPostProcessor } from '@/postProcessor';
 import SettingTab, { DEFAULT_SETTINGS } from '@/setting';
-import store from '@/store';
 
 export default class CodeToImagePlugin extends Plugin implements CodeToImagePluginType {
   settings: CodeImageSettings;
@@ -19,9 +18,6 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
      * Init
      */
     this.registerMarkdownPostProcessor((el, ctx) => {
-      // TODO change position
-      store.editConfig.set(this.settings);
-
       codeBlockPostProcessor(el, ctx, this.app, this);
     });
   }

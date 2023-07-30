@@ -59,14 +59,15 @@
             <WindowBar />
           {/if}
           <CodeMirror
-            extensions="{{
-              lineNumbers: editConfig.showLineNumber,
-            }}"
             theme="{editConfig.theme}"
             lang="{editConfig.language}"
+            fontSize="{editConfig.fontSize}"
             doc="{value}"
             bind:docStore="{docStore}"
-            on:change="{changeHandler}" />
+            on:change="{changeHandler}"
+            extensions="{{
+              lineNumbers: editConfig.showLineNumber,
+            }}" />
           {#if editConfig.hasWatermark}
             <div class="ctj-edit_watermark" contenteditable>@{editConfig.watermark}</div>
           {/if}
