@@ -30,6 +30,15 @@ export default class EditModal extends Modal {
     new Notice('set default setting success');
   };
 
+  private blobToBuffer = (blob: Blob) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(new Uint8Array(reader.result as ArrayBuffer));
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(blob);
+    });
+  };
+
   private toPng = () => {
     toPng(this.getEditElement())
       .then(dataUrl => {
@@ -41,6 +50,31 @@ export default class EditModal extends Modal {
       .catch(() => {});
   };
 
+  private onExport = async () => {
+    // @ts-ignore
+    const result = await window.electron.remote.dialog.showSaveDialog(this.electronWindow, {
+      title: 'Export Image',
+      defaultPath: `obsidian-share-image-${Date.now()}.png`,
+      filters: [{ name: '', extensions: ['png'] }],
+    });
+    if (result.canceled) return;
+
+    const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
+    const path = result.filePath;
+    const blob = await toBlob(target);
+    if (blob) {
+      const buffer = await this.blobToBuffer(blob);
+      // @ts-ignore
+      const data = await this.app.vault.adapter.fs.writeFileSync(path, buffer);
+      console.log('🚀 ~ file: EditModal.ts:68 ~ EditModal ~ onExport= ~ data:', data);
+      if (data) {
+        new Notice('Export Image Success', 3000);
+      } else {
+        new Notice('Export Image Failed', 3000);
+      }
+    }
+  };
+
   private initModal = () => {
     this.modalEl.addClass('shared-as-image-modal');
 
@@ -49,7 +83,7 @@ export default class EditModal extends Modal {
       props: {
         value: this.code,
         actions: {
-          toPng: this.toPng,
+          onExport: this.onExport,
           onCopyAsImage: this.onCopyAsImage,
           setDefaultSetting: this.setDefaultSetting,
         },

@@ -15,7 +15,7 @@
 
   export let value: string;
   export let actions: {
-    toPng: () => void;
+    onExport: () => void;
     onCopyAsImage: () => void;
     setDefaultSetting: (settings: CodeImageSettings) => void;
   };
@@ -50,7 +50,7 @@
   <div class="ctj-edit_container" bind:this="{containerEl}">
     <div class="ctj-edit_panel">
       <button on:click="{actions.onCopyAsImage}">Copy</button>
-      <button class="mod-cta" on:click="{actions.toPng}">Export <span use:addButtonIcon></span></button>
+      <button class="mod-cta" on:click="{actions.onExport}">Export <span use:addButtonIcon></span></button>
     </div>
     <ResizeContainer containerEl="{containerEl}">
       <div class="ctj-edit_background" id="ctj-edit_background" style="background-image: {background}">
