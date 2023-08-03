@@ -51,11 +51,11 @@
   let _docCached: any = null;
 
   function getTheme() {
+    // TODO fontFamily custom https://coding-fonts.netlify.app/
     const themes = getThemesList({
       settings: { fontFamily: 'Comic Mono' },
     });
     const themeExtension = themes.find(v => v.name === theme)?.value || defaultTheme;
-    // TODO The font size is customized
     const fontSizeExtension = EditorView.theme({
       '&': {
         fontSize,

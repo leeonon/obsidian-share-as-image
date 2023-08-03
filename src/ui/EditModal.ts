@@ -44,7 +44,6 @@ export default class EditModal extends Modal {
       .then(dataUrl => {
         const img = new Image();
         img.src = dataUrl;
-        new Notice('图片生成成功', 3000);
         this.getEditElement().appendChild(img);
       })
       .catch(() => {});
@@ -61,15 +60,20 @@ export default class EditModal extends Modal {
 
     const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
     const path = result.filePath;
-    const blob = await toBlob(target);
+    const blob = await toBlob(target, {
+      canvasHeight: target.clientHeight,
+      canvasWidth: target.clientWidth,
+      pixelRatio: 2,
+    });
     if (blob) {
       const buffer = await this.blobToBuffer(blob);
-      // @ts-ignore
-      const data = await this.app.vault.adapter.fs.writeFileSync(path, buffer);
-      console.log('🚀 ~ file: EditModal.ts:68 ~ EditModal ~ onExport= ~ data:', data);
-      if (data) {
+      try {
+        // @ts-ignore
+        await this.app.vault.adapter.fs.writeFileSync(path, buffer);
+        // @ts-ignore
+        await window.electron.remote.shell.showItemInFolder(path);
         new Notice('Export Image Success', 3000);
-      } else {
+      } catch (error) {
         new Notice('Export Image Failed', 3000);
       }
     }
@@ -108,6 +112,7 @@ export default class EditModal extends Modal {
     const blob = await toBlob(target, {
       canvasHeight: target.clientHeight,
       canvasWidth: target.clientWidth,
+      pixelRatio: 2,
     });
     if (blob) {
       new Notice('Copy As Image Success');

@@ -5,7 +5,7 @@ import type { CodeToImagePluginType } from '@/types';
 import { editConfig } from '@/store';
 import { langs } from '@/ui/Codemirror/lang';
 
-import { createElement } from '@/utils';
+import { createElement, getLocalLanguage } from '@/utils';
 import EditModal from '@/ui/EditModal';
 
 export function codeBlockPostProcessor(
@@ -35,7 +35,7 @@ export function codeBlockPostProcessor(
   pre?.parentElement?.addClass(`code-to-image-wrap`);
 
   const button = createElement('button', 'code-to-image-button');
-  button.innerText = '图片';
+  button.innerText = getLocalLanguage() === 'zh' ? '图片' : 'Image';
 
   const buttonHandler = () => {
     const language = (Object.keys(langs).find(key => key === lang) || 'TEXT') as LanguageType;
