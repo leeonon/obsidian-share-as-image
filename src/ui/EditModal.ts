@@ -4,6 +4,7 @@ import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
 import { toPng, toBlob } from 'html-to-image';
+import fs from 'fs';
 
 export default class EditModal extends Modal {
   plugins: CodeToImagePluginType;
@@ -69,7 +70,7 @@ export default class EditModal extends Modal {
       const buffer = await this.blobToBuffer(blob);
       try {
         // @ts-ignore
-        await this.app.vault.adapter.fs.writeFileSync(path, buffer);
+        await fs.writeFileSync(path, buffer);
         // @ts-ignore
         await window.electron.remote.shell.showItemInFolder(path);
         new Notice('Export Image Success', 3000);

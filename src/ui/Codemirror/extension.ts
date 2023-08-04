@@ -103,6 +103,5 @@ export const getExtension = (params?: ExtensionParams): Extension[] => [
     ...completionKeymap,
     ...lintKeymap,
   ]),
-  // 换行
   EditorView.lineWrapping,
 ];
