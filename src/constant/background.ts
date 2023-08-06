@@ -17,3 +17,13 @@ export const BACKGROUND = [
   'linear-gradient(25deg, #3a35bc, #7562b7, #9b8fb1, #babfa8)',
   'linear-gradient(25deg, #6e49e9, #a379b5, #baa97e, #c2d92c)',
 ];
+
+export const MARKDOWN_BACKGROUND = [
+  { type: 'color', value: 'linear-gradient(25deg, #3a1559, #662366, #913272, #bc437f)' },
+  { type: 'color', value: 'linear-gradient(25deg, #f30015, #ff794a, #ffbc81, #fffbbb)' },
+  { type: 'color', value: 'linear-gradient(25deg, #1065b6, #855a96, #ba4977, #e42658)' },
+  { type: 'color', value: 'linear-gradient(25deg, #3a35bc, #7562b7, #9b8fb1, #babfa8)' },
+  { type: 'color', value: 'linear-gradient(25deg, #0e44b0, #2d62bd, #3d81ca, #47a0d6)' },
+  { type: 'color', value: 'linear-gradient(25deg, #121a5c, #254b82, #2c7fa9, #25b7d2)' },
+  { type: 'color', value: 'linear-gradient(25deg, #121a5c, #254b82, #2c7fa9, #25b7d2)' },
+];

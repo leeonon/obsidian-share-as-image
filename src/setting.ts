@@ -1,4 +1,4 @@
-import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
+import type { CodeToImagePluginType, CodeImageSettings, MarkdownMaskImageSettings } from '@/types';
 import type { ThemeKey } from '@/themes';
 
 import { Setting, PluginSettingTab, type App } from 'obsidian';
@@ -16,6 +16,14 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
   watermark: 'Obsidian',
   language: 'TEXT',
   fontSize: '14px',
+};
+
+export const MARKDOWN_MAKE_IMAGE_SETTINGS: MarkdownMaskImageSettings = {
+  backgroundColor: 'linear-gradient(25deg, #1065b6, #855a96, #ba4977, #e42658)',
+  fontFamily: '1.3',
+  fontSize: 16,
+  lineHeight: 1.3,
+  color: '#FFF',
 };
 
 export default class SettingTab extends PluginSettingTab {

@@ -17,3 +17,11 @@ export interface CodeImageSettings {
   language: LanguageType;
   fontSize: string;
 }
+
+export interface MarkdownMaskImageSettings {
+  backgroundColor: string;
+  fontSize: number;
+  lineHeight: number;
+  fontFamily: string;
+  color: string;
+}
