@@ -19,6 +19,10 @@ export const BACKGROUND = [
 ];
 
 export const MARKDOWN_BACKGROUND = [
+  {
+    type: 'color',
+    value: 'linear-gradient(90deg, rgb(66, 158, 234) 0%, rgb(235, 167, 185) 50%, rgb(249, 102, 144) 100%)',
+  },
   { type: 'color', value: 'linear-gradient(120deg, rgb(161, 140, 209) 0%, rgb(251, 194, 235) 100%)' },
   { type: 'color', value: 'linear-gradient(120deg, rgb(246, 211, 101) 0%, rgb(253, 160, 133) 100%)' },
   { type: 'color', value: 'linear-gradient(120deg, rgb(166, 192, 254) 0%, rgb(246, 128, 132) 100%)' },
@@ -30,10 +34,6 @@ export const MARKDOWN_BACKGROUND = [
   {
     type: 'color',
     value: 'linear-gradient(90deg, rgb(237, 221, 243) 0%, rgb(237, 144, 175) 50%, rgb(99, 48, 181) 100%)',
-  },
-  {
-    type: 'color',
-    value: 'linear-gradient(90deg, rgb(66, 158, 234) 0%, rgb(235, 167, 185) 50%, rgb(249, 102, 144) 100%)',
   },
   {
     type: 'color',

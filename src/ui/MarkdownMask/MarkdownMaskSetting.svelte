@@ -38,6 +38,32 @@
       <span>{$markdownMakeImageConfig.lineHeight}</span>
     </div>
   </div>
+  <div class="item">
+    <div class="lable">letterSpacing</div>
+    <div class="setting">
+      <input
+        class="slider setting-font-size"
+        bind:value="{$markdownMakeImageConfig.letterSpacing}"
+        type="range"
+        min="0"
+        max="5"
+        step="0.2" />
+      <span>{$markdownMakeImageConfig.letterSpacing}</span>
+    </div>
+  </div>
+  <div class="item">
+    <div class="lable">wordSpacing</div>
+    <div class="setting">
+      <input
+        class="slider setting-font-size"
+        bind:value="{$markdownMakeImageConfig.wordSpacing}"
+        type="range"
+        min="0"
+        max="5"
+        step="0.2" />
+      <span>{$markdownMakeImageConfig.wordSpacing}</span>
+    </div>
+  </div>
 </div>
 
 <style lang="scss">

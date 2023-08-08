@@ -20,8 +20,10 @@ export interface CodeImageSettings {
 
 export interface MarkdownMaskImageSettings {
   backgroundColor: string;
+  fontFamily: string;
   fontSize: number;
   lineHeight: number;
-  fontFamily: string;
+  letterSpacing: number;
+  wordSpacing: number;
   color: string;
 }

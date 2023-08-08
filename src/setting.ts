@@ -2,7 +2,7 @@ import type { CodeToImagePluginType, CodeImageSettings, MarkdownMaskImageSetting
 import type { ThemeKey } from '@/themes';
 
 import { Setting, PluginSettingTab, type App } from 'obsidian';
-import { BACKGROUND } from '@/constant/background';
+import { BACKGROUND, MARKDOWN_BACKGROUND } from '@/constant/background';
 import { ThemeOptions } from '@/themes';
 import { FONT_SIZE } from '@/constant';
 
@@ -19,10 +19,12 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
 };
 
 export const MARKDOWN_MAKE_IMAGE_SETTINGS: MarkdownMaskImageSettings = {
-  backgroundColor: 'linear-gradient(25deg, #1065b6, #855a96, #ba4977, #e42658)',
+  backgroundColor: MARKDOWN_BACKGROUND[0].value,
   fontFamily: '1.3',
   fontSize: 16,
   lineHeight: 1.3,
+  letterSpacing: 0, // normal
+  wordSpacing: 0, // normal
   color: '#FFF',
 };
 
