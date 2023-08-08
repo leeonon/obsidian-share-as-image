@@ -4,6 +4,12 @@ import MarkdownMaskContent from './MarkdownMaskContent.svelte';
 type MarkdownMakeViewProps = {
   title: string;
   content: string;
+  frontmatter?: {
+    author?: string;
+    created?: string;
+    modified?: string;
+    tags?: string[];
+  };
 };
 
 export default class MarkdownMakeView extends View {
@@ -34,6 +40,7 @@ export default class MarkdownMakeView extends View {
       props: {
         title: this.props.title,
         content: this.props.content,
+        frontmatter: this.props.frontmatter,
       },
     });
   }

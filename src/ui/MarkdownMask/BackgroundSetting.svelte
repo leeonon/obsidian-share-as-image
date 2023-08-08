@@ -14,7 +14,12 @@
   </div>
   {#each MARKDOWN_BACKGROUND as color, i}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div class="item-card" style="background-image: {color.value};" on:click="{() => onChangeColor(color)}"></div>
+    <div
+      class="item-card"
+      class:active="{color.value === $markdownMakeImageConfig.color}"
+      style="background: {color.value};"
+      on:click="{() => onChangeColor(color)}">
+    </div>
   {/each}
 </div>
 
@@ -23,13 +28,31 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 0.3rem;
     margin-top: 1rem;
     .item-card {
-      width: 4rem;
-      height: 4rem;
+      position: relative;
+      width: 3rem;
+      height: 3rem;
       border-radius: 4px;
       cursor: pointer;
+
+      &.active {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 33px;
+        height: 33px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        border: 2px solid red;
+        transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      }
+
+      &:hover {
+        filter: brightness(1.3);
+      }
     }
     .item-card-custom {
       display: flex;
