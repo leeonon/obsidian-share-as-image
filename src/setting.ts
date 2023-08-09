@@ -23,9 +23,15 @@ export const MARKDOWN_MAKE_IMAGE_SETTINGS: MarkdownMaskImageSettings = {
   fontFamily: '1.3',
   fontSize: 16,
   lineHeight: 1.3,
-  letterSpacing: 0, // normal
-  wordSpacing: 0, // normal
-  color: '#FFF',
+  letterSpacing: 0,
+  color: 'var(--text-normal)',
+  frontmatter: {
+    visible: true,
+    created: true,
+    modified: true,
+    author: true,
+    tags: true,
+  },
 };
 
 export default class SettingTab extends PluginSettingTab {

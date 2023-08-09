@@ -1,6 +1,6 @@
 import { Modal, type App } from 'obsidian';
 
-import MarkdownModalContent from './MarkdownModalContent.svelte';
+import MarkdownModalContent from './Content.svelte';
 
 export default class MarkdownModal extends Modal {
   private modalContent: MarkdownModalContent;

@@ -6,7 +6,7 @@ import { Plugin, MarkdownView, type WorkspaceLeaf, type TFile, Notice } from 'ob
 import { codeBlockPostProcessor } from '@/postProcessor';
 import SettingTab, { DEFAULT_SETTINGS } from '@/setting';
 // import MarkdownModal from '@/ui/MarkdownModal';
-import MarkdownMakeView from './ui/MarkdownMask/MarkdownMakeView';
+import MarkdownMakeView from './ui/MarkdownMask/View';
 
 export default class CodeToImagePlugin extends Plugin implements CodeToImagePluginType {
   settings: CodeImageSettings;
@@ -45,7 +45,7 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
       author: frontmatter?.author as string,
       created: frontmatter?.['date created'] || file.stat.ctime,
       modified: frontmatter?.['date modified'] || file.stat.mtime,
-      tags: frontmatter?.tags || [],
+      tags: frontmatter?.tags ? (Array.isArray(frontmatter.tags) ? frontmatter.tags : [frontmatter.tags]) : [],
     };
   }
 

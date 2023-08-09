@@ -24,6 +24,15 @@ export interface MarkdownMaskImageSettings {
   fontSize: number;
   lineHeight: number;
   letterSpacing: number;
-  wordSpacing: number;
   color: string;
+  /**
+   * Control whether frontmatter is displayed and which attributes are displayed.
+   */
+  frontmatter: {
+    visible: boolean;
+    created: boolean;
+    modified: boolean;
+    author: boolean;
+    tags: boolean;
+  };
 }

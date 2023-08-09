@@ -1,5 +1,5 @@
 import { View, type WorkspaceLeaf } from 'obsidian';
-import MarkdownMaskContent from './MarkdownMaskContent.svelte';
+import MarkdownMaskContent from './Content.svelte';
 
 type MarkdownMakeViewProps = {
   title: string;
@@ -34,9 +34,9 @@ export default class MarkdownMakeView extends View {
   }
 
   async onOpen() {
-    const pageEle = this.containerEl.attachShadow({ mode: 'open' });
+    // const pageEle = this.containerEl.attachShadow({ mode: 'open' });
     new MarkdownMaskContent({
-      target: pageEle,
+      target: this.containerEl,
       props: {
         title: this.props.title,
         content: this.props.content,
