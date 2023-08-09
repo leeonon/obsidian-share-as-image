@@ -36,5 +36,26 @@
       width: 100%;
       border-radius: 6px;
     }
+    :global(table) {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    :global(table thead tr) {
+      font-weight: 500;
+      height: 2rem;
+      background-color: var(--background-modifier-form-field);
+    }
+    :global(table thead tr th) {
+      padding: 0 1rem;
+      text-align: left;
+    }
+    :global(table tbody tr) {
+      border-bottom: 1px solid var(--background-modifier-form-field);
+    }
+    :global(table tbody tr td) {
+      padding: 1rem;
+    }
   }
 </style>

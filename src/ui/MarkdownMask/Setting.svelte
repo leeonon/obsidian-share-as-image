@@ -14,6 +14,16 @@
       },
     });
   }
+
+  function onChangeFrontmatterOptions(e: Event): void {
+    const target = e.target as HTMLInputElement;
+    markdownMakeImageConfig.update({
+      frontmatter: {
+        ...$markdownMakeImageConfig.frontmatter,
+        [target.name]: target.checked,
+      },
+    });
+  }
 </script>
 
 <div class="markdown-mask-setting">
@@ -32,6 +42,50 @@
         </div>
         <div class="setting-frontmatter-item" data-visible="hide" on:click="{onChangeFrontmatterVisible}">Hide</div>
       </div>
+      {#if $markdownMakeImageConfig.frontmatter.visible}
+        <div class="setting-frontmatter-options">
+          <div class="setting-frontmatter-options-item">
+            <span>Created</span>
+            <div class="checkbox-container" class:is-enabled="{$markdownMakeImageConfig.frontmatter.created}">
+              <input
+                name="created"
+                type="checkbox"
+                checked="{$markdownMakeImageConfig.frontmatter.created}"
+                on:click="{onChangeFrontmatterOptions}" />
+            </div>
+          </div>
+          <div class="setting-frontmatter-options-item">
+            <span>Modified</span>
+            <div class="checkbox-container" class:is-enabled="{$markdownMakeImageConfig.frontmatter.modified}">
+              <input
+                name="modified"
+                type="checkbox"
+                checked="{$markdownMakeImageConfig.frontmatter.modified}"
+                on:click="{onChangeFrontmatterOptions}" />
+            </div>
+          </div>
+          <div class="setting-frontmatter-options-item">
+            <span>Author</span>
+            <div class="checkbox-container" class:is-enabled="{$markdownMakeImageConfig.frontmatter.author}">
+              <input
+                name="author"
+                type="checkbox"
+                checked="{$markdownMakeImageConfig.frontmatter.author}"
+                on:click="{onChangeFrontmatterOptions}" />
+            </div>
+          </div>
+          <div class="setting-frontmatter-options-item">
+            <span>Tags</span>
+            <div class="checkbox-container" class:is-enabled="{$markdownMakeImageConfig.frontmatter.tags}">
+              <input
+                name="tags"
+                type="checkbox"
+                checked="{$markdownMakeImageConfig.frontmatter.tags}"
+                on:click="{onChangeFrontmatterOptions}" />
+            </div>
+          </div>
+        </div>
+      {/if}
     </div>
   </div>
   <div class="item">
@@ -108,6 +162,7 @@
     background-color: var(--background-modifier-form-field);
     border-radius: 6px;
     margin-top: 0.5rem;
+    flex-direction: column;
   }
   .setting-frontmatter {
     position: relative;
@@ -118,6 +173,7 @@
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
+    margin-bottom: 0.5rem;
 
     &::before {
       content: '';
@@ -146,5 +202,17 @@
     height: 2rem;
     border-radius: 6px;
     cursor: pointer;
+  }
+  .setting-frontmatter-options {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .setting-frontmatter-options-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border-top: 1px solid var(--background-modifier-border);
   }
 </style>

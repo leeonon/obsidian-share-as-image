@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { markdownMakeImageConfig } from '@/store';
+
   export let author: string | undefined;
   export let created: string | undefined;
   export let modified: string | undefined;
@@ -6,7 +8,7 @@
 </script>
 
 <div>
-  {#if created}
+  {#if $markdownMakeImageConfig.frontmatter.created}
     <div class="content-frontmatter">
       <span class="content-frontmatter-icon">
         <svg
@@ -30,7 +32,7 @@
       <span class="content-frontmatter-label">Created</span>:&nbsp; {created}
     </div>
   {/if}
-  {#if modified}
+  {#if $markdownMakeImageConfig.frontmatter.modified}
     <div class="content-frontmatter">
       <span class="content-frontmatter-icon">
         <svg
@@ -54,7 +56,7 @@
       <span class="content-frontmatter-label">Modified</span>:&nbsp; {modified}
     </div>
   {/if}
-  {#if author}
+  {#if $markdownMakeImageConfig.frontmatter.author}
     <div class="content-frontmatter">
       <span class="content-frontmatter-icon"
         ><svg
@@ -79,7 +81,7 @@
       <span class="content-frontmatter-label">Author</span>:&nbsp; {author}
     </div>
   {/if}
-  {#if tags}
+  {#if $markdownMakeImageConfig.frontmatter.tags}
     <div class="content-frontmatter">
       <span class="content-frontmatter-icon">
         <svg
@@ -98,7 +100,7 @@
           ><path d="m15 5 6.3 6.3a2.4 2.4 0 0 1 0 3.4L17 19"></path></svg>
       </span>
       <span class="content-frontmatter-label">Tag</span>:&nbsp;
-      {#each tags as tag}
+      {#each tags || [] as tag}
         <span class="content-frontmatter-tag">{tag}</span>
       {/each}
     </div>

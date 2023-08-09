@@ -26,7 +26,7 @@ export const MARKDOWN_MAKE_IMAGE_SETTINGS: MarkdownMaskImageSettings = {
   letterSpacing: 0,
   color: 'var(--text-normal)',
   frontmatter: {
-    visible: true,
+    visible: false,
     created: true,
     modified: true,
     author: true,
