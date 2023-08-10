@@ -27,6 +27,20 @@
 </script>
 
 <div class="markdown-mask-setting">
+  <div class="setting-buttons">
+    <div class="setting-buttons-item">
+      <div class="setting-buttons-item-background">
+        <div></div>
+      </div>
+      <div class="setting-buttons-item-text">Copy</div>
+    </div>
+    <div class="setting-buttons-item">
+      <div class="setting-buttons-item-background">
+        <div></div>
+      </div>
+      <div class="setting-buttons-item-text">Download</div>
+    </div>
+  </div>
   <div class="item">
     <div class="lable">Background</div>
     <div class="setting">
@@ -214,5 +228,68 @@
     justify-content: space-between;
     padding: 0.5rem;
     border-top: 1px solid var(--background-modifier-border);
+  }
+
+  .setting-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75em 0;
+    border-bottom: 1px solid var(--background-modifier-border);
+  }
+  .setting-buttons-item {
+    position: relative;
+    cursor: pointer;
+  }
+  .setting-buttons-item-background {
+    width: calc(100% + 0.25rem);
+    position: absolute;
+    left: -0.125rem;
+    filter: blur(2px);
+    border-radius: 0.5rem;
+    z-index: -1;
+    top: -0.125rem;
+    height: calc(100% + 0.25rem);
+    overflow: hidden;
+  }
+  .setting-buttons-item-background > div {
+    position: absolute;
+    background-image: conic-gradient(
+      from 180deg at 50% 50%,
+      #3fdcf7 0deg,
+      #1890ff 51.43deg,
+      #6813cb 102.86deg,
+      #ff003d 154.29deg,
+      #ff8a00 205.71deg,
+      #ffd600 257.14deg,
+      #67be23 308.57deg,
+      #3fdcf7 1turn
+    );
+    width: 125%;
+    height: auto;
+    aspect-ratio: 1/1;
+    top: -83%;
+    left: -12.5%;
+
+    animation: identifier 5s linear infinite;
+
+    @keyframes identifier {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+  .setting-buttons-item-text {
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    background-color: var(--bg1);
+
+    &:hover {
+      filter: brightness(1.3);
+      transition: all 0.15s;
+    }
   }
 </style>

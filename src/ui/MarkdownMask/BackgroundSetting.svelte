@@ -32,9 +32,10 @@
     margin-top: 1rem;
     .item-card {
       position: relative;
-      width: 3rem;
-      height: 3rem;
+      width: 2.5rem;
+      height: 2.5rem;
       border-radius: 4px;
+      font-size: 0.7rem;
       cursor: pointer;
 
       &.active {
@@ -43,8 +44,8 @@
           position: absolute;
           top: 50%;
           left: 50%;
-          width: 3rem;
-          height: 3rem;
+          width: 2.6rem;
+          height: 2.6rem;
           border-radius: 6px;
           transform: translate(-50%, -50%);
           border: 2px solid rgba(47, 229, 164, 0.67);

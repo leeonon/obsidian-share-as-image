@@ -15,7 +15,7 @@
 
 <script lang="ts">
   import { Component, MarkdownRenderer, MarkdownPreviewView, App } from 'obsidian';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
   import MarkdownMaskSetting from './Setting.svelte';
   import NormalStyleContainer from './Container.svelte';
@@ -29,10 +29,38 @@
   export let parentComponent: MarkdownMaskContentProps['parentComponent'];
 
   let element: HTMLDivElement;
+  let selection: Selection | null; // Select the selection object for the content
 
-  onMount(async () => {
-    await MarkdownPreviewView.render(app, content, element, sourcePath, parentComponent);
-    console.log(element);
+  const onMouseUp = (e: Event) => {
+    const documentSelection = document.getSelection();
+    if (!documentSelection?.isCollapsed) {
+      selection = documentSelection;
+    } else {
+      selection = null;
+    }
+  };
+
+  const onChangeSelectionDom = () => {
+    if (!selection) {
+      return;
+    }
+
+    let span = document.createElement('span');
+    span.style.color = 'red';
+    const range = selection?.getRangeAt(0);
+    const doc = range?.extractContents();
+    span.append(doc);
+    range.insertNode(span);
+  };
+
+  onMount(() => {
+    MarkdownPreviewView.render(app, content, element, sourcePath, parentComponent);
+
+    document.addEventListener('mouseup', onMouseUp);
+  });
+
+  onDestroy(() => {
+    document.removeEventListener('mouseup', onMouseUp);
   });
 </script>
 
@@ -62,6 +90,7 @@
     </div>
   </NormalStyleContainer>
   <div class="left share-to-image-markdown-text">
+    <button on:click="{onChangeSelectionDom}"></button>
     <MarkdownMaskSetting />
   </div>
 </div>

@@ -45,14 +45,14 @@
     :global(table thead tr) {
       font-weight: 500;
       height: 2rem;
-      background-color: var(--background-modifier-form-field);
+      background-color: var(--color-base-30);
     }
     :global(table thead tr th) {
       padding: 0 1rem;
       text-align: left;
     }
     :global(table tbody tr) {
-      border-bottom: 1px solid var(--background-modifier-form-field);
+      border-bottom: 1px solid var(--color-base-30);
     }
     :global(table tbody tr td) {
       padding: 1rem;

@@ -58,4 +58,12 @@ export const MARKDOWN_BACKGROUND = [
     type: 'color',
     value: 'linear-gradient(90deg, rgb(210, 233, 97) 0%, rgb(236, 111, 28) 50%, rgb(232, 42, 93) 100%)',
   },
+  {
+    type: 'color',
+    value: 'linear-gradient(rgb(71, 153, 142), rgb(118, 233, 137))',
+  },
+  {
+    type: 'color',
+    value: 'linear-gradient(rgb(226, 225, 237), rgba(0, 0, 0, 0))',
+  },
 ];
