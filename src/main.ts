@@ -75,6 +75,7 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
       this.view = new MarkdownMakeView(leaf, {
         content,
         title,
+        sourcePath: activeView.file.path,
         frontmatter,
       });
       return this.view;

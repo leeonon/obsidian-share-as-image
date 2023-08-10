@@ -1,21 +1,12 @@
 import { View, type WorkspaceLeaf } from 'obsidian';
-import MarkdownMaskContent from './Content.svelte';
+import MarkdownMaskContent, { type MarkdownMaskContentProps } from './Content.svelte';
 
-type MarkdownMakeViewProps = {
-  title: string;
-  content: string;
-  frontmatter?: {
-    author?: string;
-    created?: string;
-    modified?: string;
-    tags?: string[];
-  };
-};
+type MarkdownMakeViewType = Omit<MarkdownMaskContentProps, 'parentComponent'>;
 
 export default class MarkdownMakeView extends View {
-  private props: MarkdownMakeViewProps;
+  private props: MarkdownMakeViewType;
 
-  constructor(leaf: WorkspaceLeaf, props: MarkdownMakeViewProps) {
+  constructor(leaf: WorkspaceLeaf, props: MarkdownMakeViewType) {
     super(leaf);
 
     this.props = props;
@@ -35,12 +26,13 @@ export default class MarkdownMakeView extends View {
 
   async onOpen() {
     // const pageEle = this.containerEl.attachShadow({ mode: 'open' });
+    const { frontmatter, ...rest } = this.props;
     new MarkdownMaskContent({
       target: this.containerEl,
       props: {
-        title: this.props.title,
-        content: this.props.content,
-        frontmatter: this.props.frontmatter,
+        ...rest,
+        frontmatter,
+        parentComponent: this,
       },
     });
   }

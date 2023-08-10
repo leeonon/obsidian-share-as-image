@@ -2,6 +2,8 @@
   export type MarkdownMaskContentProps = {
     title: string;
     content: string;
+    sourcePath: string;
+    parentComponent: Component;
     frontmatter?: {
       author?: string;
       created?: string;
@@ -12,7 +14,7 @@
 </script>
 
 <script lang="ts">
-  import { Component, MarkdownRenderer } from 'obsidian';
+  import { Component, MarkdownRenderer, MarkdownPreviewView } from 'obsidian';
   import { onMount } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
   import MarkdownMaskSetting from './Setting.svelte';
@@ -22,11 +24,13 @@
   export let title: MarkdownMaskContentProps['title'];
   export let content: MarkdownMaskContentProps['content'];
   export let frontmatter: MarkdownMaskContentProps['frontmatter'];
+  export let sourcePath: MarkdownMaskContentProps['sourcePath'];
+  export let parentComponent: MarkdownMaskContentProps['parentComponent'];
 
   let element: HTMLDivElement;
 
   onMount(() => {
-    MarkdownRenderer.renderMarkdown(content, element, '/', new Component());
+    MarkdownPreviewView.renderMarkdown(content, element, sourcePath, parentComponent);
   });
 </script>
 
