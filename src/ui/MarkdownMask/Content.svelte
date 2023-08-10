@@ -14,13 +14,14 @@
 </script>
 
 <script lang="ts">
-  import { Component, MarkdownRenderer, MarkdownPreviewView } from 'obsidian';
+  import { Component, MarkdownRenderer, MarkdownPreviewView, App } from 'obsidian';
   import { onMount } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
   import MarkdownMaskSetting from './Setting.svelte';
   import NormalStyleContainer from './Container.svelte';
   import Frontmatter from './Frontmatter.svelte';
 
+  export let app: App;
   export let title: MarkdownMaskContentProps['title'];
   export let content: MarkdownMaskContentProps['content'];
   export let frontmatter: MarkdownMaskContentProps['frontmatter'];
@@ -29,8 +30,9 @@
 
   let element: HTMLDivElement;
 
-  onMount(() => {
-    MarkdownPreviewView.renderMarkdown(content, element, sourcePath, parentComponent);
+  onMount(async () => {
+    await MarkdownPreviewView.render(app, content, element, sourcePath, parentComponent);
+    console.log(element);
   });
 </script>
 
@@ -93,7 +95,7 @@
     border-bottom: var(--tab-outline-width) solid var(--tab-outline-color);
   }
   .left {
-    width: 350px;
+    width: 280px;
     height: calc(100% - 4rem);
     margin-left: auto;
     border-radius: 6px;

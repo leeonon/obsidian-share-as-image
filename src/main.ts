@@ -59,13 +59,13 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
 
   getActiveContent() {
     const activeView = this.app.workspace.getActiveViewOfType(MarkdownView);
-    if (!activeView || activeView.file.extension !== 'md') {
+    if (!activeView || activeView.file?.extension !== 'md') {
       new Notice('Active file is not a markdown file');
       return;
     }
     // Get the content of the note and remove the frontmatter information.
     const content = activeView.editor.getValue().replace(/^---[\s\S]*?---\n/, '');
-    const title = activeView.file.basename;
+    const title = activeView.file?.basename;
     const frontmatter = this.getFrontmatter(activeView.file);
     if (!content) {
       new Notice('Markdown content is empty');
@@ -75,7 +75,7 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
       this.view = new MarkdownMakeView(leaf, {
         content,
         title,
-        sourcePath: activeView.file.path,
+        sourcePath: activeView.file?.path || '/',
         frontmatter,
       });
       return this.view;

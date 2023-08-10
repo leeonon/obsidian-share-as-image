@@ -31,6 +31,7 @@ export default class MarkdownMakeView extends View {
       target: this.containerEl,
       props: {
         ...rest,
+        app: this.app,
         frontmatter,
         parentComponent: this,
       },
