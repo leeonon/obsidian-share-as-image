@@ -1,6 +1,6 @@
 <script lang="ts">
-  import BackgroundSetting from './BackgroundSetting.svelte';
   import { markdownMakeImageConfig } from '@/store';
+  import BackgroundSetting from './BackgroundSetting.svelte';
 
   function onChangeFontSize() {}
 
@@ -285,11 +285,11 @@
   .setting-buttons-item-text {
     padding: 0.5rem 1.5rem;
     border-radius: 6px;
-    background-color: var(--bg1);
+    background-color: var(--background-primary-alt);
+    transition: all 0.15s;
 
     &:hover {
-      filter: brightness(1.3);
-      transition: all 0.15s;
+      background-color: var(--background-primary);
     }
   }
 </style>

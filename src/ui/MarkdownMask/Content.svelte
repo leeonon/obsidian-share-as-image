@@ -17,9 +17,11 @@
   import { Component, MarkdownRenderer, MarkdownPreviewView, App } from 'obsidian';
   import { onMount, onDestroy } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
+  import { createSpanRange, setSpanRangeColor } from '@/utils';
   import MarkdownMaskSetting from './Setting.svelte';
   import NormalStyleContainer from './Container.svelte';
   import Frontmatter from './Frontmatter.svelte';
+  import RangeSpan from './Range.svelte';
 
   export let app: App;
   export let title: MarkdownMaskContentProps['title'];
@@ -40,17 +42,22 @@
     }
   };
 
-  const onChangeSelectionDom = () => {
-    if (!selection) {
-      return;
-    }
+  const onChangeSelectionDom = (element: HTMLSpanElement) => {
+    if (!selection) return;
 
-    let span = document.createElement('span');
-    span.style.color = 'red';
     const range = selection?.getRangeAt(0);
     const doc = range?.extractContents();
-    span.append(doc);
-    range.insertNode(span);
+    element.append(doc);
+    range.insertNode(element);
+  };
+
+  const onSetElementColor = (e: Event) => {
+    if (!selection) return;
+
+    const value = (e.target as HTMLElement).dataset.color as string;
+    const span = createSpanRange(selection, 'color', value);
+    // setSpanRangeColor(span, value);
+    // onChangeSelectionDom(span);
   };
 
   onMount(() => {
@@ -90,8 +97,10 @@
     </div>
   </NormalStyleContainer>
   <div class="left share-to-image-markdown-text">
-    <button on:click="{onChangeSelectionDom}"></button>
     <MarkdownMaskSetting />
+    <button on:click="{onSetElementColor}" data-color="green">绿色</button>
+    <button on:click="{onSetElementColor}" data-color="yellow">黄色</button>
+    <button on:click="{onSetElementColor}" data-color="red">红色</button>
   </div>
 </div>
 
