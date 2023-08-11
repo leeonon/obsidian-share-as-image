@@ -14,14 +14,13 @@
 </script>
 
 <script lang="ts">
-  import { Component, MarkdownRenderer, MarkdownPreviewView, App } from 'obsidian';
+  import { Component, MarkdownPreviewView, App } from 'obsidian';
   import { onMount, onDestroy } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
-  import { createSpanRange, setSpanRangeColor } from '@/utils';
+  import { createSpanRange } from '@/utils';
   import MarkdownMaskSetting from './Setting.svelte';
   import NormalStyleContainer from './Container.svelte';
   import Frontmatter from './Frontmatter.svelte';
-  import RangeSpan from './Range.svelte';
 
   export let app: App;
   export let title: MarkdownMaskContentProps['title'];
@@ -46,8 +45,7 @@
     if (!selection) return;
 
     const range = selection?.getRangeAt(0);
-    const doc = range?.extractContents();
-    element.append(doc);
+    range?.extractContents();
     range.insertNode(element);
   };
 
@@ -56,8 +54,7 @@
 
     const value = (e.target as HTMLElement).dataset.color as string;
     const span = createSpanRange(selection, 'color', value);
-    // setSpanRangeColor(span, value);
-    // onChangeSelectionDom(span);
+    onChangeSelectionDom(span);
   };
 
   onMount(() => {
@@ -134,6 +131,7 @@
   }
   .left {
     width: 280px;
+    min-width: 280px;
     height: calc(100% - 4rem);
     margin-left: auto;
     border-radius: 6px;
