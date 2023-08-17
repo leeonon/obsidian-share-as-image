@@ -14,6 +14,7 @@
 </script>
 
 <script lang="ts">
+  import type { TextStyleType } from '@/constant';
   import { Component, MarkdownPreviewView, App } from 'obsidian';
   import { onMount, onDestroy } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
@@ -49,11 +50,24 @@
     range.insertNode(element);
   };
 
-  const onSetElementColor = (e: Event) => {
+  const onSetElementColor = (value: TextStyleType) => {
     if (!selection) return;
+    let styles = {};
 
-    const value = (e.target as HTMLElement).dataset.color as string;
-    const span = createSpanRange(selection, 'color', value);
+    if (value.type === 'gradient') {
+      styles = {
+        color: 'transparent',
+        'background-image': value.value,
+        '-webkit-background-clip': 'text',
+      };
+    } else {
+      styles = {
+        'background-image': 'unset',
+        color: value.value,
+      };
+    }
+
+    const span = createSpanRange(selection, styles);
     onChangeSelectionDom(span);
   };
 
@@ -94,10 +108,7 @@
     </div>
   </NormalStyleContainer>
   <div class="left share-to-image-markdown-text">
-    <MarkdownMaskSetting />
-    <button on:click="{onSetElementColor}" data-color="green">绿色</button>
-    <button on:click="{onSetElementColor}" data-color="yellow">黄色</button>
-    <button on:click="{onSetElementColor}" data-color="red">红色</button>
+    <MarkdownMaskSetting isSelection="{!!selection}" onSetElementColor="{onSetElementColor}" />
   </div>
 </div>
 
@@ -115,7 +126,7 @@
     margin: 0 auto;
     padding: 3rem;
     border-radius: 6px;
-    -webkit-mask: linear-gradient(rgba(29, 31, 34, 0.8) 90%, transparent 100%);
+    mask: linear-gradient(rgba(29, 31, 34, 0.8) 90%, transparent 100%);
   }
   .content {
     max-width: 800px;

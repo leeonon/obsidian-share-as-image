@@ -31,14 +31,14 @@ export function hasStyle(element: HTMLElement, styleName: keyof CSSStyleDeclarat
  * Container used to select certain elements on a page and set their styles.
  * @returns HTMLSpanElement
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function createSpanRange(selection: Selection, property: any, value: string) {
+export function createSpanRange(selection: Selection, style: Record<any, any>) {
   const range = selection.getRangeAt(0);
   const fragment = range.cloneContents();
+  const elements = fragment.querySelectorAll('*');
+  const styles = Object.entries(style).map(([key, value]) => [key, value]);
 
   const spanEl = document.createElement('span');
   spanEl.append(fragment);
-  const elements = spanEl.querySelectorAll('*');
 
   elements.forEach(element => {
     if (element instanceof HTMLElement) {
@@ -46,20 +46,32 @@ export function createSpanRange(selection: Selection, property: any, value: stri
         return;
       }
 
-      if (hasStyle(element, property)) {
-        element.style.removeProperty(property);
-      }
+      styles.forEach(([property, value]) => {
+        if (hasStyle(element, property)) {
+          element.style.removeProperty(property as string);
+        }
+      });
 
-      // If the element does not have a style set, remove the tag directly
+      /**
+       * If the element does not have a style set, remove the tag directly
+       */
       if (element.style.length === 0) {
-        element.outerHTML = element.innerHTML;
+        const parent = element.parentNode;
+        while (element.firstChild) {
+          parent?.insertBefore(element.firstChild, element);
+        }
+
+        parent?.removeChild(element);
       }
     }
-    console.log('🚀 ~ file: utils.ts:47 ~ createSpanRange ~ element:', element);
   });
 
+  spanEl.normalize();
+
   spanEl.dataset.slate = 'true';
-  spanEl.style[property] = value;
+  styles.forEach(([property, value]) => {
+    spanEl.style.setProperty(property, value);
+  });
   spanEl.appendChild(fragment);
 
   return spanEl;

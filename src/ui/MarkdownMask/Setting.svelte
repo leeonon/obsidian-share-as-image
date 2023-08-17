@@ -1,6 +1,14 @@
 <script lang="ts">
+  import type { TextStyleType } from '@/constant';
   import { markdownMakeImageConfig } from '@/store';
   import BackgroundSetting from './BackgroundSetting.svelte';
+  import TextStyle from './TextStyle.svelte';
+
+  /**
+   * Whether any text is selected
+   */
+  export let isSelection: boolean;
+  export let onSetElementColor: (style: TextStyleType) => void;
 
   function onChangeFontSize() {}
 
@@ -139,6 +147,12 @@
         max="5"
         step="0.2" />
       <span>{$markdownMakeImageConfig.letterSpacing}</span>
+    </div>
+  </div>
+  <div class="item">
+    <div class="lable">Text Style</div>
+    <div class="setting">
+      <TextStyle isSelection="{isSelection}" onSetElementColor="{onSetElementColor}" />
     </div>
   </div>
 </div>
