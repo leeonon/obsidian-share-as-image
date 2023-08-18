@@ -22,8 +22,8 @@ export const MARKDOWN_MAKE_IMAGE_SETTINGS: MarkdownMaskImageSettings = {
   backgroundColor: MARKDOWN_BACKGROUND[0].value,
   fontFamily: '1.3',
   fontSize: 16,
-  lineHeight: 1.3,
-  letterSpacing: 0,
+  lineHeight: 1.5,
+  letterSpacing: 0.2,
   color: 'var(--text-normal)',
   frontmatter: {
     visible: false,

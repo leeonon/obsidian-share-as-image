@@ -23,6 +23,7 @@
   import NormalStyleContainer from './Container.svelte';
   import Frontmatter from './Frontmatter.svelte';
 
+  export let containerElement: ShadowRoot;
   export let app: App;
   export let title: MarkdownMaskContentProps['title'];
   export let content: MarkdownMaskContentProps['content'];
@@ -33,9 +34,12 @@
   let element: HTMLDivElement;
   let selection: Selection | null; // Select the selection object for the content
 
+  const controller = new AbortController();
+
   const onMouseUp = (e: Event) => {
-    const documentSelection = document.getSelection();
-    if (!documentSelection?.isCollapsed) {
+    // @ts-ignore
+    const documentSelection = containerElement.getSelection();
+    if (documentSelection?.toString().length > 0) {
       selection = documentSelection;
     } else {
       selection = null;
@@ -48,6 +52,7 @@
     const range = selection?.getRangeAt(0);
     range?.extractContents();
     range.insertNode(element);
+    selection = null;
   };
 
   const onSetElementColor = (value: TextStyleType) => {
@@ -74,11 +79,11 @@
   onMount(() => {
     MarkdownPreviewView.render(app, content, element, sourcePath, parentComponent);
 
-    document.addEventListener('mouseup', onMouseUp);
+    containerElement.addEventListener('mouseup', onMouseUp, { signal: controller.signal });
   });
 
   onDestroy(() => {
-    document.removeEventListener('mouseup', onMouseUp);
+    controller.abort();
   });
 </script>
 
@@ -127,6 +132,7 @@
     padding: 3rem;
     border-radius: 6px;
     mask: linear-gradient(rgba(29, 31, 34, 0.8) 90%, transparent 100%);
+    font-family: 'Wotfard', -apple-system, sans-serif;
   }
   .content {
     max-width: 800px;

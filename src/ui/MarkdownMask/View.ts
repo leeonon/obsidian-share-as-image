@@ -25,15 +25,16 @@ export default class MarkdownMakeView extends View {
   }
 
   async onOpen() {
-    // const pageEle = this.containerEl.attachShadow({ mode: 'open' });
+    const pageEle = this.containerEl.attachShadow({ mode: 'open' });
     const { frontmatter, ...rest } = this.props;
     new MarkdownMaskContent({
-      target: this.containerEl,
+      target: pageEle,
       props: {
         ...rest,
         app: this.app,
         frontmatter,
         parentComponent: this,
+        containerElement: pageEle,
       },
     });
   }

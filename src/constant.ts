@@ -30,5 +30,13 @@ export const TEXT_STYLE: TextStyleType[] = [
   { type: 'gradient', value: 'linear-gradient(90deg, limegreen, deepskyblue)' },
   { type: 'gradient', value: 'linear-gradient(90deg, peachpuff, coral, orangered)' },
   { type: 'gradient', value: 'linear-gradient(90deg, lightcyan, skyblue, midnightblue)' },
+  {
+    type: 'gradient',
+    value: 'linear-gradient(90deg, rgb(91, 222, 239) 0%, rgb(247, 165, 245) 50%, rgb(230, 80, 113) 100%)',
+  },
   { type: 'gradient', value: 'linear-gradient(90deg, violet, magenta, pink)' },
+  {
+    type: 'gradient',
+    value: 'linear-gradient(90deg, rgb(244, 231, 133) 0%, rgb(242, 69, 138) 50%, rgb(165, 121, 240) 100%)',
+  },
 ];
