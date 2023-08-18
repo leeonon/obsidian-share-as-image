@@ -113,7 +113,7 @@
     </div>
   </NormalStyleContainer>
   <div class="left share-to-image-markdown-text">
-    <MarkdownMaskSetting isSelection="{!!selection}" onSetElementColor="{onSetElementColor}" />
+    <MarkdownMaskSetting selection="{selection}" onSetElementColor="{onSetElementColor}" />
   </div>
 </div>
 

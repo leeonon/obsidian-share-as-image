@@ -7,7 +7,7 @@
   /**
    * Whether any text is selected
    */
-  export let isSelection: boolean;
+  export let selection: Selection | null;
   export let onSetElementColor: (style: TextStyleType) => void;
 
   function onChangeFontSize() {}
@@ -32,6 +32,7 @@
       },
     });
   }
+  function setFontBold() {}
 </script>
 
 <div class="markdown-mask-setting">
@@ -150,9 +151,9 @@
     </div>
   </div>
   <div class="item">
-    <div class="lable">Text Style</div>
+    <div class="lable">Text Color</div>
     <div class="setting">
-      <TextStyle isSelection="{isSelection}" onSetElementColor="{onSetElementColor}" />
+      <TextStyle selection="{selection}" onSetElementColor="{onSetElementColor}" />
     </div>
   </div>
 </div>
