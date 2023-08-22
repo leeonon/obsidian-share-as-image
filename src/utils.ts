@@ -31,14 +31,18 @@ export function hasStyle(element: HTMLElement, styleName: keyof CSSStyleDeclarat
  * Container used to select certain elements on a page and set their styles.
  * @returns HTMLSpanElement
  */
-export function createSpanRange(selection: Selection, style: Record<any, any>) {
+export function createSpanRange<K extends keyof HTMLElementTagNameMap>(
+  tag: K,
+  selection: Selection,
+  style?: Record<any, any>
+) {
   const range = selection.getRangeAt(0);
   const fragment = range.cloneContents();
   const elements = fragment.querySelectorAll('*');
-  const styles = Object.entries(style).map(([key, value]) => [key, value]);
+  const styles = Object.entries(style || {}).map(([key, value]) => [key, value]);
 
-  const spanEl = document.createElement('span');
-  spanEl.append(fragment);
+  const tagEl = document.createElement(tag);
+  tagEl.append(fragment);
 
   elements.forEach(element => {
     if (element instanceof HTMLElement) {
@@ -66,15 +70,15 @@ export function createSpanRange(selection: Selection, style: Record<any, any>) {
     }
   });
 
-  spanEl.normalize();
+  tagEl.normalize();
 
-  spanEl.dataset.slate = 'true';
+  tagEl.dataset.slate = 'true';
   styles.forEach(([property, value]) => {
-    spanEl.style.setProperty(property, value);
+    tagEl.style.setProperty(property, value);
   });
-  spanEl.appendChild(fragment);
+  tagEl.appendChild(fragment);
 
-  return spanEl;
+  return tagEl;
 }
 
 /**

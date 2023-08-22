@@ -1,9 +1,51 @@
 <script lang="ts">
-  import {} from 'obsidian';
+  import type { TextStyleType } from '@/constant';
   import { TEXT_STYLE } from '@/constant';
+  import { createSpanRange } from '@/utils';
 
   export let selection: Selection | null;
-  export let onSetElementColor: (style: (typeof TEXT_STYLE)[number]) => void;
+
+  $: onChangeSelectionDom = (element: HTMLSpanElement) => {
+    if (!selection) return;
+
+    const range = selection?.getRangeAt(0);
+    range?.extractContents();
+    range.insertNode(element);
+    selection = null;
+  };
+
+  const onSetElementColor = (value: TextStyleType) => {
+    if (!selection) return;
+    let styles = {};
+
+    if (value.type === 'gradient') {
+      styles = {
+        color: 'transparent',
+        'background-image': value.value,
+        '-webkit-background-clip': 'text',
+      };
+    } else {
+      styles = {
+        'background-image': 'unset',
+        color: value.value,
+      };
+    }
+
+    const span = createSpanRange('span', selection, styles);
+    onChangeSelectionDom(span);
+  };
+
+  const onSetStrong = () => {
+    if (!selection) return;
+    const strong = createSpanRange('strong', selection);
+    onChangeSelectionDom(strong);
+  };
+
+  const onSetItalic = () => {
+    if (!selection) return;
+    const italic = createSpanRange('em', selection);
+    onChangeSelectionDom(italic);
+  };
 
   $: bold = selection?.anchorNode?.parentElement?.tagName === 'STRONG';
   $: italic = selection?.anchorNode?.parentElement?.tagName === 'EM';
@@ -23,7 +65,7 @@
     {/each}
   </div>
   <div class="font-style-container">
-    <div class="font-style-item" class:active="{bold}">
+    <div class="font-style-item" class:active="{bold}" on:click="{onSetStrong}">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -37,7 +79,7 @@
         class="lucide lucide-bold"
         ><path d="M14 12a4 4 0 0 0 0-8H6v8"></path><path d="M15 20a4 4 0 0 0 0-8H6v8Z"></path></svg>
     </div>
-    <div class="font-style-item" class:active="{italic}">
+    <div class="font-style-item" class:active="{italic}" on:click="{onSetItalic}">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"

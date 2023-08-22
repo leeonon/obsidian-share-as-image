@@ -8,7 +8,6 @@
    * Whether any text is selected
    */
   export let selection: Selection | null;
-  export let onSetElementColor: (style: TextStyleType) => void;
 
   function onChangeFontSize() {}
 
@@ -153,7 +152,7 @@
   <div class="item">
     <div class="lable">Text Color</div>
     <div class="setting">
-      <TextStyle selection="{selection}" onSetElementColor="{onSetElementColor}" />
+      <TextStyle selection="{selection}" />
     </div>
   </div>
 </div>

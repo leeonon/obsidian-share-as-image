@@ -14,16 +14,14 @@
 </script>
 
 <script lang="ts">
-  import type { TextStyleType } from '@/constant';
   import { Component, MarkdownPreviewView, App } from 'obsidian';
   import { onMount, onDestroy } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
-  import { createSpanRange } from '@/utils';
   import MarkdownMaskSetting from './Setting.svelte';
   import NormalStyleContainer from './Container.svelte';
   import Frontmatter from './Frontmatter.svelte';
 
-  export let containerElement: ShadowRoot;
+  export let containerElement: HTMLElement;
   export let app: App;
   export let title: MarkdownMaskContentProps['title'];
   export let content: MarkdownMaskContentProps['content'];
@@ -55,29 +53,16 @@
     selection = null;
   };
 
-  const onSetElementColor = (value: TextStyleType) => {
-    if (!selection) return;
-    let styles = {};
-
-    if (value.type === 'gradient') {
-      styles = {
-        color: 'transparent',
-        'background-image': value.value,
-        '-webkit-background-clip': 'text',
-      };
-    } else {
-      styles = {
-        'background-image': 'unset',
-        color: value.value,
-      };
-    }
-
-    const span = createSpanRange(selection, styles);
-    onChangeSelectionDom(span);
-  };
-
   onMount(() => {
-    MarkdownPreviewView.render(app, content, element, sourcePath, parentComponent);
+    MarkdownPreviewView.render(app, content, element, sourcePath, parentComponent).then(() => {
+      element.querySelectorAll('pre').forEach(pre => {
+        const code = pre.querySelector('code');
+        pre.innerHTML = '';
+        if (code) {
+          pre.appendChild(code);
+        }
+      });
+    });
 
     containerElement.addEventListener('mouseup', onMouseUp, { signal: controller.signal });
   });
@@ -113,7 +98,7 @@
     </div>
   </NormalStyleContainer>
   <div class="left share-to-image-markdown-text">
-    <MarkdownMaskSetting selection="{selection}" onSetElementColor="{onSetElementColor}" />
+    <MarkdownMaskSetting selection="{selection}" />
   </div>
 </div>
 
