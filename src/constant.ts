@@ -40,3 +40,5 @@ export const TEXT_STYLE: TextStyleType[] = [
     value: 'linear-gradient(90deg, rgb(244, 231, 133) 0%, rgb(242, 69, 138) 50%, rgb(165, 121, 240) 100%)',
   },
 ];
+
+export const IMAGE_SIZE = [375,390,430, 1080,1280,2400];

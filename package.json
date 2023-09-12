@@ -13,6 +13,7 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@tsconfig/svelte": "^3.0.0",
+		"@types/canvas-confetti": "^1.6.1",
 		"@types/node": "^16.11.6",
 		"@typescript-eslint/eslint-plugin": "5.29.0",
 		"@typescript-eslint/parser": "5.29.0",
@@ -62,6 +63,7 @@
 		"@uiw/codemirror-theme-nord": "^4.19.16",
 		"@uiw/codemirror-theme-vscode": "^4.19.16",
 		"@uiw/codemirror-themes": "^4.21.7",
+		"canvas-confetti": "^1.6.0",
 		"html-to-image": "^1.11.11"
 	}
 }
