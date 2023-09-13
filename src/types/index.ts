@@ -25,7 +25,8 @@ export interface MarkdownMaskImageSettings {
   lineHeight: number;
   letterSpacing: number;
   color: string;
-  padding: number;
+  outerPadding: number;
+  innerPadding: number;
   /**
    * Control whether frontmatter is displayed and which attributes are displayed.
    */

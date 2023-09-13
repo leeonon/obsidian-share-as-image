@@ -120,34 +120,42 @@
       {/if}
     </div>
   </div>
+  {$markdownMakeImageConfig.fontSize}
   <RangeSettingItem
     label="FontSize"
-    value="{$markdownMakeImageConfig.fontSize}"
+    bind:value="{$markdownMakeImageConfig.fontSize}"
     type="range"
     min="12"
     max="28"
     step="1" />
   <RangeSettingItem
     label="LineHeight"
-    value="{$markdownMakeImageConfig.lineHeight}"
+    bind:value="{$markdownMakeImageConfig.lineHeight}"
     type="range"
     min="1"
     max="3"
     step="0.1" />
   <RangeSettingItem
     label="LetterSpacing"
-    value="{$markdownMakeImageConfig.letterSpacing}"
+    bind:value="{$markdownMakeImageConfig.letterSpacing}"
     type="range"
     min="0"
     max="5"
-    step="0.2" />
+    step="0.1" />
   <RangeSettingItem
-    label="LayoutPadding"
-    value="{$markdownMakeImageConfig.padding}"
+    label="OuterPadding"
+    bind:value="{$markdownMakeImageConfig.outerPadding}"
     type="range"
     min="0"
     max="3"
-    step="0.2" />
+    step="0.1" />
+  <RangeSettingItem
+    label="InnerPadding"
+    bind:value="{$markdownMakeImageConfig.innerPadding}"
+    type="range"
+    min="1"
+    max="3"
+    step="0.1" />
   <div class="item">
     <div class="label">Text Color</div>
     <div class="setting">
@@ -158,9 +166,31 @@
 
 <style lang="scss">
   .markdown-mask-setting {
+    max-height: 100%;
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    overflow-x: hidden;
+    overflow-y: overlay;
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+    &::-webkit-scrollbar-track {
+      position: absolute;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #7f7f7f;
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar-track-piece:end {
+      margin-bottom: 20px;
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-track-piece:start {
+      background: transparent;
+    }
   }
   .item {
     display: flex;

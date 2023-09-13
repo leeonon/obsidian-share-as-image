@@ -29,6 +29,8 @@
   export let sourcePath: MarkdownMaskContentProps['sourcePath'];
   export let parentComponent: MarkdownMaskContentProps['parentComponent'];
 
+  console.log('markdownMakeImageConfig:', markdownMakeImageConfig);
+
   let element: HTMLDivElement;
   let selection: Selection | null; // Select the selection object for the content
 
@@ -74,8 +76,13 @@
 
 <div class="share-to-image-markdown">
   <NormalStyleContainer>
-    <div class="container" style="background-image: {$markdownMakeImageConfig.backgroundColor}">
-      <div class="content">
+    <div
+      class="container"
+      style="
+			background-image: {$markdownMakeImageConfig.backgroundColor};
+			padding: {$markdownMakeImageConfig.outerPadding}rem;
+		">
+      <div class="content" style="padding: 1rem {$markdownMakeImageConfig.innerPadding}rem;">
         <h1 class="content-title">{title}</h1>
         {#if $markdownMakeImageConfig.frontmatter.visible}
           <Frontmatter
@@ -114,7 +121,6 @@
     flex-direction: column;
     height: 100%;
     margin: 0 auto;
-    padding: 3rem;
     border-radius: 6px;
     mask: linear-gradient(rgba(29, 31, 34, 0.8) 90%, transparent 100%);
     font-family: 'Wotfard', -apple-system, sans-serif;
@@ -123,7 +129,6 @@
     max-width: 800px;
     background-color: var(--background-primary);
     margin: 0 auto;
-    padding: 1rem 3rem;
     border-radius: 6px;
     box-shadow: 0px 1px 20px 8px #13121263;
   }
@@ -135,7 +140,6 @@
     width: 280px;
     min-width: 280px;
     height: calc(100% - 4rem);
-    margin-left: auto;
     border-radius: 6px;
     border: var(--tab-outline-width) solid var(--tab-outline-color);
   }
