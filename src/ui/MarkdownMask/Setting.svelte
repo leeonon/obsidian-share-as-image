@@ -5,6 +5,7 @@
   import BackgroundSetting from './BackgroundSetting.svelte';
   import RangeSettingItem from '../components/RangeSettingItem.svelte';
   import TextStyle from './TextStyle.svelte';
+  import CollapseSettingItem from '../components/CollapseSettingItem.svelte';
 
   /**
    * Whether any text is selected
@@ -59,12 +60,11 @@
       <div class="setting-buttons-item-text">Download</div>
     </div>
   </div>
-  <div class="item">
-    <div class="label">Background</div>
-    <div class="setting">
-      <BackgroundSetting />
-    </div>
-  </div>
+  <CollapseSettingItem label="Background">
+    <span slot="extra" class="background-selected-item" style="background: {$markdownMakeImageConfig.backgroundColor};"
+    ></span>
+    <BackgroundSetting />
+  </CollapseSettingItem>
   <div class="item">
     <div class="label">Frontmatter</div>
     <div class="setting setting-frontmatter-container">
@@ -120,7 +120,6 @@
       {/if}
     </div>
   </div>
-  {$markdownMakeImageConfig.fontSize}
   <RangeSettingItem
     label="FontSize"
     bind:value="{$markdownMakeImageConfig.fontSize}"
@@ -209,6 +208,12 @@
       justify-content: space-between;
       gap: 0.1rem;
     }
+  }
+  .background-selected-item {
+    display: inline-block;
+    width: 3rem;
+    height: 1rem;
+    border-radius: 4px;
   }
   .setting-frontmatter-container {
     padding: 0.5rem;
