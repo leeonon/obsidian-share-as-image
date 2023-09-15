@@ -82,6 +82,7 @@
 			background-image: {$markdownMakeImageConfig.backgroundColor};
 			padding: {$markdownMakeImageConfig.outerPadding}rem;
 			width: {$markdownMakeImageConfig.pageSize / 2}px;
+			font-family: {$markdownMakeImageConfig.fontFamily};
 		">
       <div class="content" style="padding: 1rem {$markdownMakeImageConfig.innerPadding}rem;">
         <h1 class="content-title">{title}</h1>

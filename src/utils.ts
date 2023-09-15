@@ -99,3 +99,26 @@ export function setSpanRangeColor(element: HTMLSpanElement, value: string) {
   }
   element.style.color = value;
 }
+
+export type LocalFontType = {
+  family: string;
+  fullName: string;
+  postscriptName: string;
+  style: string;
+};
+/**
+ * Retrieves the list of local fonts available on the user's system.
+ *
+ * @return {Promise<string[]>} An array of font family names.
+ */
+export async function getLocalFont(): Promise<string[]> {
+  try {
+    // @ts-ignore
+    const allFont = (await window.queryLocalFonts()) as LocalFontType[];
+    const family = [...new Set(allFont.map(item => item.family))];
+    return family;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}

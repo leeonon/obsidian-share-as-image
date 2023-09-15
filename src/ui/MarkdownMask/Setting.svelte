@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { type TextStyleType, IMAGE_SIZE } from '@/constant';
   import confetti from 'canvas-confetti';
   import { markdownMakeImageConfig } from '@/store';
@@ -6,11 +7,14 @@
   import RangeSettingItem from '../components/RangeSettingItem.svelte';
   import TextStyle from './TextStyle.svelte';
   import CollapseSettingItem from '../components/CollapseSettingItem.svelte';
+  import { getLocalFont } from '@/utils';
 
   /**
    * Whether any text is selected
    */
   export let selection: Selection | null;
+
+  let fonts: string[] = [];
 
   const frontmatterConfigArray = Object.keys($markdownMakeImageConfig.frontmatter).filter(v => v !== 'visible');
 
@@ -44,6 +48,10 @@
       origin: { y: 0.6 },
     });
   }
+
+  onMount(async () => {
+    fonts = await getLocalFont();
+  });
 </script>
 
 <div class="markdown-mask-setting">
@@ -134,6 +142,16 @@
       <select class="dropdown cti-select-dropdown" name="fontSize" bind:value="{$markdownMakeImageConfig.pageSize}">
         {#each IMAGE_SIZE as size (size)}
           <option value="{size.value}">{size.name}</option>
+        {/each}
+      </select>
+    </div>
+  </div>
+  <div class="item item-horizontal">
+    <div class="label">Font</div>
+    <div class="setting select">
+      <select class="dropdown cti-select-dropdown" name="fontSize" bind:value="{$markdownMakeImageConfig.fontFamily}">
+        {#each fonts as font}
+          <option value="{font}">{font}</option>
         {/each}
       </select>
     </div>
