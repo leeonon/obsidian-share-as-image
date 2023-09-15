@@ -41,4 +41,9 @@ export const TEXT_STYLE: TextStyleType[] = [
   },
 ];
 
-export const IMAGE_SIZE = [375,390,430, 1080,1280,2400];
+export const IMAGE_SIZE = [
+  { name: 'Mobile Portrait', value: 1080 },
+  { name: 'Web Display', value: 1920 },
+  { name: 'Tablet Display', value: 2048 },
+  { name: 'Standard A4', value: 2480 },
+];

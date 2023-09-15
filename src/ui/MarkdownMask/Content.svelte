@@ -81,6 +81,7 @@
       style="
 			background-image: {$markdownMakeImageConfig.backgroundColor};
 			padding: {$markdownMakeImageConfig.outerPadding}rem;
+			width: {$markdownMakeImageConfig.pageSize / 2}px;
 		">
       <div class="content" style="padding: 1rem {$markdownMakeImageConfig.innerPadding}rem;">
         <h1 class="content-title">{title}</h1>
@@ -126,7 +127,6 @@
     font-family: 'Wotfard', -apple-system, sans-serif;
   }
   .content {
-    max-width: 800px;
     background-color: var(--background-primary);
     margin: 0 auto;
     border-radius: 6px;

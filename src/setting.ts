@@ -24,8 +24,9 @@ export const MARKDOWN_MAKE_IMAGE_SETTINGS: MarkdownMaskImageSettings = {
   fontSize: 16,
   lineHeight: 1.5,
   letterSpacing: 0.2,
-  outerPadding: 3,
-  innerPadding: 3,
+  outerPadding: 2,
+  innerPadding: 2,
+  pageSize: 1920,
   color: 'var(--text-normal)',
   frontmatter: {
     visible: false,

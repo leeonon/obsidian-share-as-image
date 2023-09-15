@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TextStyleType } from '@/constant';
+  import { type TextStyleType, IMAGE_SIZE } from '@/constant';
   import confetti from 'canvas-confetti';
   import { markdownMakeImageConfig } from '@/store';
   import BackgroundSetting from './BackgroundSetting.svelte';
@@ -12,7 +12,9 @@
    */
   export let selection: Selection | null;
 
-  function onChangeFontSize() {}
+  const frontmatterConfigArray = Object.keys($markdownMakeImageConfig.frontmatter).filter(v => v !== 'visible');
+
+  $: frontmatterConfig = $markdownMakeImageConfig.frontmatter as any;
 
   function onChangeFrontmatterVisible(e: MouseEvent) {
     const target = e.target as HTMLElement;
@@ -34,7 +36,6 @@
       },
     });
   }
-  function setFontBold() {}
 
   function onCopy() {
     confetti({
@@ -76,46 +77,18 @@
       </div>
       {#if $markdownMakeImageConfig.frontmatter.visible}
         <div class="setting-frontmatter-options">
-          <div class="setting-frontmatter-options-item">
-            <span>Created</span>
-            <div class="checkbox-container" class:is-enabled="{$markdownMakeImageConfig.frontmatter.created}">
-              <input
-                name="created"
-                type="checkbox"
-                checked="{$markdownMakeImageConfig.frontmatter.created}"
-                on:click="{onChangeFrontmatterOptions}" />
+          {#each frontmatterConfigArray as key}
+            <div class="setting-frontmatter-options-item">
+              <span>{key}</span>
+              <div class="checkbox-container" class:is-enabled="{frontmatterConfig[key]}">
+                <input
+                  name="{key}"
+                  type="checkbox"
+                  checked="{frontmatterConfig[key]}"
+                  on:click="{onChangeFrontmatterOptions}" />
+              </div>
             </div>
-          </div>
-          <div class="setting-frontmatter-options-item">
-            <span>Modified</span>
-            <div class="checkbox-container" class:is-enabled="{$markdownMakeImageConfig.frontmatter.modified}">
-              <input
-                name="modified"
-                type="checkbox"
-                checked="{$markdownMakeImageConfig.frontmatter.modified}"
-                on:click="{onChangeFrontmatterOptions}" />
-            </div>
-          </div>
-          <div class="setting-frontmatter-options-item">
-            <span>Author</span>
-            <div class="checkbox-container" class:is-enabled="{$markdownMakeImageConfig.frontmatter.author}">
-              <input
-                name="author"
-                type="checkbox"
-                checked="{$markdownMakeImageConfig.frontmatter.author}"
-                on:click="{onChangeFrontmatterOptions}" />
-            </div>
-          </div>
-          <div class="setting-frontmatter-options-item">
-            <span>Tags</span>
-            <div class="checkbox-container" class:is-enabled="{$markdownMakeImageConfig.frontmatter.tags}">
-              <input
-                name="tags"
-                type="checkbox"
-                checked="{$markdownMakeImageConfig.frontmatter.tags}"
-                on:click="{onChangeFrontmatterOptions}" />
-            </div>
-          </div>
+          {/each}
         </div>
       {/if}
     </div>
@@ -155,12 +128,19 @@
     min="1"
     max="3"
     step="0.1" />
-  <div class="item">
-    <div class="label">Text Color</div>
-    <div class="setting">
-      <TextStyle selection="{selection}" />
+  <div class="item item-horizontal">
+    <div class="label">Page Size</div>
+    <div class="setting select">
+      <select class="dropdown cti-select-dropdown" name="fontSize" bind:value="{$markdownMakeImageConfig.pageSize}">
+        {#each IMAGE_SIZE as size (size)}
+          <option value="{size.value}">{size.name}</option>
+        {/each}
+      </select>
     </div>
   </div>
+  <CollapseSettingItem label="TextStyle">
+    <TextStyle selection="{selection}" />
+  </CollapseSettingItem>
 </div>
 
 <style lang="scss">
@@ -197,6 +177,12 @@
     justify-content: center;
     padding: 0.75em 0;
     border-bottom: 1px solid var(--background-modifier-border);
+    &.item-horizontal {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.3rem 0;
+    }
     .label {
       color: var(--text-normal);
       font-size: var(--font-ui-medium);
@@ -207,6 +193,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.1rem;
+    }
+    .setting.select {
+      margin: 0.5rem 0;
     }
   }
   .background-selected-item {

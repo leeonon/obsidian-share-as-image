@@ -41,7 +41,7 @@
   }
   .collapse-setting-content {
     max-height: 0;
-    transition: max-height 0.25s ease-in-out;
+    transition: max-height 0.25s;
     transform-origin: top;
     overflow: hidden;
   }

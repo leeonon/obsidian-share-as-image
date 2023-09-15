@@ -27,6 +27,7 @@ export interface MarkdownMaskImageSettings {
   color: string;
   outerPadding: number;
   innerPadding: number;
+  pageSize: number;
   /**
    * Control whether frontmatter is displayed and which attributes are displayed.
    */

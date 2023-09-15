@@ -20,7 +20,8 @@
       background-color: transparent;
     }
     &::-webkit-scrollbar-thumb {
-      background-color: #7f7f7f;
+      // background-color: #7f7f7f;
+      background-color: transparent;
       border-radius: 4px;
     }
     &::-webkit-scrollbar-track-piece:end {
