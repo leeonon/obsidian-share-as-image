@@ -1,3 +1,5 @@
+export const SHARE_TO_IMAGE_MARKDOWN_CONTAINER = 'share-to-image-markdown-container';
+
 export const THEMES = [
   { name: 'default', value: 'default' },
   { name: 'oneDark', value: 'oneDark' },
@@ -46,4 +48,10 @@ export const IMAGE_SIZE = [
   { name: 'Web Display', value: 1920 },
   { name: 'Tablet Display', value: 2048 },
   { name: 'Standard A4', value: 2480 },
+];
+
+export const PAGE_FONT_FAMILY = [
+  { name: 'serif', link: 'https://fonts.cdnfonts.com/css/microsoft-sans-serif' },
+  { name: 'sans serif', link: 'https://fonts.cdnfonts.com/css/microsoft-sans-serif' },
+  { name: 'LXGW WenKai', link: 'https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.min.css' },
 ];

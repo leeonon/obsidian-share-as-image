@@ -20,13 +20,14 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
 
 export const MARKDOWN_MAKE_IMAGE_SETTINGS: MarkdownMaskImageSettings = {
   backgroundColor: MARKDOWN_BACKGROUND[0].value,
-  fontFamily: '1.3',
+  fontFamily: 'var(--font-text)',
   fontSize: 16,
   lineHeight: 1.5,
   letterSpacing: 0.2,
   outerPadding: 2,
   innerPadding: 2,
   pageSize: 1920,
+  pageOpacity: 0.85,
   color: 'var(--text-normal)',
   frontmatter: {
     visible: false,

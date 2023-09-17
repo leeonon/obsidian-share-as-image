@@ -1,3 +1,8 @@
+import { Notice } from 'obsidian';
+import { toBlob } from 'html-to-image';
+import fs from 'fs';
+import confetti from 'canvas-confetti';
+
 export function createElement(elementType: keyof HTMLElementTagNameMap, className?: string) {
   const element = document.createElement(elementType);
   if (className) {
@@ -120,5 +125,58 @@ export async function getLocalFont(): Promise<string[]> {
   } catch (error) {
     console.log(error);
     throw error;
+  }
+}
+
+export function blobToBuffer(blob: Blob) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(new Uint8Array(reader.result as ArrayBuffer));
+    reader.onerror = reject;
+    reader.readAsArrayBuffer(blob);
+  });
+}
+
+export function convertToRGBA(color: string, opacity: number) {
+  const rgbMatch = color.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+  const rgbaMatch = color.match(/^rgba\((\d+),\s*(\d+),\s*(\d+),\s*([\d.]+)\)$/);
+
+  if (rgbMatch) {
+    return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${opacity})`;
+  } else if (rgbaMatch) {
+    return `rgba(${rgbaMatch[1]}, ${rgbaMatch[2]}, ${rgbaMatch[3]}, ${opacity})`;
+  } else {
+    return color;
+  }
+}
+
+export async function downloadImage(target: HTMLElement) {
+  // @ts-ignore
+  const result = await window.electron.remote.dialog.showSaveDialog(this.electronWindow, {
+    title: 'Export Image',
+    defaultPath: `obsidian-share-image-${Date.now()}.png`,
+    filters: [{ name: '', extensions: ['png'] }],
+  });
+  if (result.canceled) return;
+
+  const path = result.filePath;
+  const blob = await toBlob(target, {
+    canvasHeight: target.clientHeight,
+    canvasWidth: target.clientWidth,
+    pixelRatio: 2,
+  });
+  if (blob) {
+    const buffer = await blobToBuffer(blob);
+    try {
+      // @ts-ignore
+      await fs.writeFileSync(path, buffer);
+      // @ts-ignore
+      await window.electron.remote.shell.showItemInFolder(path);
+      new Notice('Export Image Success', 3000);
+
+      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    } catch (error) {
+      new Notice('Export Image Failed', 3000);
+    }
   }
 }

@@ -1,20 +1,17 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { type TextStyleType, IMAGE_SIZE } from '@/constant';
-  import confetti from 'canvas-confetti';
+  import { IMAGE_SIZE, SHARE_TO_IMAGE_MARKDOWN_CONTAINER } from '@/constant';
   import { markdownMakeImageConfig } from '@/store';
+  import { downloadImage } from '@/utils';
   import BackgroundSetting from './BackgroundSetting.svelte';
   import RangeSettingItem from '../components/RangeSettingItem.svelte';
   import TextStyle from './TextStyle.svelte';
   import CollapseSettingItem from '../components/CollapseSettingItem.svelte';
-  import { getLocalFont } from '@/utils';
+  import FontSetting from '../components/FontSetting.svelte';
 
   /**
    * Whether any text is selected
    */
   export let selection: Selection | null;
-
-  let fonts: string[] = [];
 
   const frontmatterConfigArray = Object.keys($markdownMakeImageConfig.frontmatter).filter(v => v !== 'visible');
 
@@ -42,16 +39,8 @@
   }
 
   function onCopy() {
-    confetti({
-      particleCount: 100,
-      spread: 70,
-      origin: { y: 0.6 },
-    });
+    downloadImage(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
   }
-
-  onMount(async () => {
-    fonts = await getLocalFont();
-  });
 </script>
 
 <div class="markdown-mask-setting">
@@ -74,6 +63,13 @@
     ></span>
     <BackgroundSetting />
   </CollapseSettingItem>
+  <RangeSettingItem
+    label="PageOpacity"
+    bind:value="{$markdownMakeImageConfig.pageOpacity}"
+    type="range"
+    min="0.5"
+    max="1"
+    step="0.05" />
   <div class="item">
     <div class="label">Frontmatter</div>
     <div class="setting setting-frontmatter-container">
@@ -137,7 +133,7 @@
     max="3"
     step="0.1" />
   <div class="item item-horizontal">
-    <div class="label">Page Size</div>
+    <div class="label">PageSize</div>
     <div class="setting select">
       <select class="dropdown cti-select-dropdown" name="fontSize" bind:value="{$markdownMakeImageConfig.pageSize}">
         {#each IMAGE_SIZE as size (size)}
@@ -146,16 +142,7 @@
       </select>
     </div>
   </div>
-  <div class="item item-horizontal">
-    <div class="label">Font</div>
-    <div class="setting select">
-      <select class="dropdown cti-select-dropdown" name="fontSize" bind:value="{$markdownMakeImageConfig.fontFamily}">
-        {#each fonts as font}
-          <option value="{font}">{font}</option>
-        {/each}
-      </select>
-    </div>
-  </div>
+  <FontSetting />
   <CollapseSettingItem label="TextStyle">
     <TextStyle selection="{selection}" />
   </CollapseSettingItem>
@@ -213,6 +200,7 @@
       gap: 0.1rem;
     }
     .setting.select {
+      max-width: 60%;
       margin: 0.5rem 0;
     }
   }

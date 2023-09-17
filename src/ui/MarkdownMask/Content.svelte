@@ -17,6 +17,8 @@
   import { Component, MarkdownPreviewView, App } from 'obsidian';
   import { onMount, onDestroy } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
+  import { convertToRGBA } from '@/utils';
+  import { SHARE_TO_IMAGE_MARKDOWN_CONTAINER } from '@/constant';
   import MarkdownMaskSetting from './Setting.svelte';
   import NormalStyleContainer from './Container.svelte';
   import Frontmatter from './Frontmatter.svelte';
@@ -29,10 +31,9 @@
   export let sourcePath: MarkdownMaskContentProps['sourcePath'];
   export let parentComponent: MarkdownMaskContentProps['parentComponent'];
 
-  console.log('markdownMakeImageConfig:', markdownMakeImageConfig);
-
   let element: HTMLDivElement;
   let selection: Selection | null; // Select the selection object for the content
+  let rootBackground: string = '';
 
   const controller = new AbortController();
 
@@ -56,6 +57,12 @@
   };
 
   onMount(() => {
+    rootBackground = getComputedStyle(containerElement).backgroundColor;
+  });
+
+  $: pageBackground = convertToRGBA(rootBackground, $markdownMakeImageConfig.pageOpacity);
+
+  onMount(() => {
     MarkdownPreviewView.render(app, content, element, sourcePath, parentComponent).then(() => {
       element.querySelectorAll('pre').forEach(pre => {
         const code = pre.querySelector('code');
@@ -66,11 +73,11 @@
       });
     });
 
-    containerElement.addEventListener('mouseup', onMouseUp, { signal: controller.signal });
+    // containerElement.addEventListener('mouseup', onMouseUp, { signal: controller.signal });
   });
 
   onDestroy(() => {
-    controller.abort();
+    // controller.abort();
   });
 </script>
 
@@ -78,13 +85,20 @@
   <NormalStyleContainer>
     <div
       class="container"
+      id="{SHARE_TO_IMAGE_MARKDOWN_CONTAINER}"
       style="
-			background-image: {$markdownMakeImageConfig.backgroundColor};
-			padding: {$markdownMakeImageConfig.outerPadding}rem;
-			width: {$markdownMakeImageConfig.pageSize / 2}px;
-			font-family: {$markdownMakeImageConfig.fontFamily};
-		">
-      <div class="content" style="padding: 1rem {$markdownMakeImageConfig.innerPadding}rem;">
+				background-image: {$markdownMakeImageConfig.backgroundColor};
+				padding: {$markdownMakeImageConfig.outerPadding}rem;
+				width: {$markdownMakeImageConfig.pageSize / 2}px;
+				font-family: {$markdownMakeImageConfig.fontFamily};
+			">
+      <div
+        class="content"
+        bind:this="{containerElement}"
+        style="
+					padding: 1rem {$markdownMakeImageConfig.innerPadding}rem;
+					background-color: {pageBackground};
+				">
         <h1 class="content-title">{title}</h1>
         {#if $markdownMakeImageConfig.frontmatter.visible}
           <Frontmatter

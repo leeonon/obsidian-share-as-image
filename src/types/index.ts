@@ -28,6 +28,7 @@ export interface MarkdownMaskImageSettings {
   outerPadding: number;
   innerPadding: number;
   pageSize: number;
+  pageOpacity: number;
   /**
    * Control whether frontmatter is displayed and which attributes are displayed.
    */

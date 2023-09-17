@@ -5,6 +5,7 @@ import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
 import { toPng, toBlob } from 'html-to-image';
 import fs from 'fs';
+import { blobToBuffer } from '@/utils';
 
 export default class EditModal extends Modal {
   plugins: CodeToImagePluginType;
@@ -29,15 +30,6 @@ export default class EditModal extends Modal {
   private setDefaultSetting = async (settings: CodeImageSettings) => {
     await this.plugins.saveData({ ...this.plugins.settings, ...settings });
     new Notice('set default setting success');
-  };
-
-  private blobToBuffer = (blob: Blob) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(new Uint8Array(reader.result as ArrayBuffer));
-      reader.onerror = reject;
-      reader.readAsArrayBuffer(blob);
-    });
   };
 
   private toPng = () => {
@@ -67,7 +59,7 @@ export default class EditModal extends Modal {
       pixelRatio: 2,
     });
     if (blob) {
-      const buffer = await this.blobToBuffer(blob);
+      const buffer = await blobToBuffer(blob);
       try {
         // @ts-ignore
         await fs.writeFileSync(path, buffer);
