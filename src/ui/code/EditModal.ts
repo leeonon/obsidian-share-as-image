@@ -4,7 +4,7 @@ import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
 import { toPng } from 'html-to-image';
-import { onCopyImage, downloadImage } from '@/utils';
+import { handlerCopyImage, downloadImage } from '@/utils';
 
 export default class EditModal extends Modal {
   plugins: CodeToImagePluginType;
@@ -75,6 +75,6 @@ export default class EditModal extends Modal {
 
   onCopyAsImage = async () => {
     const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
-    await onCopyImage(target);
+    await handlerCopyImage(target);
   };
 }

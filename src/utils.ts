@@ -181,7 +181,7 @@ export async function downloadImage(target: HTMLElement) {
   }
 }
 
-export async function onCopyImage(target: HTMLElement) {
+export async function handlerCopyImage(target: HTMLElement) {
   const blob = await toBlob(target, {
     canvasHeight: target.clientHeight,
     canvasWidth: target.clientWidth,
@@ -192,4 +192,27 @@ export async function onCopyImage(target: HTMLElement) {
     confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
     window.navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
   }
+}
+
+export async function imageToBase64(url: string) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'Anonymous';
+
+    img.onload = function () {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx?.drawImage(img, 0, 0);
+      const base64Data = canvas.toDataURL('image/png');
+      resolve(base64Data);
+    };
+
+    img.onerror = function (error) {
+      new Notice('Image loading failed');
+      reject(error);
+    };
+    img.src = url;
+  });
 }

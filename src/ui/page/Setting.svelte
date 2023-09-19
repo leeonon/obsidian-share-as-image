@@ -1,7 +1,7 @@
 <script lang="ts">
   import { IMAGE_SIZE, SHARE_TO_IMAGE_MARKDOWN_CONTAINER } from '@/constant';
   import { markdownMakeImageConfig } from '@/store';
-  import { downloadImage } from '@/utils';
+  import { downloadImage, handlerCopyImage } from '@/utils';
   import BackgroundSetting from './BackgroundSetting.svelte';
   import RangeSettingItem from '../components/RangeSettingItem.svelte';
   import TextStyle from './TextStyle.svelte';
@@ -38,20 +38,24 @@
     });
   }
 
-  function onCopy() {
+  function onDownloadImage() {
     downloadImage(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
+  }
+
+  function onCopyImage() {
+    handlerCopyImage(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
   }
 </script>
 
 <div class="markdown-page-setting">
   <div class="setting-buttons">
-    <div class="setting-buttons-item" on:click="{onCopy}">
+    <div class="setting-buttons-item" on:click="{onCopyImage}">
       <div class="setting-buttons-item-background">
         <div></div>
       </div>
       <div class="setting-buttons-item-text">Copy</div>
     </div>
-    <div class="setting-buttons-item">
+    <div class="setting-buttons-item" on:click="{onDownloadImage}">
       <div class="setting-buttons-item-background">
         <div></div>
       </div>
