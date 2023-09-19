@@ -7,7 +7,7 @@
   }
 </script>
 
-<div class="markdown-mask-background">
+<div class="markdown-page-background">
   <!-- svelte-ignore a11y-click-events-have-key-events -->
   <div class="item-card item-card-custom" on:click="{() => onChangeColor({ type: 'color', value: 'unset' })}">
     Unset
@@ -24,7 +24,7 @@
 </div>
 
 <style lang="scss">
-  .markdown-mask-background {
+  .markdown-page-background {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;

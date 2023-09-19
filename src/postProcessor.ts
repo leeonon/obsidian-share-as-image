@@ -1,12 +1,12 @@
 // https://github.com/nyable/obsidian-code-block-enhancer/blob/master/src/core.ts#L6:7
 import type { MarkdownPostProcessorContext, App } from 'obsidian';
-import type { LanguageType } from '@/ui/Codemirror/lang';
+import type { LanguageType } from '@/ui/code/Codemirror/lang';
 import type { CodeToImagePluginType } from '@/types';
 import { editConfig } from '@/store';
-import { langs } from '@/ui/Codemirror/lang';
+import { langs } from '@/ui/code/Codemirror/lang';
 
 import { createElement, getLocalLanguage } from '@/utils';
-import EditModal from '@/ui/EditModal';
+import EditModal from '@/ui/code/EditModal';
 
 export function codeBlockPostProcessor(
   element: HTMLElement,

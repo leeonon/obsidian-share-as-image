@@ -1,11 +1,10 @@
-import type { LanguageType } from '@/ui/Codemirror/lang';
+import type { LanguageType } from '@/ui/code/Codemirror/lang';
 import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 
 import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
-import { toPng, toBlob } from 'html-to-image';
-import fs from 'fs';
-import { blobToBuffer } from '@/utils';
+import { toPng } from 'html-to-image';
+import { onCopyImage, downloadImage } from '@/utils';
 
 export default class EditModal extends Modal {
   plugins: CodeToImagePluginType;
@@ -43,33 +42,8 @@ export default class EditModal extends Modal {
   };
 
   private onExport = async () => {
-    // @ts-ignore
-    const result = await window.electron.remote.dialog.showSaveDialog(this.electronWindow, {
-      title: 'Export Image',
-      defaultPath: `obsidian-share-image-${Date.now()}.png`,
-      filters: [{ name: '', extensions: ['png'] }],
-    });
-    if (result.canceled) return;
-
     const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
-    const path = result.filePath;
-    const blob = await toBlob(target, {
-      canvasHeight: target.clientHeight,
-      canvasWidth: target.clientWidth,
-      pixelRatio: 2,
-    });
-    if (blob) {
-      const buffer = await blobToBuffer(blob);
-      try {
-        // @ts-ignore
-        await fs.writeFileSync(path, buffer);
-        // @ts-ignore
-        await window.electron.remote.shell.showItemInFolder(path);
-        new Notice('Export Image Success', 3000);
-      } catch (error) {
-        new Notice('Export Image Failed', 3000);
-      }
-    }
+    await downloadImage(target);
   };
 
   private initModal = () => {
@@ -101,15 +75,6 @@ export default class EditModal extends Modal {
 
   onCopyAsImage = async () => {
     const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
-    // const fontCss = `@font-face {font-family: Comic Mono;font-weight: normal;src: url(https://cdn.jsdelivr.net/npm/comic-mono@0.0.1/ComicMono.ttf);}`;
-    const blob = await toBlob(target, {
-      canvasHeight: target.clientHeight,
-      canvasWidth: target.clientWidth,
-      pixelRatio: 2,
-    });
-    if (blob) {
-      new Notice('Copy As Image Success');
-      window.navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-    }
+    await onCopyImage(target);
   };
 }

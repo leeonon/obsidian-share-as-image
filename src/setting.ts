@@ -1,4 +1,4 @@
-import type { CodeToImagePluginType, CodeImageSettings, MarkdownMaskImageSettings } from '@/types';
+import type { CodeToImagePluginType, CodeImageSettings, PageImageSettings } from '@/types';
 import type { ThemeKey } from '@/themes';
 
 import { Setting, PluginSettingTab, type App } from 'obsidian';
@@ -18,7 +18,7 @@ export const DEFAULT_SETTINGS: CodeImageSettings = {
   fontSize: '14px',
 };
 
-export const MARKDOWN_MAKE_IMAGE_SETTINGS: MarkdownMaskImageSettings = {
+export const MARKDOWN_MAKE_IMAGE_SETTINGS: PageImageSettings = {
   backgroundColor: MARKDOWN_BACKGROUND[0].value,
   fontFamily: 'var(--font-text)',
   fontSize: 16,

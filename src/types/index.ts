@@ -18,7 +18,7 @@ export interface CodeImageSettings {
   fontSize: string;
 }
 
-export interface MarkdownMaskImageSettings {
+export interface PageImageSettings {
   backgroundColor: string;
   fontFamily: string;
   fontSize: number;

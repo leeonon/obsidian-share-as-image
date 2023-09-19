@@ -1,4 +1,4 @@
-import type { CodeImageSettings, MarkdownMaskImageSettings } from '@/types';
+import type { CodeImageSettings, PageImageSettings } from '@/types';
 
 import { writable } from 'svelte/store';
 import { DEFAULT_SETTINGS, MARKDOWN_MAKE_IMAGE_SETTINGS } from '@/setting';
@@ -15,12 +15,12 @@ function createEditConfig() {
 }
 
 function createMarkdownMakeConfig() {
-  const { subscribe, set, update } = writable<MarkdownMaskImageSettings>(MARKDOWN_MAKE_IMAGE_SETTINGS);
+  const { subscribe, set, update } = writable<PageImageSettings>(MARKDOWN_MAKE_IMAGE_SETTINGS);
 
   return {
     subscribe,
     set,
-    update: (payload: Partial<MarkdownMaskImageSettings>) => update(state => ({ ...state, ...payload })),
+    update: (payload: Partial<PageImageSettings>) => update(state => ({ ...state, ...payload })),
     reset: () => set(MARKDOWN_MAKE_IMAGE_SETTINGS),
   };
 }

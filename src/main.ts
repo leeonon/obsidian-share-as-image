@@ -6,11 +6,11 @@ import { Plugin, MarkdownView, type WorkspaceLeaf, type TFile, Notice } from 'ob
 import { codeBlockPostProcessor } from '@/postProcessor';
 import SettingTab, { DEFAULT_SETTINGS } from '@/setting';
 // import MarkdownModal from '@/ui/MarkdownModal';
-import MarkdownMakeView from './ui/MarkdownMask/View';
+import MakePageView from './ui/Page/View';
 
 export default class CodeToImagePlugin extends Plugin implements CodeToImagePluginType {
   settings: CodeImageSettings;
-  view: MarkdownMakeView;
+  view: MakePageView;
 
   async onload() {
     await this.loadSettings();
@@ -72,7 +72,7 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
       return;
     }
     this.registerView('markdown-shared-as-image', (leaf: WorkspaceLeaf) => {
-      this.view = new MarkdownMakeView(leaf, {
+      this.view = new MakePageView(leaf, {
         content,
         title,
         sourcePath: activeView.file?.path || '/',

@@ -1,12 +1,12 @@
 import { View, type WorkspaceLeaf } from 'obsidian';
-import MarkdownMaskContent, { type MarkdownMaskContentProps } from './Content.svelte';
+import PageContent, { type PageContentProps } from './Content.svelte';
 
-type MarkdownMakeViewType = Omit<MarkdownMaskContentProps, 'parentComponent'>;
+type PageViewType = Omit<PageContentProps, 'parentComponent'>;
 
-export default class MarkdownMakeView extends View {
-  private props: MarkdownMakeViewType;
+export default class MakePageView extends View {
+  private props: PageViewType;
 
-  constructor(leaf: WorkspaceLeaf, props: MarkdownMakeViewType) {
+  constructor(leaf: WorkspaceLeaf, props: PageViewType) {
     super(leaf);
 
     this.props = props;
@@ -27,7 +27,7 @@ export default class MarkdownMakeView extends View {
   async onOpen() {
     // const pageEle = this.containerEl.attachShadow({ mode: 'open' });
     const { frontmatter, ...rest } = this.props;
-    new MarkdownMaskContent({
+    new PageContent({
       target: this.containerEl,
       props: {
         ...rest,

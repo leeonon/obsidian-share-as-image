@@ -180,3 +180,16 @@ export async function downloadImage(target: HTMLElement) {
     }
   }
 }
+
+export async function onCopyImage(target: HTMLElement) {
+  const blob = await toBlob(target, {
+    canvasHeight: target.clientHeight,
+    canvasWidth: target.clientWidth,
+    pixelRatio: 2,
+  });
+  if (blob) {
+    new Notice('Copy As Image Success');
+    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    window.navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+  }
+}

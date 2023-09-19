@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  export type MarkdownMaskContentProps = {
+  export type PageContentProps = {
     title: string;
     content: string;
     sourcePath: string;
@@ -19,17 +19,17 @@
   import { markdownMakeImageConfig } from '@/store';
   import { convertToRGBA } from '@/utils';
   import { SHARE_TO_IMAGE_MARKDOWN_CONTAINER } from '@/constant';
-  import MarkdownMaskSetting from './Setting.svelte';
+  import PageSetting from './Setting.svelte';
   import NormalStyleContainer from './Container.svelte';
   import Frontmatter from './Frontmatter.svelte';
 
   export let containerElement: HTMLElement;
   export let app: App;
-  export let title: MarkdownMaskContentProps['title'];
-  export let content: MarkdownMaskContentProps['content'];
-  export let frontmatter: MarkdownMaskContentProps['frontmatter'];
-  export let sourcePath: MarkdownMaskContentProps['sourcePath'];
-  export let parentComponent: MarkdownMaskContentProps['parentComponent'];
+  export let title: PageContentProps['title'];
+  export let content: PageContentProps['content'];
+  export let frontmatter: PageContentProps['frontmatter'];
+  export let sourcePath: PageContentProps['sourcePath'];
+  export let parentComponent: PageContentProps['parentComponent'];
 
   let element: HTMLDivElement;
   let selection: Selection | null; // Select the selection object for the content
@@ -121,7 +121,7 @@
     </div>
   </NormalStyleContainer>
   <div class="left share-to-image-markdown-text">
-    <MarkdownMaskSetting selection="{selection}" />
+    <PageSetting selection="{selection}" />
   </div>
 </div>
 

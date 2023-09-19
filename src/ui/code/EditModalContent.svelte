@@ -1,14 +1,14 @@
 <script lang="ts">
-  import type { LanguageType } from '@/ui/Codemirror/lang';
+  import type { LanguageType } from '@/ui/code/Codemirror/lang';
   import type { CodeImageSettings } from '@/types';
 
   import { onDestroy, onMount } from 'svelte';
   import { setIcon } from 'obsidian';
 
-  import CodeMirror from '@/ui/Codemirror/index.svelte';
-  import Setting from '@/ui/Setting.svelte';
-  import WindowBar from '@/ui/WindowBar.svelte';
-  import ResizeContainer from '@/ui/ResizeContainer.svelte';
+  import CodeMirror from '@/ui/code/Codemirror/index.svelte';
+  import Setting from '@/ui/code/Setting.svelte';
+  import WindowBar from '@/ui/code/WindowBar.svelte';
+  import ResizeContainer from '@/ui/code/ResizeContainer.svelte';
   import { themeList } from '@/themes';
 
   import store from '@/store';

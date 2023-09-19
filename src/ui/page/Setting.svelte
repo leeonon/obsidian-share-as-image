@@ -43,7 +43,7 @@
   }
 </script>
 
-<div class="markdown-mask-setting">
+<div class="markdown-page-setting">
   <div class="setting-buttons">
     <div class="setting-buttons-item" on:click="{onCopy}">
       <div class="setting-buttons-item-background">
@@ -149,7 +149,7 @@
 </div>
 
 <style lang="scss">
-  .markdown-mask-setting {
+  .markdown-page-setting {
     max-height: 100%;
     display: flex;
     flex-direction: column;

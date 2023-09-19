@@ -5,8 +5,8 @@
   import { editConfig } from '@/store';
   import { themeList } from '@/themes';
   import { FONT_SIZE } from '@/constant';
-  import { langs } from '@/ui/Codemirror/lang';
-  import BackgroundCard from '@/ui/BackgroundCard.svelte';
+  import { langs } from '@/ui/code/Codemirror/lang';
+  import BackgroundCard from '@/ui/code/BackgroundCard.svelte';
 
   export let onSave: (settings: CodeImageSettings) => void;
 
