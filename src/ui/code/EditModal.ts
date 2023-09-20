@@ -4,7 +4,7 @@ import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
 import { toPng } from 'html-to-image';
-import { handlerCopyImage, downloadImage } from '@/utils';
+import { handlerCopyImage, downloadImage } from '@/utils/image';
 
 export default class EditModal extends Modal {
   plugins: CodeToImagePluginType;

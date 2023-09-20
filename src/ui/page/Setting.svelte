@@ -2,7 +2,7 @@
   import { onDestroy } from 'svelte';
   import { IMAGE_SIZE, SHARE_TO_IMAGE_MARKDOWN_CONTAINER } from '@/constant';
   import { markdownMakeImageConfig } from '@/store';
-  import { downloadImage, handlerCopyImage } from '@/utils';
+  import { downloadImage, handlerCopyImage } from '@/utils/image';
   import BackgroundSetting from './BackgroundSetting.svelte';
   import RangeSettingItem from '../components/RangeSettingItem.svelte';
   import TextStyle from './TextStyle.svelte';

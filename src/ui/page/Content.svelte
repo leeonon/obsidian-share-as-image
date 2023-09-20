@@ -18,6 +18,7 @@
   import { onMount, onDestroy } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
   import { convertToRGBA } from '@/utils';
+  import { imageToBase64 } from '@/utils/image';
   import { SHARE_TO_IMAGE_MARKDOWN_CONTAINER } from '@/constant';
   import PageSetting from './Setting.svelte';
   import NormalStyleContainer from './Container.svelte';
@@ -71,6 +72,15 @@
         pre.innerHTML = '';
         if (code) {
           pre.appendChild(code);
+        }
+      });
+
+      element.querySelectorAll('img').forEach(img => {
+        const url = img.getAttribute('src');
+        if (url) {
+          imageToBase64(url).then(base64 => {
+            img.src = base64;
+          });
         }
       });
     });
