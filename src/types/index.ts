@@ -1,9 +1,12 @@
 import type { Plugin } from 'obsidian';
 import type { ThemeKey } from '@/themes';
-import type { LanguageType } from '@/ui/Codemirror/lang';
+import type { LanguageType } from '@/ui/code/Codemirror/lang';
 
 export interface CodeToImagePluginType extends Plugin {
-  settings: CodeImageSettings;
+  settings: {
+    codeSettings: CodeImageSettings;
+    pageSettings: PageImageSettings;
+  };
 }
 
 export interface CodeImageSettings {

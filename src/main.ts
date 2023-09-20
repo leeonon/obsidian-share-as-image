@@ -1,15 +1,18 @@
-import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
+import type { CodeToImagePluginType, CodeImageSettings, PageImageSettings } from '@/types';
 
 import '@babel/runtime/helpers/extends';
 import { Plugin, MarkdownView, type WorkspaceLeaf, type TFile, Notice } from 'obsidian';
 
 import { codeBlockPostProcessor } from '@/postProcessor';
-import SettingTab, { DEFAULT_SETTINGS } from '@/setting';
-// import MarkdownModal from '@/ui/MarkdownModal';
-import MakePageView from './ui/Page/View';
+import SettingTab, { DEFAULT_SETTINGS, MARKDOWN_MAKE_IMAGE_SETTINGS } from '@/setting';
+import { markdownMakeImageConfig } from '@/store';
+import MakePageView from './ui/page/View';
 
 export default class CodeToImagePlugin extends Plugin implements CodeToImagePluginType {
-  settings: CodeImageSettings;
+  settings: {
+    codeSettings: CodeImageSettings;
+    pageSettings: PageImageSettings;
+  };
   view: MakePageView;
 
   async onload() {
@@ -33,7 +36,11 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
    * @memberof CodeToImagePlugin
    */
   async loadSettings() {
-    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+    const localData = await this.loadData();
+    this.settings = {
+      codeSettings: Object.assign({}, DEFAULT_SETTINGS, localData?.codeSettings),
+      pageSettings: Object.assign({}, MARKDOWN_MAKE_IMAGE_SETTINGS, localData?.pageSettings),
+    };
   }
 
   getFrontmatter(file: TFile) {
@@ -72,7 +79,7 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
       return;
     }
     this.registerView('markdown-shared-as-image', (leaf: WorkspaceLeaf) => {
-      this.view = new MakePageView(leaf, {
+      this.view = new MakePageView(leaf, this, {
         content,
         title,
         sourcePath: activeView.file?.path || '/',
@@ -80,6 +87,10 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
       });
       return this.view;
     });
+
+    // 设置默认值
+    markdownMakeImageConfig.set(this.settings.pageSettings);
+
     this.app.workspace.getLeaf().setViewState({
       type: 'markdown-shared-as-image',
       active: true,

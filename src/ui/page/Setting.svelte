@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onDestroy } from 'svelte';
   import { IMAGE_SIZE, SHARE_TO_IMAGE_MARKDOWN_CONTAINER } from '@/constant';
   import { markdownMakeImageConfig } from '@/store';
   import { downloadImage, handlerCopyImage } from '@/utils';
@@ -7,15 +8,19 @@
   import TextStyle from './TextStyle.svelte';
   import CollapseSettingItem from '../components/CollapseSettingItem.svelte';
   import FontSetting from '../components/FontSetting.svelte';
+  import Loading from '../components/loading';
 
   /**
    * Whether any text is selected
    */
   export let selection: Selection | null;
+  export let handlerSave: () => void;
 
   const frontmatterConfigArray = Object.keys($markdownMakeImageConfig.frontmatter).filter(v => v !== 'visible');
 
   $: frontmatterConfig = $markdownMakeImageConfig.frontmatter as any;
+
+  const loading = new Loading();
 
   function onChangeFrontmatterVisible(e: MouseEvent) {
     const target = e.target as HTMLElement;
@@ -38,13 +43,27 @@
     });
   }
 
-  function onDownloadImage() {
-    downloadImage(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
+  async function onDownloadImage() {
+    try {
+      loading.show(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
+      await downloadImage(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
+    } finally {
+      loading.hide();
+    }
   }
 
-  function onCopyImage() {
-    handlerCopyImage(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
+  async function onCopyImage() {
+    try {
+      loading.show(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
+      await handlerCopyImage(document.querySelector(`#${SHARE_TO_IMAGE_MARKDOWN_CONTAINER}`) as HTMLElement);
+    } finally {
+      loading.hide();
+    }
   }
+
+  onDestroy(() => {
+    loading.hide();
+  });
 </script>
 
 <div class="markdown-page-setting">
@@ -150,6 +169,7 @@
   <CollapseSettingItem label="TextStyle">
     <TextStyle selection="{selection}" />
   </CollapseSettingItem>
+  <button on:click="{handlerSave}">Set as default Settings</button>
 </div>
 
 <style lang="scss">

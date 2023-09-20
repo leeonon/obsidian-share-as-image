@@ -31,6 +31,8 @@
   export let sourcePath: PageContentProps['sourcePath'];
   export let parentComponent: PageContentProps['parentComponent'];
 
+  export let handlerSave: () => void;
+
   let element: HTMLDivElement;
   let selection: Selection | null; // Select the selection object for the content
   let rootBackground: string = '';
@@ -121,7 +123,7 @@
     </div>
   </NormalStyleContainer>
   <div class="left share-to-image-markdown-text">
-    <PageSetting selection="{selection}" />
+    <PageSetting selection="{selection}" handlerSave="{handlerSave}" />
   </div>
 </div>
 
@@ -133,6 +135,7 @@
     height: 100%;
   }
   .container {
+    position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;

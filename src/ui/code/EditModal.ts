@@ -27,7 +27,11 @@ export default class EditModal extends Modal {
   };
 
   private setDefaultSetting = async (settings: CodeImageSettings) => {
-    await this.plugins.saveData({ ...this.plugins.settings, ...settings });
+    // await this.plugins.saveData({
+    // 	settings: {
+    // 		...this.plugins.settings,
+    // 		...settings
+    // } });
     new Notice('set default setting success');
   };
 
