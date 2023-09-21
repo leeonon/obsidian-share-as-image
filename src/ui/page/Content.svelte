@@ -83,10 +83,7 @@
 					padding: 1rem {$markdownMakeImageConfig.innerPadding}rem;
 					background-color: {pageBackground};
 				">
-        <div class="content-title">
-          <div class="title">{title}</div>
-          <img src="https://obsidian.md/images/obsidian-logo-gradient.svg" class="ob-icon" alt="" />
-        </div>
+        <div class="content-title">{title}</div>
         {#if $markdownMakeImageConfig.frontmatter.visible}
           <Frontmatter
             author="{frontmatter?.author}"
@@ -104,6 +101,7 @@
             : `${$markdownMakeImageConfig.letterSpacing}px`};
 						color: {$markdownMakeImageConfig.color};">
         </div>
+        <img src="https://obsidian.md/images/obsidian-logo-text-white-purple.svg" alt="" class="bottom-icon" />
       </div>
     </div>
   </NormalStyleContainer>
@@ -131,6 +129,7 @@
     font-family: 'Wotfard', -apple-system, sans-serif;
   }
   .content {
+    position: relative;
     background-color: var(--background-primary);
     margin: 0 auto;
     border-radius: 6px;
@@ -139,11 +138,6 @@
   .content-title {
     padding-bottom: 16px;
     border-bottom: var(--tab-outline-width) solid var(--tab-outline-color);
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-  .content-title .title {
     font-weight: var(--inline-title-weight);
     font-size: var(--inline-title-size);
     line-height: var(--inline-title-line-height);
@@ -152,9 +146,6 @@
     font-family: var(--inline-title-font);
     letter-spacing: -0.015em;
     color: var(--inline-title-color);
-  }
-  .ob-icon {
-    width: 2rem;
   }
   .right {
     position: relative;
@@ -170,5 +161,11 @@
     bottom: 2rem;
     left: 50%;
     transform: translateX(-50%);
+  }
+  .bottom-icon {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    width: 6rem;
   }
 </style>
