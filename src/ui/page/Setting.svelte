@@ -10,11 +10,7 @@
   import FontSetting from '../components/FontSetting.svelte';
   import Loading from '../components/loading';
 
-  /**
-   * Whether any text is selected
-   */
-  export let selection: Selection | null;
-  export let handlerSave: () => void;
+  export let containerElement: HTMLElement;
 
   const frontmatterConfigArray = Object.keys($markdownMakeImageConfig.frontmatter).filter(v => v !== 'visible');
 
@@ -167,9 +163,8 @@
   </div>
   <FontSetting />
   <CollapseSettingItem label="TextStyle">
-    <TextStyle selection="{selection}" />
+    <TextStyle containerElement="{containerElement}" />
   </CollapseSettingItem>
-  <button on:click="{handlerSave}">Set as default Settings</button>
 </div>
 
 <style lang="scss">

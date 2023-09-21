@@ -4,8 +4,41 @@
 
 import { Notice } from 'obsidian';
 import { toBlob } from 'html-to-image';
-import confetti from 'canvas-confetti';
+import confetti, { type Options } from 'canvas-confetti';
 import fs from 'fs';
+
+function fire(particleRatio: number, opts: Options) {
+  confetti(
+    Object.assign({}, { y: 0.7 }, opts, {
+      particleCount: Math.floor(200 * particleRatio),
+    })
+  );
+}
+
+export function successConfetti() {
+  fire(0.25, {
+    spread: 26,
+    startVelocity: 55,
+  });
+  fire(0.2, {
+    spread: 60,
+  });
+  fire(0.35, {
+    spread: 100,
+    decay: 0.91,
+    scalar: 0.8,
+  });
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 25,
+    decay: 0.92,
+    scalar: 1.2,
+  });
+  fire(0.1, {
+    spread: 120,
+    startVelocity: 45,
+  });
+}
 
 /**
  * Converts remote network images to base64
@@ -48,12 +81,15 @@ export async function remoteImageToBase64(url: string): Promise<string> {
 export async function localImageToBase64(url: string): Promise<string> {
   // const fullLink = this.app.vault.adapter.getFilePath(url).toString();
   // const filePath = fullLink.replace('file://', '');
-  const filePath = url.replace(/app:\/\/[^/]+(\/)/, '$1');
-  const imageBuffer = fs.readFileSync(filePath.split('?')[0]);
-
-  const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
-
-  return base64Image;
+  const filePath = url.replace(/app:\/\/[^/]+\//, '');
+  try {
+    const imageBuffer = fs.readFileSync(decodeURIComponent(filePath.split('?')[0]));
+    const base64Image = `data:image/png;base64,${imageBuffer.toString('base64')}`;
+    return base64Image;
+  } catch (error) {
+    console.log('error');
+    throw error;
+  }
 }
 
 export async function imageToBase64(url: string): Promise<string> {
@@ -103,7 +139,7 @@ export async function downloadImage(target: HTMLElement) {
       await window.electron.remote.shell.showItemInFolder(path);
       new Notice('Export Image Success', 3000);
 
-      confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+      successConfetti();
     } catch (error) {
       new Notice('Export Image Failed', 3000);
     }
@@ -125,7 +161,7 @@ export async function handlerCopyImage(target: HTMLElement) {
   });
   if (blob) {
     new Notice('Copy As Image Success');
-    confetti({ particleCount: 100, spread: 70, origin: { y: 0.6 } });
+    successConfetti();
     window.navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
   }
 }

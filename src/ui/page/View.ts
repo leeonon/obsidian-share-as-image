@@ -2,23 +2,21 @@ import type { CodeToImagePluginType } from '@/types';
 import { View, type WorkspaceLeaf, Notice } from 'obsidian';
 import { get } from 'svelte/store';
 import { markdownMakeImageConfig } from '@/store';
-import PageContent, { type PageContentProps } from './Content.svelte';
+import PageContent from './Content.svelte';
 
-type PageViewType = Omit<PageContentProps, 'parentComponent'>;
+export const MARKDOWN_MAKE_IMAGE_VIEW = 'markdown_make_image_view';
 
 export default class MakePageView extends View {
-  private props: PageViewType;
-  private plugins: CodeToImagePluginType;
+  private plugin: CodeToImagePluginType;
 
-  constructor(leaf: WorkspaceLeaf, plugins: CodeToImagePluginType, props: PageViewType) {
+  constructor(leaf: WorkspaceLeaf, plugins: CodeToImagePluginType) {
     super(leaf);
 
-    this.plugins = plugins;
-    this.props = props;
+    this.plugin = plugins;
   }
 
   getViewType(): string {
-    return 'markdown-shared-as-image';
+    return MARKDOWN_MAKE_IMAGE_VIEW;
   }
 
   getDisplayText(): string {
@@ -30,13 +28,18 @@ export default class MakePageView extends View {
   }
   async saveData() {
     const storeSetting = get(markdownMakeImageConfig);
-    await this.plugins.saveData({ ...this.plugins.settings, pageSettings: storeSetting });
+    await this.plugin.saveData({ ...this.plugin.settings, pageSettings: storeSetting });
     new Notice('set default setting success');
   }
 
   async onOpen() {
+    const props = this.plugin.customParams;
+    if (!props) {
+      this.app.workspace.detachLeavesOfType(MARKDOWN_MAKE_IMAGE_VIEW);
+      return;
+    }
     // const pageEle = this.containerEl.attachShadow({ mode: 'open' });
-    const { frontmatter, ...rest } = this.props;
+    const { frontmatter, ...rest } = props;
     new PageContent({
       target: this.containerEl,
       props: {
@@ -48,5 +51,10 @@ export default class MakePageView extends View {
         handlerSave: this.saveData.bind(this),
       },
     });
+  }
+
+  // 视图卸载时
+  async onClose() {
+    // ...
   }
 }

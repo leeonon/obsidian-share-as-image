@@ -35,29 +35,7 @@
   export let handlerSave: () => void;
 
   let element: HTMLDivElement;
-  let selection: Selection | null; // Select the selection object for the content
   let rootBackground: string = '';
-
-  const controller = new AbortController();
-
-  const onMouseUp = (e: Event) => {
-    // @ts-ignore
-    const documentSelection = containerElement.getSelection();
-    if (documentSelection?.toString().length > 0) {
-      selection = documentSelection;
-    } else {
-      selection = null;
-    }
-  };
-
-  const onChangeSelectionDom = (element: HTMLSpanElement) => {
-    if (!selection) return;
-
-    const range = selection?.getRangeAt(0);
-    range?.extractContents();
-    range.insertNode(element);
-    selection = null;
-  };
 
   onMount(() => {
     rootBackground = getComputedStyle(containerElement).backgroundColor;
@@ -84,12 +62,6 @@
         }
       });
     });
-
-    // containerElement.addEventListener('mouseup', onMouseUp, { signal: controller.signal });
-  });
-
-  onDestroy(() => {
-    // controller.abort();
   });
 </script>
 
@@ -132,8 +104,9 @@
       </div>
     </div>
   </NormalStyleContainer>
-  <div class="left share-to-image-markdown-text">
-    <PageSetting selection="{selection}" handlerSave="{handlerSave}" />
+  <div class="right share-to-image-markdown-text">
+    <PageSetting containerElement="{containerElement}" />
+    <button class="save-default-setting" on:click="{handlerSave}">Set as default settings</button>
   </div>
 </div>
 
@@ -164,11 +137,19 @@
     padding-bottom: 16px;
     border-bottom: var(--tab-outline-width) solid var(--tab-outline-color);
   }
-  .left {
+  .right {
+    position: relative;
     width: 280px;
     min-width: 280px;
     height: calc(100% - 4rem);
+    padding-bottom: 4rem;
     border-radius: 6px;
     border: var(--tab-outline-width) solid var(--tab-outline-color);
+  }
+  .save-default-setting {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
   }
 </style>
