@@ -18,7 +18,7 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
   async onload() {
     this.registerView(MARKDOWN_MAKE_IMAGE_VIEW, leaf => new MakePageView(leaf, this));
 
-    this.addRibbonIcon('dice', 'Activate view', () => {
+    this.addRibbonIcon('image', 'Share to image', () => {
       this.getActiveContent();
     });
 

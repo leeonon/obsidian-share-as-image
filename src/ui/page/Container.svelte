@@ -10,7 +10,7 @@
     overflow-y: overlay;
     user-select: text;
     margin: 0 auto;
-    border-radius: 6px;
+    border: 1px solid var(--color-base-20);
 
     &::-webkit-scrollbar {
       width: 4px;

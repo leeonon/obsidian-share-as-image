@@ -83,7 +83,10 @@
 					padding: 1rem {$markdownMakeImageConfig.innerPadding}rem;
 					background-color: {pageBackground};
 				">
-        <h1 class="content-title">{title}</h1>
+        <div class="content-title">
+          <div class="title">{title}</div>
+          <img src="https://obsidian.md/images/obsidian-logo-gradient.svg" class="ob-icon" alt="" />
+        </div>
         {#if $markdownMakeImageConfig.frontmatter.visible}
           <Frontmatter
             author="{frontmatter?.author}"
@@ -136,6 +139,22 @@
   .content-title {
     padding-bottom: 16px;
     border-bottom: var(--tab-outline-width) solid var(--tab-outline-color);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .content-title .title {
+    font-weight: var(--inline-title-weight);
+    font-size: var(--inline-title-size);
+    line-height: var(--inline-title-line-height);
+    font-style: var(--inline-title-style);
+    font-variant: var(--inline-title-variant);
+    font-family: var(--inline-title-font);
+    letter-spacing: -0.015em;
+    color: var(--inline-title-color);
+  }
+  .ob-icon {
+    width: 2rem;
   }
   .right {
     position: relative;
