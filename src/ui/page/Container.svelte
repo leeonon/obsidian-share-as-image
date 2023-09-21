@@ -34,7 +34,7 @@
     }
 
     :global(img) {
-      width: 100%;
+      max-width: 100%;
       border-radius: 6px;
     }
     :global(table) {

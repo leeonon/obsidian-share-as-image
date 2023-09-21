@@ -16,8 +16,6 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
   customParams: PageViewType;
 
   async onload() {
-    await this.loadSettings();
-
     this.registerView(MARKDOWN_MAKE_IMAGE_VIEW, leaf => new MakePageView(leaf, this));
 
     this.addRibbonIcon('dice', 'Activate view', () => {
@@ -88,7 +86,7 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
     });
   }
 
-  getActiveContent = () => {
+  getActiveContent = async () => {
     const activeView = this.app.workspace.getActiveViewOfType(MarkdownView);
     if (!activeView || activeView.file?.extension !== 'md') {
       new Notice('Active file is not a markdown file');
@@ -110,7 +108,9 @@ export default class CodeToImagePlugin extends Plugin implements CodeToImagePlug
       frontmatter,
     };
     // 设置默认值
-    markdownMakeImageConfig.set(this.settings.pageSettings);
+    const localData = await this.loadData();
+    const pageSettings = Object.assign({}, MARKDOWN_MAKE_IMAGE_SETTINGS, localData?.pageSettings);
+    markdownMakeImageConfig.set(pageSettings);
 
     this.activateView();
   };
