@@ -116,33 +116,37 @@ export function blobToBuffer(blob: Blob) {
  * @throws Will throw an error if the operation fails.
  */
 export async function downloadImage(target: HTMLElement) {
-  // @ts-ignore
-  const result = await window.electron.remote.dialog.showSaveDialog(this.electronWindow, {
-    title: 'Export Image',
-    defaultPath: `obsidian-share-image-${Date.now()}.png`,
-    filters: [{ name: '', extensions: ['png'] }],
-  });
-  if (result.canceled) return;
+  try {
+    // @ts-ignore
+    const result = await window.electron.remote.dialog.showSaveDialog(this.electronWindow, {
+      title: 'Export Image',
+      defaultPath: `obsidian-share-image-${Date.now()}.png`,
+      filters: [{ name: '', extensions: ['png'] }],
+    });
+    if (result.canceled) return;
 
-  const path = result.filePath;
-  const blob = await toBlob(target, {
-    canvasHeight: target.clientHeight,
-    canvasWidth: target.clientWidth,
-    pixelRatio: 2,
-  });
-  if (blob) {
-    const buffer = await blobToBuffer(blob);
-    try {
-      // @ts-ignore
-      await fs.writeFileSync(path, buffer);
-      // @ts-ignore
-      await window.electron.remote.shell.showItemInFolder(path);
-      new Notice('Export Image Success', 3000);
+    const path = result.filePath;
+    const blob = await toBlob(target, {
+      canvasHeight: target.clientHeight,
+      canvasWidth: target.clientWidth,
+      pixelRatio: 2,
+    });
+    if (blob) {
+      const buffer = await blobToBuffer(blob);
+      try {
+        // @ts-ignore
+        await fs.writeFileSync(path, buffer);
+        // @ts-ignore
+        await window.electron.remote.shell.showItemInFolder(path);
+        new Notice('Export Image Success', 3000);
 
-      successConfetti();
-    } catch (error) {
-      new Notice('Export Image Failed', 3000);
+        successConfetti();
+      } catch (error) {
+        new Notice('Export Image Failed', 3000);
+      }
     }
+  } catch (error) {
+    new Notice('Export Image Failed', 3000);
   }
 }
 
@@ -154,15 +158,19 @@ export async function downloadImage(target: HTMLElement) {
  * @returns {Promise<void>}
  */
 export async function handlerCopyImage(target: HTMLElement) {
-  const blob = await toBlob(target, {
-    canvasHeight: target.clientHeight,
-    canvasWidth: target.clientWidth,
-    pixelRatio: 2,
-  });
-  if (blob) {
-    new Notice('Copy As Image Success');
-    successConfetti();
-    window.navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+  try {
+    const blob = await toBlob(target, {
+      canvasHeight: target.clientHeight,
+      canvasWidth: target.clientWidth,
+      pixelRatio: 2,
+    });
+    if (blob) {
+      new Notice('Copy As Image Success');
+      successConfetti();
+      window.navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+    }
+  } catch (error) {
+    new Notice('Copy As Image Failed');
   }
 }
 

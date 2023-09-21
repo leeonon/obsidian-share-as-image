@@ -3,14 +3,15 @@ import type { CodeToImagePluginType, CodeImageSettings } from '@/types';
 
 import { Modal, type App, Notice } from 'obsidian';
 import EditModalContent from './EditModalContent.svelte';
-import { toPng } from 'html-to-image';
 import { handlerCopyImage, downloadImage } from '@/utils/image';
+import Loading from '../components/loading';
 
 export default class EditModal extends Modal {
   plugins: CodeToImagePluginType;
   modalContent: EditModalContent;
   lang: LanguageType;
   code: string;
+  loading: Loading;
 
   constructor(app: App, plugins: CodeToImagePluginType, lang: LanguageType, code: string) {
     super(app);
@@ -19,6 +20,7 @@ export default class EditModal extends Modal {
     this.lang = lang;
     this.code = code;
     this.initModal();
+    this.loading = new Loading();
   }
 
   private getEditElement = () => {
@@ -27,27 +29,18 @@ export default class EditModal extends Modal {
   };
 
   private setDefaultSetting = async (settings: CodeImageSettings) => {
-    // await this.plugins.saveData({
-    // 	settings: {
-    // 		...this.plugins.settings,
-    // 		...settings
-    // } });
+    await this.plugins.saveData({ ...this.plugins.settings, codeSettings: settings });
     new Notice('set default setting success');
   };
 
-  private toPng = () => {
-    toPng(this.getEditElement())
-      .then(dataUrl => {
-        const img = new Image();
-        img.src = dataUrl;
-        this.getEditElement().appendChild(img);
-      })
-      .catch(() => {});
-  };
-
   private onExport = async () => {
-    const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
-    await downloadImage(target);
+    try {
+      this.loading.show();
+      const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
+      await downloadImage(target);
+    } finally {
+      this.loading.hide();
+    }
   };
 
   private initModal = () => {
@@ -78,7 +71,12 @@ export default class EditModal extends Modal {
   }
 
   onCopyAsImage = async () => {
-    const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
-    await handlerCopyImage(target);
+    try {
+      this.loading.show();
+      const target = this.contentEl.querySelector('#ctj-edit_background') as HTMLElement;
+      await handlerCopyImage(target);
+    } finally {
+      this.loading.hide();
+    }
   };
 }

@@ -136,14 +136,12 @@
     box-shadow: 0px 1px 20px 8px #13121263;
   }
   .content-title {
-    padding-bottom: 16px;
+    padding-bottom: 1rem;
     border-bottom: var(--tab-outline-width) solid var(--tab-outline-color);
     font-weight: var(--inline-title-weight);
     font-size: var(--inline-title-size);
-    line-height: var(--inline-title-line-height);
     font-style: var(--inline-title-style);
     font-variant: var(--inline-title-variant);
-    font-family: var(--inline-title-font);
     letter-spacing: -0.015em;
     color: var(--inline-title-color);
   }

@@ -4,6 +4,7 @@ import type { LanguageType } from '@/ui/code/Codemirror/lang';
 import type { CodeToImagePluginType } from '@/types';
 import { editConfig } from '@/store';
 import { langs } from '@/ui/code/Codemirror/lang';
+import { DEFAULT_SETTINGS } from '@/setting';
 
 import { createElement, getLocalLanguage } from '@/utils';
 import EditModal from '@/ui/code/EditModal';
@@ -37,10 +38,12 @@ export function codeBlockPostProcessor(
   const button = createElement('button', 'code-to-image-button');
   button.innerText = getLocalLanguage() === 'zh' ? '图片' : 'Image';
 
-  const buttonHandler = () => {
+  const buttonHandler = async () => {
+    const localData = await plugin.loadData();
+    const codeSettings = Object.assign({}, DEFAULT_SETTINGS, localData?.codeSettings);
     const language = (Object.keys(langs).find(key => key === lang) || 'TEXT') as LanguageType;
     editConfig.set({
-      ...plugin.settings,
+      ...codeSettings,
       language,
     });
     new EditModal(app, plugin, language, code.innerText);
