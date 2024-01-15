@@ -5,12 +5,11 @@
   import { downloadImage, handlerCopyImage } from '@/utils/image';
   import BackgroundSetting from './BackgroundSetting.svelte';
   import RangeSettingItem from '../components/RangeSettingItem.svelte';
-  import TextStyle from './TextStyle.svelte';
   import CollapseSettingItem from '../components/CollapseSettingItem.svelte';
   import FontSetting from '../components/FontSetting.svelte';
   import Loading from '../components/loading';
 
-  export let containerElement: HTMLElement;
+  // export const containerElement: HTMLElement;
 
   const frontmatterConfigArray = Object.keys($markdownMakeImageConfig.frontmatter).filter(v => v !== 'visible');
 
@@ -64,18 +63,18 @@
 
 <div class="markdown-page-setting">
   <div class="setting-buttons">
-    <div class="setting-buttons-item" on:click="{onCopyImage}">
+    <button class="setting-buttons-item" tabindex="0" on:click="{onCopyImage}">
       <div class="setting-buttons-item-background">
         <div></div>
       </div>
       <div class="setting-buttons-item-text">Copy</div>
-    </div>
-    <div class="setting-buttons-item" on:click="{onDownloadImage}">
+    </button>
+    <button class="setting-buttons-item" on:click="{onDownloadImage}">
       <div class="setting-buttons-item-background">
         <div></div>
       </div>
       <div class="setting-buttons-item-text">Download</div>
-    </div>
+    </button>
   </div>
   <CollapseSettingItem label="Background">
     <span slot="extra" class="background-selected-item" style="background: {$markdownMakeImageConfig.backgroundColor};"
@@ -93,10 +92,11 @@
     <div class="label">Frontmatter</div>
     <div class="setting setting-frontmatter-container">
       <div class="setting-frontmatter {$markdownMakeImageConfig.frontmatter.visible ? 'leftActive' : 'rightActive'}">
-        <div class="setting-frontmatter-item" data-visible="display" on:click="{onChangeFrontmatterVisible}">
+        <button class="setting-frontmatter-item" data-visible="display" on:click="{onChangeFrontmatterVisible}">
           Display
-        </div>
-        <div class="setting-frontmatter-item" data-visible="hide" on:click="{onChangeFrontmatterVisible}">Hide</div>
+        </button>
+        <button class="setting-frontmatter-item" data-visible="hide" on:click="{onChangeFrontmatterVisible}"
+          >Hide</button>
       </div>
       {#if $markdownMakeImageConfig.frontmatter.visible}
         <div class="setting-frontmatter-options">
@@ -162,9 +162,6 @@
     </div>
   </div>
   <FontSetting />
-  <CollapseSettingItem label="TextStyle">
-    <TextStyle containerElement="{containerElement}" />
-  </CollapseSettingItem>
 </div>
 
 <style lang="scss">
@@ -175,17 +172,21 @@
     padding: 1rem;
     overflow-x: hidden;
     overflow-y: overlay;
+
     &::-webkit-scrollbar {
       width: 4px;
     }
+
     &::-webkit-scrollbar-track {
       position: absolute;
       background-color: transparent;
     }
+
     &::-webkit-scrollbar-thumb {
       background-color: #7f7f7f;
       border-radius: 4px;
     }
+
     &::-webkit-scrollbar-track-piece:end {
       margin-bottom: 20px;
       background: transparent;
@@ -195,40 +196,47 @@
       background: transparent;
     }
   }
+
   .item {
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0.75em 0;
     border-bottom: 1px solid var(--background-modifier-border);
+
     &.item-horizontal {
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
       padding: 0.3rem 0;
     }
+
     .label {
       color: var(--text-normal);
       font-size: var(--font-ui-medium);
       line-height: var(--line-height-tight);
     }
+
     .setting {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 0.1rem;
     }
+
     .setting.select {
       max-width: 60%;
       margin: 0.5rem 0;
     }
   }
+
   .background-selected-item {
     display: inline-block;
     width: 3rem;
     height: 1rem;
     border-radius: 4px;
   }
+
   .setting-frontmatter-container {
     padding: 0.5rem;
     background-color: var(--background-modifier-form-field);
@@ -236,6 +244,7 @@
     margin-top: 0.5rem;
     flex-direction: column;
   }
+
   .setting-frontmatter {
     position: relative;
     width: 100%;
@@ -262,10 +271,12 @@
     &.leftActive::before {
       transform: translateX(0%);
     }
+
     &.rightActive::before {
       transform: translateX(100%);
     }
   }
+
   .setting-frontmatter-item {
     flex: 1;
     display: flex;
@@ -275,11 +286,13 @@
     border-radius: 6px;
     cursor: pointer;
   }
+
   .setting-frontmatter-options {
     width: 100%;
     display: flex;
     flex-direction: column;
   }
+
   .setting-frontmatter-options-item {
     display: flex;
     align-items: center;
@@ -295,10 +308,12 @@
     padding: 0.75em 0;
     border-bottom: 1px solid var(--background-modifier-border);
   }
+
   .setting-buttons-item {
     position: relative;
     cursor: pointer;
   }
+
   .setting-buttons-item-background {
     width: calc(100% + 0.25rem);
     position: absolute;
@@ -310,6 +325,7 @@
     height: calc(100% + 0.25rem);
     overflow: hidden;
   }
+
   .setting-buttons-item-background > div {
     position: absolute;
     background-image: conic-gradient(
@@ -335,11 +351,13 @@
       from {
         transform: rotate(0deg);
       }
+
       to {
         transform: rotate(360deg);
       }
     }
   }
+
   .setting-buttons-item-text {
     padding: 0.5rem 1.5rem;
     border-radius: 6px;

@@ -27,13 +27,13 @@
   </div>
   <div class="cti-title-bar_item">
     <span>Background</span>
-    <div
+    <button
       class="checkbox-container"
       on:keypress="{() => {}}"
       class:is-enabled="{$editConfig.hasBackground}"
       on:click="{() => editConfig.update({ hasBackground: !$editConfig.hasBackground })}">
       <input type="checkbox" bind:value="{$editConfig.hasBackground}" />
-    </div>
+    </button>
   </div>
   <div class="cti-title-bar_item">
     <span>BackgroundColor</span>
@@ -41,13 +41,13 @@
   </div>
   <div class="cti-title-bar_item">
     <span>Window Controls</span>
-    <div
+    <button
       class="checkbox-container"
       class:is-enabled="{$editConfig.windowControls}"
       on:keypress="{() => {}}"
       on:click="{() => editConfig.update({ windowControls: !$editConfig.windowControls })}">
       <input type="checkbox" bind:value="{$editConfig.windowControls}" />
-    </div>
+    </button>
   </div>
   <div class:active="{true}" class="cti-title-bar_item">
     <span>Language</span>
@@ -59,13 +59,13 @@
   </div>
   <div class="cti-title-bar_item">
     <span>Line Number</span>
-    <div
+    <button
       class="checkbox-container"
       class:is-enabled="{$editConfig.showLineNumber}"
       on:keypress="{() => {}}"
       on:click="{() => editConfig.update({ showLineNumber: !$editConfig.showLineNumber })}">
       <input type="checkbox" bind:value="{$editConfig.showLineNumber}" />
-    </div>
+    </button>
   </div>
   <div class:active="{true}" class="cti-title-bar_item">
     <span>Font Size{$editConfig.fontSize}</span>
@@ -77,13 +77,13 @@
   </div>
   <div class="cti-title-bar_item">
     <span>Watermark</span>
-    <div
+    <button
       class="checkbox-container"
       class:is-enabled="{$editConfig.hasWatermark}"
       on:keypress="{() => {}}"
       on:click="{() => editConfig.update({ hasWatermark: !$editConfig.hasWatermark })}">
       <input type="checkbox" bind:value="{$editConfig.hasWatermark}" />
-    </div>
+    </button>
   </div>
   <button on:click="{handlerSave}">Set as default Settings</button>
 </div>

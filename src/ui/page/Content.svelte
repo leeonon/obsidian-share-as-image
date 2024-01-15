@@ -15,7 +15,7 @@
 
 <script lang="ts">
   import { Component, MarkdownPreviewView, App } from 'obsidian';
-  import { onMount, onDestroy } from 'svelte';
+  import { onMount } from 'svelte';
   import { markdownMakeImageConfig } from '@/store';
   import { convertToRGBA } from '@/utils';
   import { imageToBase64 } from '@/utils/image';
@@ -126,7 +126,10 @@
     margin: 0 auto;
     border-radius: 6px;
     mask: linear-gradient(rgba(29, 31, 34, 0.8) 90%, transparent 100%);
-    font-family: 'Wotfard', -apple-system, sans-serif;
+    font-family:
+      'Wotfard',
+      -apple-system,
+      sans-serif;
   }
   .content {
     position: relative;

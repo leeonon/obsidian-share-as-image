@@ -7,19 +7,21 @@
   let iconEL: HTMLElement;
   let visible = false;
 
+  const a = 123;
+
   onMount(() => {
     setIcon(iconEL, 'chevron-up');
   });
 </script>
 
 <div class="collapse-setting-item">
-  <div class="header" on:click="{() => (visible = !visible)}">
+  <button class="header" on:click="{() => (visible = !visible)}">
     <span>{label}</span>
     <div class="collapse-extra">
       <slot name="extra" />
       <i class="collapse-icon-up" class:down="{visible}" bind:this="{iconEL}"></i>
     </div>
-  </div>
+  </button>
   <div class="collapse-setting-content" class:open="{visible}">
     <slot />
   </div>

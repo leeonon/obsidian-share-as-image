@@ -8,18 +8,17 @@
 </script>
 
 <div class="markdown-page-background">
-  <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div class="item-card item-card-custom" on:click="{() => onChangeColor({ type: 'color', value: 'unset' })}">
+  <button class="item-card item-card-custom" on:click="{() => onChangeColor({ type: 'color', value: 'unset' })}">
     Unset
-  </div>
+  </button>
   {#each MARKDOWN_BACKGROUND as color, i}
     <!-- svelte-ignore a11y-click-events-have-key-events -->
-    <div
+    <button
       class="item-card"
       class:active="{color.value === $markdownMakeImageConfig.backgroundColor}"
       style="background: {color.value};"
       on:click="{() => onChangeColor(color)}">
-    </div>
+    </button>
   {/each}
 </div>
 

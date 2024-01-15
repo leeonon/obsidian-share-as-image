@@ -65,12 +65,12 @@
 <div class="markdown-mark-text-style">
   <div class="font-style-color">
     {#each TEXT_STYLE as style}
-      <div
+      <button
         class:disable="{!selection}"
         class="text-item"
         style="background: {style.value}"
         on:click="{() => onSetElementColor(style)}">
-      </div>
+      </button>
     {/each}
   </div>
 </div>

@@ -16,16 +16,18 @@
 <div class="ctj-edit_background_card">
   <!-- https://github.com/sveltejs/svelte/issues/8001 -->
   <!-- svelte-ignore a11y-click-events-have-key-events -->
-  <div
+  <button
     class="ctj-edit_background_button"
     style="background-image: {$editConfig.backgroundColor}"
     on:click="{onChangeVisible}">
-  </div>
+  </button>
   <div class="ctj-edit_background_list" class:visible="{visible}">
     <ul>
       {#each BACKGROUND as color, i}
         <!-- svelte-ignore a11y-click-events-have-key-events -->
-        <li style="background-image: {color};" on:click="{() => onChangeColor(color)}"></li>
+        <li style="background-image: {color};">
+          <button on:click="{() => onChangeColor(color)}"></button>
+        </li>
       {/each}
     </ul>
   </div>
